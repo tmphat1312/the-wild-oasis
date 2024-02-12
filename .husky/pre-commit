@@ -1,3 +1,2 @@
-echo "hello world"
+echo "\n@commitlint: Running commitlint to check commit message...\n"
 
-# exit 1
