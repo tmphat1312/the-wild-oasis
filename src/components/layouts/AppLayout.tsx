@@ -9,7 +9,7 @@ import Sidebar from "./Sidebar";
 
 export default function AppLayout() {
   return (
-    <div className="container h-screen">
+    <div className="h-screen">
       <ResizablePanelGroup direction="horizontal">
         <ResizablePanel
           className="[&_>_aside]:h-full"
