@@ -3829,6 +3829,13 @@ react-refresh@^0.14.0:
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.14.0.tgz#4e02825378a5f227079554d4284889354e5f553e"
   integrity sha512-wViHqhAd8OHeLS/IRMJjTSDHF3U9eWi62F/MledQGPdJGDhodXJ9PBLNGr6WWL7qlH12Mt3TyTpbS+hGXMjCzQ==
 
+react-resizable-panels@^2.0.7:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/react-resizable-panels/-/react-resizable-panels-2.0.7.tgz#08c414921140611db6f601f509375d2f0436617b"
+  integrity sha512-+gD2FLfGmoP95DbAV6VgoGxvlGxRWrxd54EnIlTgSvA+t53Pvbe6UOMz4yTz/8cxi3JvbpHlgbAiTfTofKp+wA==
+  dependencies:
+    stacking-order "^1"
+
 react-router-dom@^6.22.0:
   version "6.22.0"
   resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.22.0.tgz#177c8bd27146decbb991eafb5df159f7a9f70035"
@@ -4223,6 +4230,11 @@ stackback@0.0.2:
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/stackback/-/stackback-0.0.2.tgz#1ac8a0d9483848d1695e418b6d031a3c3ce68e3b"
   integrity sha512-1XMJE5fQo1jGH6Y/7ebnwPOBEkIEnT4QF32d5R1+VXdXveM0IBMJt8zfaxX1P3QhVwrYe+576+jkANtSS2mBbw==
+
+stacking-order@^1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/stacking-order/-/stacking-order-1.0.1.tgz#dd362c9390e53f38f1e3cb172cd4374a011f4d1f"
+  integrity sha512-IxD2jw+DDiQ3FaXr6QcvSt5uE2vDWBYcC7bbCWfI5R9kEoj8Zgi4rFwPXALOjTtE96iIdZjcJFLQVr7r7xIdAA==
 
 std-env@^3.5.0:
   version "3.7.0"

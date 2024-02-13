@@ -4,44 +4,50 @@ import {
   createBrowserRouter,
 } from "react-router-dom";
 
-import Account from "./pages/Account";
-import Bookings from "./pages/Bookings";
-import Cabins from "./pages/Cabins";
-import Dashboard from "./pages/Dashboard";
-import Login from "./pages/Login";
+import AppLayout from "./components/layouts/AppLayout";
 import RootErrorBoundary from "./pages/RootErrorBoundary";
+import Dashboard from "./pages/Dashboard";
 import Settings from "./pages/Settings";
+import Bookings from "./pages/Bookings";
+import Account from "./pages/Account";
+import Cabins from "./pages/Cabins";
+import Login from "./pages/Login";
 import Users from "./pages/Users";
 
 const router = createBrowserRouter([
   {
-    index: true,
-    element: <Navigate to="/dashboard" />,
+    element: <AppLayout />,
     errorElement: <RootErrorBoundary />,
-  },
-  {
-    path: "dashboard",
-    element: <Dashboard />,
-  },
-  {
-    path: "bookings",
-    element: <Bookings />,
-  },
-  {
-    path: "cabins",
-    element: <Cabins />,
-  },
-  {
-    path: "users",
-    element: <Users />,
-  },
-  {
-    path: "settings",
-    element: <Settings />,
-  },
-  {
-    path: "account",
-    element: <Account />,
+    children: [
+      {
+        index: true,
+        element: <Navigate to="/dashboard" />,
+      },
+      {
+        path: "dashboard",
+        element: <Dashboard />,
+      },
+      {
+        path: "bookings",
+        element: <Bookings />,
+      },
+      {
+        path: "cabins",
+        element: <Cabins />,
+      },
+      {
+        path: "users",
+        element: <Users />,
+      },
+      {
+        path: "settings",
+        element: <Settings />,
+      },
+      {
+        path: "account",
+        element: <Account />,
+      },
+    ],
   },
   {
     path: "login",
