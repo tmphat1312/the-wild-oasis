@@ -7,7 +7,7 @@ export default function Logo() {
         height={96}
         src={logoSrc}
         alt="Logo of the app"
-        className="h-[96px]"
+        className="max-h-[96px]"
       />
     </div>
   );
