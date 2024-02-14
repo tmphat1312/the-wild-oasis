@@ -1,3 +1,60 @@
+import {
+  Navigate,
+  RouterProvider,
+  createBrowserRouter,
+} from "react-router-dom";
+
+import AppLayout from "./components/layouts/AppLayout";
+import RootErrorBoundary from "./pages/RootErrorBoundary";
+import Dashboard from "./pages/Dashboard";
+import Settings from "./pages/Settings";
+import Bookings from "./pages/Bookings";
+import Account from "./pages/Account";
+import Cabins from "./pages/Cabins";
+import Login from "./pages/Login";
+import Users from "./pages/Users";
+
+const router = createBrowserRouter([
+  {
+    element: <AppLayout />,
+    errorElement: <RootErrorBoundary />,
+    children: [
+      {
+        index: true,
+        element: <Navigate to="/dashboard" />,
+      },
+      {
+        path: "dashboard",
+        element: <Dashboard />,
+      },
+      {
+        path: "bookings",
+        element: <Bookings />,
+      },
+      {
+        path: "cabins",
+        element: <Cabins />,
+      },
+      {
+        path: "users",
+        element: <Users />,
+      },
+      {
+        path: "settings",
+        element: <Settings />,
+      },
+      {
+        path: "account",
+        element: <Account />,
+      },
+    ],
+  },
+  {
+    path: "login",
+    element: <Login />,
+  },
+]);
+
 export default function App() {
-  return <div>App</div>;
+  return <RouterProvider router={router} />;
 }
