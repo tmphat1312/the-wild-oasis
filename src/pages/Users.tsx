@@ -1,10 +1,10 @@
-// import Heading from "../ui/Heading";
+import Section from "@/components/layouts/Section";
+import Heading from "@/components/ui/Heading";
 
-// function NewUsers() {
-//   return <Heading as="h1">Create a new user</Heading>;
-// }
-
-// export default NewUsers;
 export default function Users() {
-  return <div>Users</div>;
+  return (
+    <Section>
+      <Heading>Users</Heading>
+    </Section>
+  );
 }

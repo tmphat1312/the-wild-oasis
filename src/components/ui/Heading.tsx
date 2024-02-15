@@ -1,17 +1,18 @@
 import { useLevelContext } from "@/contexts/LevelContext";
 import { cva, cx } from "class-variance-authority";
+import { z } from "zod";
 
 interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {}
 
 const headingVariants = cva("font-bold tracking-wider", {
   variants: {
     variant: {
-      h1: "text-5xl mb-6",
-      h2: "text-4xl mb-5",
-      h3: "text-3xl mb-4",
-      h4: "text-2xl mb-3",
-      h5: "text-xl mb-2",
-      h6: "text-lg mb-1",
+      h1: "text-3xl mb-6",
+      h2: "text-2xl mb-5",
+      h3: "text-xl mb-4",
+      h4: "text-lg mb-3",
+      h5: "mb-2",
+      h6: "text-sm mb-1",
     },
   },
   defaultVariants: {
@@ -19,13 +20,17 @@ const headingVariants = cva("font-bold tracking-wider", {
   },
 });
 
+const HeadingVariant = z.enum(["h1", "h2", "h3", "h4", "h5", "h6"] as const);
+
 export default function Heading({ className, ...props }: HeadingProps) {
   const level = useLevelContext();
-  const styles = cx(headingVariants({ variant: "h1" }), className);
+
+  const headingLevel = HeadingVariant.parse("h" + level);
+  const styles = cx(headingVariants({ variant: headingLevel }), className);
 
   switch (level) {
     case 0:
-      throw Error("Heading level must be inside a Section component");
+      throw Error("Heading must be used within a Section component");
     case 1:
       return <h1 {...props} className={styles} />;
     case 2:
