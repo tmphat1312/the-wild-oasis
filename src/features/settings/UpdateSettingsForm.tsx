@@ -1,3 +1,7 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
+
 import { Button } from "@/components/ui/Button";
 import {
   Form,
@@ -8,59 +12,47 @@ import {
   FormMessage,
 } from "@/components/ui/Form";
 import { Input } from "@/components/ui/Input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import {
+  SettingsFormValues,
+  settingsFormSchema,
+} from "@/schemas/UpdateSettingsForm";
+import { updateSettings } from "@/services/apiSettings";
 
-const settingsFormSchema = z.object({
-  min_booking_length: z.coerce
-    .number()
-    .min(1, {
-      message: "Minimum nights per booking must be at least 1",
-    })
-    .max(365, {
-      message: "Minimum nights per booking must be at most 365",
-    }),
-  max_booking_length: z.coerce
-    .number()
-    .min(1, {
-      message: "Maximum nights per booking must be at least 1",
-    })
-    .max(365, {
-      message: "Maximum nights per booking must be at most 365",
-    }),
-  max_guests_per_booking: z.coerce
-    .number()
-    .min(1, {
-      message: "Maximum guests per booking must be at least 1",
-    })
-    .max(100, {
-      message: "Maximum guests per booking must be at most 100",
-    }),
-  breakfast_price: z.coerce.number().gte(0, {
-    message: "Breakfast price must be at least 0",
-  }),
-});
-
-type SettingsFormValues = z.infer<typeof settingsFormSchema>;
-
-const defaultValues: Partial<SettingsFormValues> = {
+const defaultValues: SettingsFormValues = {
   min_booking_length: 1,
   max_booking_length: 365,
-  max_guests_per_booking: 1,
-  breakfast_price: 0,
+  max_guests_per_booking: 10,
+  breakfast_price: 10,
 };
 
-export default function UpdateSettingsForm() {
+interface UpdateSettingsFormProps {
+  currentSettings: SettingsFormValues | undefined;
+}
+
+export default function UpdateSettingsForm({
+  currentSettings,
+}: UpdateSettingsFormProps) {
+  const { isPending: isUpdating, mutate } = useMutation({
+    mutationFn: updateSettings,
+    mutationKey: ["settings"],
+    onSuccess: () => {
+      alert("Settings updated"); // TODO: Add toast
+    },
+    onError: (error) => {
+      alert(error.message); // TODO: Add toast
+    },
+  });
   const form = useForm({
     resolver: zodResolver(settingsFormSchema),
-    defaultValues,
+    defaultValues: currentSettings || defaultValues,
     mode: "onBlur",
   });
 
-  function onSubmit() {
-    console.log("submit");
+  function onSubmit(values: SettingsFormValues) {
+    mutate({ newSettings: values });
   }
+
+  const isButtonDisabled = isUpdating || !form.formState.isDirty;
 
   return (
     <Form {...form}>
@@ -124,13 +116,16 @@ export default function UpdateSettingsForm() {
           )}
         />
 
+        {/* TODO: Create form button context (value = {isLoading, isDisabled}) */}
         <div className="space-x-4 text-end">
-          <Button type="submit">Save settings</Button>
+          <Button type="submit" disabled={isButtonDisabled}>
+            Save settings
+          </Button>
           <Button
             type="button"
             variant="destructive"
             onClick={() => form.reset(defaultValues)}
-            disabled={!form.formState.isDirty}
+            disabled={isButtonDisabled}
           >
             Discard changes
           </Button>
