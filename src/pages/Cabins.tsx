@@ -1,16 +1,11 @@
-// import Heading from "../ui/Heading";
-// import Row from "../ui/Row";
+import Section from "@/components/layouts/Section";
+import Heading from "@/components/ui/Heading";
 
-// function Cabins() {
-//   return (
-//     <Row type="horizontal">
-//       <Heading as="h1">All cabins</Heading>
-//       <p>TEST</p>
-//     </Row>
-//   );
-// }
-
-// export default Cabins;
 export default function Cabins() {
-  return <div>Cabins</div>;
+  return (
+    <Section>
+      <Heading>All cabins</Heading>
+      <p>content</p>
+    </Section>
+  );
 }

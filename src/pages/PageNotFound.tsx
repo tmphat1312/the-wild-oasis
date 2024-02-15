@@ -1,5 +1,8 @@
 // import styled from "styled-components";
 
+import Section from "@/components/layouts/Section";
+import Heading from "@/components/ui/Heading";
+
 // import { useMoveBack } from "../hooks/useMoveBack";
 // import Heading from "../ui/Heading";
 
@@ -46,5 +49,9 @@
 
 // export default PageNotFound;
 export default function PageNotFound() {
-  return <div>PageNotFound</div>;
+  return (
+    <Section>
+      <Heading>Page not found</Heading>
+    </Section>
+  );
 }

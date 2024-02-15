@@ -1,16 +1,10 @@
-// import Heading from "../ui/Heading";
-// import Row from "../ui/Row";
+import Section from "@/components/layouts/Section";
+import Heading from "@/components/ui/Heading";
 
-// function Dashboard() {
-//   return (
-//     <Row type="horizontal">
-//       <Heading as="h1">Dashboard</Heading>
-//       <p>TEST</p>
-//     </Row>
-//   );
-// }
-
-// export default Dashboard;
 export default function Dashboard() {
-  return <div>Dashboard</div>;
+  return (
+    <Section>
+      <Heading>Dashboard</Heading>
+    </Section>
+  );
 }

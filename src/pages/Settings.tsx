@@ -1,10 +1,10 @@
-// import Heading from "../ui/Heading";
+import Section from "@/components/layouts/Section";
+import Heading from "@/components/ui/Heading";
 
-// function Settings() {
-//   return <Heading as="h1">Update hotel settings</Heading>;
-// }
-
-// export default Settings;
 export default function Settings() {
-  return <div>Settings</div>;
+  return (
+    <Section>
+      <Heading>Settings</Heading>
+    </Section>
+  );
 }

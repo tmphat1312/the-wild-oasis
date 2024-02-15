@@ -13,14 +13,14 @@ export default function AppLayout() {
       <ResizablePanelGroup direction="horizontal">
         <ResizablePanel
           className="[&_>_aside]:h-full"
-          defaultSize={16} //! in percentage
-          minSize={8}
-          maxSize={24}
+          defaultSize={18} //! in percentage
+          minSize={12}
+          maxSize={20}
         >
           <Sidebar />
         </ResizablePanel>
         <ResizableHandle withHandle />
-        <ResizablePanel className="[&_>main]:h-full" defaultSize={80}>
+        <ResizablePanel className="[&_>main]:h-full">
           <Header />
           <Main />
         </ResizablePanel>
