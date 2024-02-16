@@ -1,12 +1,14 @@
-import FormSkeleton from "@/components/ui/FormSkeleton";
-import { getSettings } from "@/services/apiSettings";
 import { useQuery } from "@tanstack/react-query";
-import UpdateSettingsForm from "./UpdateSettingsForm";
+
 import ErrorMessage from "@/components/ui/ErrorMessage";
+import FormSkeleton from "@/components/ui/FormSkeleton";
+import { queryKeys } from "@/constants/query-keys";
+import { getSettings } from "@/services/apiSettings";
+import UpdateSettingsForm from "./UpdateSettingsForm";
 
 export default function UpdateSettings() {
   const { isLoading, error, data } = useQuery({
-    queryKey: ["settings"],
+    queryKey: queryKeys.settings,
     queryFn: getSettings,
   });
 

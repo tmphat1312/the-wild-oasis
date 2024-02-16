@@ -1,5 +1,4 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/Button";
@@ -16,14 +15,8 @@ import {
   SettingsFormValues,
   settingsFormSchema,
 } from "@/schemas/UpdateSettingsForm";
-import { updateSettings } from "@/services/apiSettings";
-
-const defaultValues: SettingsFormValues = {
-  min_booking_length: 1,
-  max_booking_length: 365,
-  max_guests_per_booking: 10,
-  breakfast_price: 10,
-};
+import { useUpdateSettings } from "./useUpdateSettings";
+import ConfirmAction from "@/components/ui/ConfirmAction";
 
 interface UpdateSettingsFormProps {
   currentSettings: SettingsFormValues | undefined;
@@ -32,27 +25,21 @@ interface UpdateSettingsFormProps {
 export default function UpdateSettingsForm({
   currentSettings,
 }: UpdateSettingsFormProps) {
-  const { isPending: isUpdating, mutate } = useMutation({
-    mutationFn: updateSettings,
-    mutationKey: ["settings"],
-    onSuccess: () => {
-      alert("Settings updated"); // TODO: Add toast
-    },
-    onError: (error) => {
-      alert(error.message); // TODO: Add toast
-    },
-  });
   const form = useForm({
     resolver: zodResolver(settingsFormSchema),
-    defaultValues: currentSettings || defaultValues,
+    defaultValues: currentSettings,
     mode: "onBlur",
   });
+  const { isUpdating, updateSettings } = useUpdateSettings();
 
   function onSubmit(values: SettingsFormValues) {
-    mutate({ newSettings: values });
+    updateSettings({ newSettings: values });
+    form.reset(values, {
+      keepDefaultValues: false,
+      keepValues: false,
+      keepDirty: false,
+    });
   }
-
-  const isButtonDisabled = isUpdating || !form.formState.isDirty;
 
   return (
     <Form {...form}>
@@ -61,6 +48,7 @@ export default function UpdateSettingsForm({
         className="p-8 space-y-6 rounded-md shadow-sm bg-background"
       >
         <FormField
+          disabled={isUpdating}
           control={form.control}
           name="min_booking_length"
           render={({ field }) => (
@@ -75,6 +63,7 @@ export default function UpdateSettingsForm({
         />
 
         <FormField
+          disabled={isUpdating}
           control={form.control}
           name="max_booking_length"
           render={({ field }) => (
@@ -89,6 +78,7 @@ export default function UpdateSettingsForm({
         />
 
         <FormField
+          disabled={isUpdating}
           control={form.control}
           name="max_guests_per_booking"
           render={({ field }) => (
@@ -103,6 +93,7 @@ export default function UpdateSettingsForm({
         />
 
         <FormField
+          disabled={isUpdating}
           control={form.control}
           name="breakfast_price"
           render={({ field }) => (
@@ -116,19 +107,24 @@ export default function UpdateSettingsForm({
           )}
         />
 
-        {/* TODO: Create form button context (value = {isLoading, isDisabled}) */}
         <div className="space-x-4 text-end">
-          <Button type="submit" disabled={isButtonDisabled}>
+          <Button
+            type="submit"
+            disabled={isUpdating || !form.formState.isDirty}
+          >
             Save settings
           </Button>
-          <Button
-            type="button"
-            variant="destructive"
-            onClick={() => form.reset(defaultValues)}
-            disabled={isButtonDisabled}
-          >
-            Discard changes
-          </Button>
+          <ConfirmAction
+            Opener={
+              <Button type="reset" variant="destructive">
+                Discard changes
+              </Button>
+            }
+            disabled={isUpdating || !form.formState.isDirty}
+            title="Discard changes?"
+            description="Are you sure you want to discard your changes?"
+            onConfirm={() => form.reset(currentSettings)}
+          />
         </div>
       </form>
     </Form>
