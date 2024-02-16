@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Toaster } from "sonner";
 
 import AppLayout from "./components/layouts/AppLayout";
 import RootErrorBoundary from "./pages/RootErrorBoundary";
@@ -70,6 +71,7 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
+      <Toaster position="top-center" richColors />
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
