@@ -1,15 +1,12 @@
 import { SettingsFormValues } from "@/schemas/UpdateSettingsForm";
-import { APIClientBuilder } from "./APIClient";
-
-const settingClient = APIClientBuilder("settings");
+import { BuildAPIClient } from "./APIClient";
 
 export async function getSettings() {
-  const { data, error } = await settingClient.select().single();
+  const { data } = await BuildAPIClient("settings")
+    .select()
+    .single()
+    .throwOnError();
   const settings: SettingsFormValues = data || {};
-
-  if (error) {
-    throw error;
-  }
 
   return settings;
 }
@@ -19,16 +16,13 @@ export async function updateSettings({
 }: {
   newSettings: SettingsFormValues;
 }) {
-  const { data, error } = await settingClient
+  const { data } = await BuildAPIClient("settings")
     .update(newSettings)
     .eq("id", 1)
     .select()
-    .single();
+    .single()
+    .throwOnError();
   const settings: SettingsFormValues = data || {};
-
-  if (error) {
-    throw error;
-  }
 
   return settings;
 }
