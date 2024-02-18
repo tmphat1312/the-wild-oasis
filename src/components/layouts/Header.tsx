@@ -1,7 +1,9 @@
 export default function Header() {
   return (
-    <header className="px-4 py-2 border-b bg-background border-border">
-      Header
-    </header>
+    <div className="container pt-2 mb-4">
+      <header className="px-4 py-2 text-xl border rounded-md bg-background">
+        Header
+      </header>
+    </div>
   );
 }

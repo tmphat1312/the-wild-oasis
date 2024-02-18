@@ -1,4 +1,3 @@
-import { IconType } from "react-icons";
 import {
   HiOutlineCalendarDays,
   HiOutlineCog8Tooth,
@@ -8,11 +7,7 @@ import {
 } from "react-icons/hi2";
 import MainNavLink from "../ui/MainNavLink";
 
-const navLinks: {
-  to: string;
-  label: string;
-  icon: IconType;
-}[] = [
+const navLinks = [
   { to: "/dashboard", label: "Dashboard", icon: HiOutlineHome },
   { to: "/bookings", label: "Bookings", icon: HiOutlineCalendarDays },
   { to: "/cabins", label: "Cabins", icon: HiOutlineHomeModern },

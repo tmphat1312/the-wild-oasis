@@ -2,15 +2,15 @@ import { useLevelContext } from "@/contexts/LevelContext";
 import { cva, cx } from "class-variance-authority";
 import { z } from "zod";
 
-interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {}
+type HeadingProps = React.HTMLAttributes<HTMLHeadingElement>;
 
 const headingVariants = cva("font-bold tracking-wider", {
   variants: {
     variant: {
-      h1: "text-3xl mb-6",
-      h2: "text-2xl mb-5",
-      h3: "text-xl mb-4",
-      h4: "text-lg mb-3",
+      h1: "text-4xl mb-6",
+      h2: "text-3xl mb-5",
+      h3: "text-2xl mb-4",
+      h4: "text-xl mb-3",
       h5: "mb-2",
       h6: "text-sm mb-1",
     },
@@ -25,7 +25,7 @@ const HeadingVariant = z.enum(["h1", "h2", "h3", "h4", "h5", "h6"] as const);
 export default function Heading({ className, ...props }: HeadingProps) {
   const level = useLevelContext();
 
-  const headingLevel = HeadingVariant.parse("h" + level);
+  const headingLevel = HeadingVariant.parse(`h${level}`);
   const styles = cx(headingVariants({ variant: headingLevel }), className);
 
   switch (level) {

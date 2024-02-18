@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
 import twAnimatePlugin from "tailwindcss-animate";
+import twRACPlugin from "tailwindcss-react-aria-components";
 import twColors from "tailwindcss/colors";
 
 export default {
@@ -78,5 +79,5 @@ export default {
       },
     },
   },
-  plugins: [twAnimatePlugin],
+  plugins: [twAnimatePlugin, twRACPlugin],
 };

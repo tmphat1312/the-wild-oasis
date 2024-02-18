@@ -1,28 +1,28 @@
-import { SettingsFormValues } from "@/schemas/UpdateSettingsForm";
+import { settingSchema } from "@/schemas/settingSchema";
+import { TablesUpdate } from "@/types/database";
 import { BuildAPIClient } from "./APIClient";
+
+const THE_ONLY_SETTING_ID = 1;
 
 export async function getSettings() {
   const { data } = await BuildAPIClient("settings")
     .select()
     .single()
     .throwOnError();
-  const settings: SettingsFormValues = data || {};
 
-  return settings;
+  return settingSchema.parse(data);
 }
 
-export async function updateSettings({
-  newSettings,
-}: {
-  newSettings: SettingsFormValues;
-}) {
+type UpdateSettingArgs = {
+  newSettings: TablesUpdate<"settings">;
+};
+export async function updateSettings({ newSettings }: UpdateSettingArgs) {
   const { data } = await BuildAPIClient("settings")
     .update(newSettings)
-    .eq("id", 1)
+    .eq("id", THE_ONLY_SETTING_ID)
     .select()
     .single()
     .throwOnError();
-  const settings: SettingsFormValues = data || {};
 
-  return settings;
+  return settingSchema.parse(data);
 }
