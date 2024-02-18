@@ -10,5 +10,5 @@ export const APIClient = createClient<Database>(
   MODE === "development" ? VITE_SUPABASE_KEY : SUPABASE_KEY,
 );
 
-export const APIClientBuilder = (resource: TableRowNames) =>
+export const BuildAPIClient = (resource: TableRowNames) =>
   APIClient.from(resource);

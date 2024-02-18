@@ -1,15 +1,9 @@
 import { TableRow } from "@/types/table-row";
-import { APIClientBuilder } from "./APIClient";
-
-const bookingClient = APIClientBuilder("bookings");
+import { BuildAPIClient } from "./APIClient";
 
 export async function getBookings() {
-  const { data, error } = await bookingClient.select();
+  const { data } = await BuildAPIClient("bookings").select().throwOnError();
   const bookings: TableRow<"bookings">[] = data || [];
-
-  if (error) {
-    throw error;
-  }
 
   return bookings;
 }

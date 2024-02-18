@@ -29,7 +29,7 @@ export default function ConfirmAction({
 }: ConfirmActionProps) {
   return (
     <AlertDialog>
-      <AlertDialogTrigger disabled={disabled} className="group/button">
+      <AlertDialogTrigger disabled={disabled} className="group/button" asChild>
         {Opener}
       </AlertDialogTrigger>
       <AlertDialogContent>
