@@ -50,7 +50,7 @@ const useFormField = () => {
     throw new Error("useFormField should be used within <FormField>");
   }
 
-  const { id } = itemContext;
+  const { id, isRequired } = itemContext;
 
   return {
     id,
@@ -58,12 +58,14 @@ const useFormField = () => {
     formItemId: `${id}-form-item`,
     formDescriptionId: `${id}-form-item-description`,
     formMessageId: `${id}-form-item-message`,
+    isRequired,
     ...fieldState,
   };
 };
 
 type FormItemContextValue = {
   id: string;
+  isRequired: boolean;
 };
 
 const FormItemContext = React.createContext<FormItemContextValue>(
@@ -72,12 +74,12 @@ const FormItemContext = React.createContext<FormItemContextValue>(
 
 const FormItem = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => {
+  React.HTMLAttributes<HTMLDivElement> & { isRequired?: boolean }
+>(({ className, isRequired = false, ...props }, ref) => {
   const id = React.useId();
 
   return (
-    <FormItemContext.Provider value={{ id }}>
+    <FormItemContext.Provider value={{ id, isRequired }}>
       <div ref={ref} className={cn("space-y-2", className)} {...props} />
     </FormItemContext.Provider>
   );
@@ -88,12 +90,16 @@ const FormLabel = React.forwardRef<
   React.ElementRef<typeof LabelPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>
 >(({ className, ...props }, ref) => {
-  const { error, formItemId } = useFormField();
+  const { error, formItemId, isRequired } = useFormField();
 
   return (
     <Label
       ref={ref}
-      className={cn(error && "text-destructive", className)}
+      className={cn(
+        error && "text-destructive",
+        isRequired && "after:content-['*'] after:ml-0.5 after:text-red-500",
+        className,
+      )}
       htmlFor={formItemId}
       {...props}
     />

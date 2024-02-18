@@ -1,5 +1,6 @@
 import { TableRow } from "@/types/table-row";
 import { BuildAPIClient } from "./APIClient";
+import { CabinFormValues } from "@/schemas/CabinForm";
 
 type Cabin = TableRow<"cabins">;
 
@@ -12,4 +13,10 @@ export async function getCabins() {
 
 export async function deleteCabinById({ cabinId }: { cabinId: Cabin["id"] }) {
   await BuildAPIClient("cabins").delete().eq("id", cabinId).throwOnError();
+}
+
+export async function createCabin({ newCabin }: { newCabin: CabinFormValues }) {
+  await BuildAPIClient("cabins")
+    .insert({ ...newCabin, image: "test" })
+    .throwOnError();
 }
