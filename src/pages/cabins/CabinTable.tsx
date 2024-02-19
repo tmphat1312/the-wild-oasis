@@ -15,6 +15,6 @@ export default function CabinTable() {
   }
 
   return (
-    <div className="rounded-md shadow-sm bg-background">{data?.length}</div>
+    <div className="rounded-md bg-background shadow-sm">{data?.length}</div>
   );
 }

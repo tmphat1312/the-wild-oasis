@@ -1,6 +1,7 @@
 import z from "zod";
 
 export const settingSchema = z.object({
+  id: z.number().positive().optional(),
   min_booking_length: z.coerce
     .number()
     .min(1, {

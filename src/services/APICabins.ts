@@ -1,8 +1,6 @@
 import { CabinValues, cabinsSchema } from "@/schemas/cabinSchema";
-import { TableRow } from "@/types/table-row";
+import { TablesInsert, TablesUpdate } from "@/types/database";
 import { BuildAPIClient } from "./APIClient";
-
-type Cabin = TableRow<"cabins">;
 
 export async function getCabins() {
   const { data } = await BuildAPIClient("cabins").select("*").throwOnError();
@@ -10,12 +8,28 @@ export async function getCabins() {
   return cabinsSchema.parse(data);
 }
 
-export async function deleteCabinById({ cabinId }: { cabinId: Cabin["id"] }) {
+type DeleteCabinArgs = {
+  cabinId: CabinValues["id"];
+};
+export async function deleteCabinById({ cabinId }: DeleteCabinArgs) {
   await BuildAPIClient("cabins").delete().eq("id", cabinId).throwOnError();
 }
 
-export async function createCabin({ newCabin }: { newCabin: CabinValues }) {
+type CreateCabinArgs = {
+  newCabin: TablesInsert<"cabins">;
+};
+export async function createCabin({ newCabin }: CreateCabinArgs) {
   await BuildAPIClient("cabins")
     .insert({ ...newCabin, image: "test" })
+    .throwOnError();
+}
+
+type UpdateCabinArgs = {
+  newCabin: TablesUpdate<"cabins">;
+};
+export async function updateCabin({ newCabin }: UpdateCabinArgs) {
+  await BuildAPIClient("cabins")
+    .update(newCabin)
+    .eq("id", newCabin.id)
     .throwOnError();
 }

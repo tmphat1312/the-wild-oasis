@@ -72,8 +72,11 @@
   }
 
   body {
-    /* @apply bg-background text-foreground; */
-    @apply bg-gray-100 text-foreground;
+    @apply bg-background text-foreground;
+  }
+
+  :focus-visible {
+    @apply outline-offset-4 outline-brand-900;
   }
 
   img {

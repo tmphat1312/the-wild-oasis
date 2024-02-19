@@ -2,6 +2,7 @@ import { z } from "zod";
 
 export const cabinSchema = z.object({
   // image: z.string().url(),
+  id: z.number().positive(),
   name: z.string(),
   description: z.string(),
   max_capacity: z.coerce.number().int().min(1),
