@@ -32,13 +32,16 @@ const numberFieldVariants = tv({
       vertical: "flex-col gap-2",
     },
   },
+  defaultVariants: {
+    orientation: "horizontal",
+  },
 });
 
 export function NumberField({
   label,
   description,
   errorMessage,
-  orientation = "horizontal",
+  orientation,
   ...props
 }: NumberFieldProps) {
   return (
