@@ -5,9 +5,9 @@ export const cabinSchema = z.object({
   id: z.number().positive(),
   name: z.string(),
   description: z.string(),
-  max_capacity: z.coerce.number().int().min(1),
-  regular_price: z.coerce.number().min(1),
-  discount: z.coerce.number().positive().optional(),
+  max_capacity: z.coerce.number().int().positive(),
+  regular_price: z.coerce.number().positive(),
+  discount: z.coerce.number().min(0).optional().default(0),
 });
 
 export const cabinsSchema = z.array(cabinSchema);
