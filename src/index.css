@@ -67,16 +67,16 @@
 }
 
 @layer base {
-  * {
-    @apply border-border;
+  html {
+    font-family: "Poppins", system-ui, sans-serif;
   }
 
   body {
-    @apply bg-background text-gray-600;
+    @apply text-gray-600;
   }
 
   :focus-visible {
-    @apply outline-offset-4 outline-brand-900;
+    @apply outline-offset-4 outline-brand-600;
   }
 
   img {
