@@ -7,6 +7,21 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+export function ts({
+  state,
+  className,
+}: {
+  state: string;
+  className: string | Array<string>;
+}) {
+  const classes = Array.isArray(className) ? className.join(" ") : className;
+
+  return classes
+    .split(" ")
+    .map((c) => `${state}:${c}`)
+    .join(" ");
+}
+
 export const focusRing = tv({
   base: "outline outline-blue-600 dark:outline-blue-500 forced-colors:outline-[Highlight] outline-offset-2",
   variants: {
