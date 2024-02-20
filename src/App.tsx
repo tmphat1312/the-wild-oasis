@@ -19,6 +19,9 @@ import Account from "./pages/Account";
 import Users from "./pages/Users";
 
 const THIRTY_SECONDS = 30 * 1_000;
+const THREE_SECONDS = 3 * 1_000;
+const FIVE_SECONDS = 5 * 1_000;
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -72,7 +75,19 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
-      <Toaster />
+      <Toaster
+        containerClassName="m-2"
+        gutter={12}
+        toastOptions={{
+          className: "px-6 py-3",
+          success: {
+            duration: THREE_SECONDS,
+          },
+          error: {
+            duration: FIVE_SECONDS,
+          },
+        }}
+      />
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
