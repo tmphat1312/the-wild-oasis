@@ -5,19 +5,23 @@ import {
 } from "react-router-dom";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Toaster } from "sonner";
+import { Toaster } from "react-hot-toast";
 
 import AppLayout from "./components/layouts/AppLayout";
+
 import RootErrorBoundary from "./pages/RootErrorBoundary";
-import Dashboard from "./pages/Dashboard";
-import Settings from "./pages/Settings";
-import Bookings from "./pages/Bookings";
+import Dashboard from "./pages/dashboard/Dashboard";
+import Bookings from "./pages/bookings/Bookings";
+import Settings from "./pages/settings/Settings";
+import Cabins from "./pages/cabins/Cabins";
+import Login from "./pages/auth/Login";
 import Account from "./pages/Account";
-import Cabins from "./pages/Cabins";
-import Login from "./pages/Login";
 import Users from "./pages/Users";
 
 const THIRTY_SECONDS = 30 * 1_000;
+const THREE_SECONDS = 3 * 1_000;
+const FIVE_SECONDS = 5 * 1_000;
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -71,7 +75,19 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
-      <Toaster position="top-center" richColors />
+      <Toaster
+        containerClassName="m-2"
+        gutter={12}
+        toastOptions={{
+          className: "px-6 py-3",
+          success: {
+            duration: THREE_SECONDS,
+          },
+          error: {
+            duration: FIVE_SECONDS,
+          },
+        }}
+      />
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );

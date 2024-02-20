@@ -1,6 +1,6 @@
-interface CurrencyPresenterProps {
+type CurrencyPresenterProps = {
   amount: number | bigint;
-}
+};
 
 export default function CurrencyPresenter({ amount }: CurrencyPresenterProps) {
   const formatter = new Intl.NumberFormat("en-US", {

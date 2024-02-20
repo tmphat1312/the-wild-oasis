@@ -1,6 +1,6 @@
 export default function Header() {
   return (
-    <header className="px-4 py-2 border-b bg-background border-border">
+    <header className="rounded-md border bg-background px-4 py-2 text-xl">
       Header
     </header>
   );

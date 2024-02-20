@@ -1,6 +1,6 @@
 import { LevelProvider, useLevelContext } from "@/contexts/LevelContext";
 
-interface SectionProps extends React.ComponentProps<"section"> {}
+type SectionProps = React.ComponentProps<"section">;
 
 export default function Section({ children, ...props }: SectionProps) {
   const level = useLevelContext();

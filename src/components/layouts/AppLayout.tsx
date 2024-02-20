@@ -1,30 +1,15 @@
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from "@/components/ui/Resizable";
 import Header from "./Header";
 import Main from "./Main";
 import Sidebar from "./Sidebar";
 
 export default function AppLayout() {
   return (
-    <div className="h-screen">
-      <ResizablePanelGroup direction="horizontal">
-        <ResizablePanel
-          className="[&_>_aside]:h-full"
-          defaultSize={18} //! in percentage
-          minSize={12}
-          maxSize={20}
-        >
-          <Sidebar />
-        </ResizablePanel>
-        <ResizableHandle withHandle />
-        <ResizablePanel className="[&_>main]:h-full">
-          <Header />
-          <Main />
-        </ResizablePanel>
-      </ResizablePanelGroup>
+    <div className="grid grid-cols-[auto_1fr] bg-gray-100">
+      <Sidebar className="row-span-full" />
+      <div className="container grid h-dvh grid-rows-[auto_1fr] gap-y-6 px-8 py-3">
+        <Header />
+        <Main />
+      </div>
     </div>
   );
 }

@@ -1,117 +1,155 @@
-import * as React from "react";
+import { ArrowUp } from "lucide-react";
+import {
+  Cell as RACCell,
+  Column as RACColumn,
+  Row as RACRow,
+  Table as RACTable,
+  TableHeader as RACTableHeader,
+  Button,
+  CellProps,
+  Collection,
+  ColumnProps,
+  ColumnResizer,
+  Group,
+  ResizableTableContainer,
+  RowProps,
+  TableHeaderProps,
+  TableProps,
+  composeRenderProps,
+  useTableOptions,
+} from "react-aria-components";
+import { twMerge } from "tailwind-merge";
+import { tv } from "tailwind-variants";
+import { Checkbox } from "./form/Checkbox";
+import { composeTailwindRenderProps, focusRing } from "@/lib/utils";
 
-import { cn } from "@/lib/utils";
+export function Table(props: TableProps) {
+  return (
+    <div className="relative rounded-lg border dark:border-zinc-600">
+      <RACTable {...props} className="border-separate border-spacing-0" />
+    </div>
+  );
+}
 
-const Table = React.forwardRef<
-  HTMLTableElement,
-  React.HTMLAttributes<HTMLTableElement>
->(({ className, ...props }, ref) => (
-  <div className="relative w-full overflow-auto">
-    <table
-      ref={ref}
-      className={cn("w-full caption-bottom text-sm", className)}
+export function ResizableTable(props: TableProps) {
+  return (
+    <ResizableTableContainer className="relative rounded-lg border dark:border-zinc-600">
+      <RACTable {...props} className="border-separate border-spacing-0" />
+    </ResizableTableContainer>
+  );
+}
+
+const columnStyles = tv({
+  extend: focusRing,
+  base: "px-2 h-5 flex-1 flex gap-1 items-center overflow-hidden",
+});
+
+const resizerStyles = tv({
+  extend: focusRing,
+  base: "w-px px-[8px] translate-x-[8px] box-content py-1 h-5 bg-clip-content bg-gray-400 dark:bg-zinc-500 forced-colors:bg-[ButtonBorder] cursor-col-resize rounded resizing:bg-blue-600 forced-colors:resizing:bg-[Highlight] resizing:w-[2px] resizing:pl-[7px] -outline-offset-2",
+});
+
+export function Column(props: ColumnProps) {
+  return (
+    <RACColumn
       {...props}
-    />
-  </div>
-));
-Table.displayName = "Table";
+      className={composeTailwindRenderProps(
+        props.className,
+        "cursor-default text-start text-sm font-semibold text-gray-700 dark:text-zinc-300 [&:focus-within]:z-20 [&:hover]:z-20",
+      )}
+    >
+      {composeRenderProps(
+        props.children,
+        (children, { allowsSorting, sortDirection }) => (
+          <div className="flex items-center">
+            <Group role="presentation" tabIndex={-1} className={columnStyles}>
+              <span className="truncate">{children}</span>
+              {allowsSorting && (
+                <span
+                  className={`flex h-4 w-4 items-center justify-center transition ${
+                    sortDirection === "descending" ? "rotate-180" : ""
+                  }`}
+                >
+                  {sortDirection && (
+                    <ArrowUp
+                      aria-hidden
+                      className="h-4 w-4 text-gray-500 dark:text-zinc-400 forced-colors:text-[ButtonText]"
+                    />
+                  )}
+                </span>
+              )}
+            </Group>
+            {!props.width && <ColumnResizer className={resizerStyles} />}
+          </div>
+        ),
+      )}
+    </RACColumn>
+  );
+}
 
-const TableHeader = React.forwardRef<
-  HTMLTableSectionElement,
-  React.HTMLAttributes<HTMLTableSectionElement>
->(({ className, ...props }, ref) => (
-  <thead ref={ref} className={cn("[&_tr]:border-b", className)} {...props} />
-));
-TableHeader.displayName = "TableHeader";
+export function TableHeader<T extends object>(props: TableHeaderProps<T>) {
+  const { selectionBehavior, selectionMode, allowsDragging } =
+    useTableOptions();
 
-const TableBody = React.forwardRef<
-  HTMLTableSectionElement,
-  React.HTMLAttributes<HTMLTableSectionElement>
->(({ className, ...props }, ref) => (
-  <tbody
-    ref={ref}
-    className={cn("[&_tr:last-child]:border-0", className)}
-    {...props}
-  />
-));
-TableBody.displayName = "TableBody";
+  return (
+    <RACTableHeader
+      {...props}
+      className={twMerge(
+        "sticky top-0 z-10 rounded-t-lg border-b bg-gray-100/60 backdrop-blur-md supports-[-moz-appearance:none]:bg-gray-100 dark:border-b-zinc-700 dark:bg-zinc-700/60 dark:supports-[-moz-appearance:none]:bg-zinc-700 forced-colors:bg-[Canvas]",
+        props.className,
+      )}
+    >
+      {/* Add extra columns for drag and drop and selection. */}
+      {allowsDragging && <Column />}
+      {selectionBehavior === "toggle" && (
+        <RACColumn
+          width={36}
+          minWidth={36}
+          className="cursor-default p-2 text-start text-sm font-semibold"
+        >
+          {selectionMode === "multiple" && <Checkbox slot="selection" />}
+        </RACColumn>
+      )}
+      <Collection items={props.columns}>{props.children}</Collection>
+    </RACTableHeader>
+  );
+}
 
-const TableFooter = React.forwardRef<
-  HTMLTableSectionElement,
-  React.HTMLAttributes<HTMLTableSectionElement>
->(({ className, ...props }, ref) => (
-  <tfoot
-    ref={ref}
-    className={cn(
-      "border-t bg-muted/50 font-medium [&>tr]:last:border-b-0",
-      className,
-    )}
-    {...props}
-  />
-));
-TableFooter.displayName = "TableFooter";
+const rowStyles = tv({
+  extend: focusRing,
+  base: "group/row relative cursor-default select-none -outline-offset-2 text-gray-900 disabled:text-gray-300 dark:text-zinc-200 dark:disabled:text-zinc-600 text-sm hover:bg-gray-100 dark:hover:bg-zinc-700/60 selected:bg-blue-100 selected:hover:bg-blue-200 dark:selected:bg-blue-700/30 dark:selected:hover:bg-blue-700/40",
+});
 
-const TableRow = React.forwardRef<
-  HTMLTableRowElement,
-  React.HTMLAttributes<HTMLTableRowElement>
->(({ className, ...props }, ref) => (
-  <tr
-    ref={ref}
-    className={cn(
-      "border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted",
-      className,
-    )}
-    {...props}
-  />
-));
-TableRow.displayName = "TableRow";
+export function Row<T extends object>({
+  id,
+  columns,
+  children,
+  ...otherProps
+}: RowProps<T>) {
+  const { selectionBehavior, allowsDragging } = useTableOptions();
 
-const TableHead = React.forwardRef<
-  HTMLTableCellElement,
-  React.ThHTMLAttributes<HTMLTableCellElement>
->(({ className, ...props }, ref) => (
-  <th
-    ref={ref}
-    className={cn(
-      "h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0",
-      className,
-    )}
-    {...props}
-  />
-));
-TableHead.displayName = "TableHead";
+  return (
+    <RACRow id={id} {...otherProps} className={rowStyles}>
+      {allowsDragging && (
+        <Cell>
+          <Button slot="drag">≡</Button>
+        </Cell>
+      )}
+      {selectionBehavior === "toggle" && (
+        <Cell>
+          <Checkbox slot="selection" />
+        </Cell>
+      )}
+      <Collection items={columns}>{children}</Collection>
+    </RACRow>
+  );
+}
 
-const TableCell = React.forwardRef<
-  HTMLTableCellElement,
-  React.TdHTMLAttributes<HTMLTableCellElement>
->(({ className, ...props }, ref) => (
-  <td
-    ref={ref}
-    className={cn("p-4 align-middle [&:has([role=checkbox])]:pr-0", className)}
-    {...props}
-  />
-));
-TableCell.displayName = "TableCell";
+const cellStyles = tv({
+  extend: focusRing,
+  base: "border-b dark:border-b-zinc-700 group-last/row:border-b-0 [--selected-border:theme(colors.blue.200)] dark:[--selected-border:theme(colors.blue.900)] group-selected/row:border-[--selected-border] [:has(+[data-selected])_&]:border-[--selected-border] p-2 truncate -outline-offset-2",
+});
 
-const TableCaption = React.forwardRef<
-  HTMLTableCaptionElement,
-  React.HTMLAttributes<HTMLTableCaptionElement>
->(({ className, ...props }, ref) => (
-  <caption
-    ref={ref}
-    className={cn("mt-4 text-sm text-muted-foreground", className)}
-    {...props}
-  />
-));
-TableCaption.displayName = "TableCaption";
-
-export {
-  Table,
-  TableHeader,
-  TableBody,
-  TableFooter,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableCaption,
-};
+export function Cell(props: CellProps) {
+  return <RACCell {...props} className={cellStyles} />;
+}

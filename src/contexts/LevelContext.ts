@@ -1,6 +1,6 @@
 import { createContext, useContext } from "react";
 
-export const LevelContext = createContext<number>(0);
+const LevelContext = createContext<number>(0);
 
 export const LevelProvider = LevelContext.Provider;
 
