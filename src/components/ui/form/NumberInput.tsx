@@ -5,6 +5,7 @@ import {
   NumberFieldProps as RACNumberFieldProps,
   ValidationResult,
 } from "react-aria-components";
+import { tv } from "tailwind-variants";
 
 import {
   Description,
@@ -12,36 +13,41 @@ import {
   FieldGroup,
   Input,
   Label,
-  fieldBorderStyles,
 } from "@/components/ui/form/Field";
-import { composeTailwindRenderProps } from "@/lib/utils";
+import { fieldBorderStyles } from "@/styles/fieldBorderStyles";
 import { StepperButton } from "./StepperButton";
 
 interface NumberFieldProps extends RACNumberFieldProps {
   label?: string;
   description?: string;
   errorMessage?: string | ((validation: ValidationResult) => string);
+  orientation?: "horizontal" | "vertical";
 }
+
+const numberFieldVariants = tv({
+  base: "flex group last-of-type:mb-16",
+  variants: {
+    orientation: {
+      horizontal: "items-center gap-4",
+      vertical: "flex-col gap-2",
+    },
+  },
+});
 
 export function NumberField({
   label,
   description,
   errorMessage,
+  orientation = "horizontal",
   ...props
 }: NumberFieldProps) {
   return (
-    <RACNumberField
-      {...props}
-      className={composeTailwindRenderProps(
-        props.className,
-        "group flex flex-col gap-1",
-      )}
-    >
-      <Label>{label}</Label>
-      <FieldGroup>
+    <RACNumberField {...props} className={numberFieldVariants({ orientation })}>
+      <Label className="w-[24ch]">{label}</Label>
+      <FieldGroup className="max-w-72">
         {(renderProps) => (
           <Fragment>
-            <Input />
+            <Input className="border-s-4" />
             <div
               className={fieldBorderStyles({
                 ...renderProps,

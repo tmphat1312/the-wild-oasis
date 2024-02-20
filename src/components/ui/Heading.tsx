@@ -9,10 +9,10 @@ const headingVariants = tv({
   base: "font-semibold tracking-wider",
   variants: {
     level: {
-      h1: "text-4xl mb-6",
-      h2: "text-3xl mb-5",
-      h3: "text-2xl mb-4",
-      h4: "text-xl mb-3",
+      h1: "text-3xl mb-6",
+      h2: "text-2xl mb-5",
+      h3: "text-1xl mb-4",
+      h4: "text-lg mb-3",
       h5: "mb-2",
       h6: "text-sm mb-1",
     },

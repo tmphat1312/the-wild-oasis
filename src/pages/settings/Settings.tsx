@@ -21,8 +21,8 @@ export default function Settings() {
   }
 
   return (
-    <Section className="mx-auto max-w-md">
-      <Heading>Settings</Heading>
+    <Section>
+      <Heading>Update hotel settings</Heading>
       <UpdateSettingsForm currentSettings={data} />
     </Section>
   );

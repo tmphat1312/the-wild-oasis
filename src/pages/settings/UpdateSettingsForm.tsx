@@ -4,6 +4,8 @@ import { Form } from "@/components/ui/form/Form";
 import { NumberField } from "@/components/ui/form/NumberInput";
 import { SettingValues, settingSchema } from "@/schemas/settingSchema";
 import { useUpdateSettings } from "./useUpdateSettings";
+import { FieldSeparator } from "@/components/ui/form/FieldSeparator";
+import toast from "react-hot-toast";
 
 interface UpdateSettingsFormProps {
   currentSettings: SettingValues;
@@ -12,19 +14,24 @@ interface UpdateSettingsFormProps {
 export default function UpdateSettingsForm({
   currentSettings,
 }: UpdateSettingsFormProps) {
-  const { isUpdating, updateSettings } = useUpdateSettings();
+  const { isUpdating, updateSettingsAsync } = useUpdateSettings();
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     const data = Object.fromEntries(new FormData(e.currentTarget));
     const newSettings = settingSchema.parse(data);
-    updateSettings({ newSettings });
+
+    toast.promise(updateSettingsAsync({ newSettings }), {
+      loading: "Updating settings...",
+      success: "Settings updated successfully",
+      error: (error) => error.message || "Something went wrong",
+    });
   }
 
   return (
     <Form
-      className="space-y-4 rounded-md bg-background p-6 shadow"
+      className="rounded-md bg-background px-10 py-6 shadow"
       onSubmit={handleSubmit}
     >
       <NumberField
@@ -35,6 +42,9 @@ export default function UpdateSettingsForm({
         isRequired
         defaultValue={currentSettings.min_booking_length}
       />
+
+      <FieldSeparator />
+
       <NumberField
         name="max_booking_length"
         label="Maximum nights/booking"
@@ -43,6 +53,9 @@ export default function UpdateSettingsForm({
         isRequired
         defaultValue={currentSettings.max_booking_length}
       />
+
+      <FieldSeparator />
+
       <NumberField
         name="max_guests_per_booking"
         label="Maximum guests/booking"
@@ -51,6 +64,9 @@ export default function UpdateSettingsForm({
         maxValue={10}
         defaultValue={currentSettings.max_guests_per_booking}
       />
+
+      <FieldSeparator />
+
       <NumberField
         name="breakfast_price"
         label="Breakfast price"
@@ -58,6 +74,8 @@ export default function UpdateSettingsForm({
         minValue={1}
         defaultValue={currentSettings.breakfast_price}
       />
+
+      <FieldSeparator />
 
       <ButtonGroup>
         <Button type="submit" isDisabled={isUpdating}>
