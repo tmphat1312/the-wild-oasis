@@ -92,6 +92,21 @@
 }
 
 @layer utilities {
+  .font-body {
+    font-family: "Poppins", system-ui, sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings:
+      "wght" 400,
+      "slnt" 0;
+  }
+
+  .font-display {
+    font-family: "Sono", ui-mono, monospace;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings: "MONO" 1;
+  }
   .h-screen {
     height: 100vh;
     height: 100dvh;
