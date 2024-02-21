@@ -107,8 +107,24 @@
     font-style: normal;
     font-variation-settings: "MONO" 1;
   }
+
   .h-screen {
     height: 100vh;
     height: 100dvh;
+  }
+
+  .scrollbar-gutter {
+    @apply -me-3 pe-3;
+  }
+
+  @supports (scrollbar-gutter: stable) {
+    .scrollbar-gutter {
+      @apply pe-1.5;
+      scrollbar-gutter: stable;
+    }
+  }
+
+  .contain-paint {
+    contain: paint;
   }
 }
