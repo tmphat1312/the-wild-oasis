@@ -1,58 +1,36 @@
-import pluralize from "pluralize";
-import { TableBody } from "react-aria-components";
-
-import CurrencyPresenter from "@/components/presenters/CurrencyPresenter";
 import ErrorMessage from "@/components/ui/ErrorMessage";
-import {
-  Cell,
-  Column,
-  Row,
-  ResizableTable,
-  TableHeader,
-} from "@/components/ui/Table";
 import TableSkeleton from "@/components/ui/TableSkeleton";
+import { HeaderColumn } from "@/components/ui/table/HeaderColumn";
+import { Table } from "@/components/ui/table/Table";
+import { TableBody } from "@/components/ui/table/TableBody";
+import { TableHeader } from "@/components/ui/table/TableHeader";
+import { CabinTableRow } from "./CabinTableRow";
 import { useCabins } from "./useCabins";
 
 export default function CabinTable() {
   const { isLoading, error, data } = useCabins();
 
-  if (isLoading) {
-    return <TableSkeleton />;
-  }
-
   if (error) {
     return <ErrorMessage message={error.message} />;
   }
 
+  if (isLoading) {
+    return <TableSkeleton />;
+  }
+
   return (
-    <div className="rounded-md bg-background shadow-sm">
-      <ResizableTable aria-label="Cabin table">
-        <TableHeader>
-          {/* <Column isRowHeader>Showcase</Column> */}
-          <Column isRowHeader>Cabin name</Column>
-          <Column>Capacity</Column>
-          <Column>Price</Column>
-          <Column>Discount</Column>
-        </TableHeader>
-        <TableBody items={data}>
-          {(row) => (
-            <Row>
-              <Cell>
-                <div className="h-10">{row.name}</div>
-              </Cell>
-              <Cell>
-                Fits up to {pluralize("guests", row.max_capacity, true)}
-              </Cell>
-              <Cell>
-                <CurrencyPresenter amount={row.regular_price} />
-              </Cell>
-              <Cell>
-                <CurrencyPresenter amount={row.discount} />
-              </Cell>
-            </Row>
-          )}
-        </TableBody>
-      </ResizableTable>
-    </div>
+    <Table aria-label="Cabins">
+      <TableHeader>
+        <HeaderColumn isRowHeader>Showcase</HeaderColumn>
+        <HeaderColumn>Cabin</HeaderColumn>
+        <HeaderColumn>Capacity</HeaderColumn>
+        <HeaderColumn>Price</HeaderColumn>
+        <HeaderColumn>Discount</HeaderColumn>
+        <HeaderColumn />
+      </TableHeader>
+      <TableBody items={data} renderEmptyState={() => "no results"}>
+        {(row) => <CabinTableRow row={row} />}
+      </TableBody>
+    </Table>
   );
 }

@@ -1,7 +1,7 @@
 import { queryKeys } from "@/constants/query-keys";
 import { createCabin } from "@/services/APICabins";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
+import { toast } from "@/lib/toast";
 
 export function useCreateCabin() {
   const queryClient = useQueryClient();

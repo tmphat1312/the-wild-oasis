@@ -6,7 +6,8 @@ export function HeaderColumn(props: ColumnProps) {
     <Column
       {...props}
       className={cn(
-        "bg-gray-100 px-2 py-3",
+        "sticky top-0",
+        "bg-gray-100 px-3 py-5",
         "text-start text-sm font-semibold uppercase tracking-wide",
         props.className,
       )}

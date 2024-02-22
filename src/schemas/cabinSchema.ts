@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const cabinSchema = z.object({
-  // image: z.string().url(),
+  image: z.string(),
   id: z.number().positive(),
   name: z.string(),
   description: z.string(),
