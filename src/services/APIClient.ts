@@ -12,3 +12,5 @@ export const APIClient = createClient<Database>(
 
 export const BuildAPIClient = (resource: TableRowNames) =>
   APIClient.from(resource);
+
+export const BuildStorageAPIClient = () => APIClient.storage;

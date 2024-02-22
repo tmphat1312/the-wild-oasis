@@ -1,6 +1,7 @@
 import { CabinValues, cabinsSchema } from "@/schemas/cabinSchema";
 import { TablesInsert, TablesUpdate } from "@/types/database";
-import { BuildAPIClient } from "./APIClient";
+import { BuildAPIClient, BuildStorageAPIClient } from "./APIClient";
+import { supabaseStorageDataSchema } from "@/schemas/supabaseStorageDataSchema";
 
 export async function getCabins() {
   const { data } = await BuildAPIClient("cabins").select("*").throwOnError();
@@ -21,9 +22,27 @@ type CreateCabinArgs = {
   };
 };
 export async function createCabin({ newCabin }: CreateCabinArgs) {
-  await BuildAPIClient("cabins")
-    .insert({ ...newCabin, image: "test" })
-    .throwOnError();
+  const imageName = crypto.randomUUID() + newCabin.image.name;
+  const storageClient = BuildStorageAPIClient().from("cabin_showcases");
+
+  const { data: storageData, error: storageError } = await storageClient.upload(
+    imageName,
+    newCabin.image,
+  );
+
+  if (!storageError) {
+    const { error } = await BuildAPIClient("cabins").insert({
+      ...newCabin,
+      image:
+        import.meta.env.VITE_SUPABASE_STORAGE_URL +
+        "/" +
+        supabaseStorageDataSchema.parse(storageData).fullPath,
+    });
+
+    if (error) {
+      throw Error("Cabin could not be created!!!");
+    }
+  }
 }
 
 type UpdateCabinArgs = {
