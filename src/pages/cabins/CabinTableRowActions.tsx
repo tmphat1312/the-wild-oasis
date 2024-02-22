@@ -13,6 +13,7 @@ import { Dialog } from "@/components/ui/Dialog";
 import { Modal } from "@/components/ui/Modal";
 import { DialogTrigger } from "react-aria-components";
 import { UpdateCabinForm } from "./UpdateCabinForm";
+import { useDuplicateCabin } from "./useDuplicateCabin";
 
 interface CabinTableRowActionsProps {
   cabin: CabinValues;
@@ -24,23 +25,22 @@ export function CabinTableRowActions({ cabin }: CabinTableRowActionsProps) {
     cabinId: cabin.id,
     cabinImage: cabin.image,
   });
+  const { duplicateCabin } = useDuplicateCabin();
 
   function handleAction(key: Key) {
     if (key == "delete") {
       setModalType("delete");
     } else if (key == "edit") {
       setModalType("edit");
+    } else if (key == "duplicate") {
+      duplicateCabin({ cabin });
     } else {
-      alert(`Action: ${key}`);
+      throw new Error("Invalid action");
     }
   }
 
   function handleCloseModal() {
     setModalType(null);
-  }
-
-  function handleDeleteCabin() {
-    deleteCabin();
   }
 
   return (
@@ -50,7 +50,7 @@ export function CabinTableRowActions({ cabin }: CabinTableRowActionsProps) {
         description="Are you sure you want to delete this cabin? This action cannot be undone."
         isOpen={modalType === "delete"}
         closeFn={handleCloseModal}
-        onAction={handleDeleteCabin}
+        onAction={deleteCabin}
       />
       <DialogTrigger isOpen={modalType == "edit"}>
         <Button aria-label="update the cabin" className="sr-only" />

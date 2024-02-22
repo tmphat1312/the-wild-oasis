@@ -1,7 +1,6 @@
 import { CabinValues, cabinsSchema } from "@/schemas/cabinSchema";
 import { TablesInsert } from "@/types/database";
 import { BuildAPIClient, BuildStorageAPIClient } from "./APIClient";
-import { supabaseStorageDataSchema } from "@/schemas/supabaseStorageDataSchema";
 
 export async function getCabins() {
   const { data } = await BuildAPIClient("cabins").select("*").throwOnError();
@@ -44,7 +43,7 @@ export async function createCabin({ newCabin }: CreateCabinArgs) {
   const imageName = crypto.randomUUID() + newCabin.image.name;
   const storageClient = BuildStorageAPIClient().from("cabin_showcases");
 
-  const { data: storageData, error: storageError } = await storageClient.upload(
+  const { error: storageError } = await storageClient.upload(
     imageName,
     newCabin.image,
   );
@@ -54,8 +53,8 @@ export async function createCabin({ newCabin }: CreateCabinArgs) {
       ...newCabin,
       image:
         import.meta.env.VITE_SUPABASE_STORAGE_URL +
-        "/" +
-        supabaseStorageDataSchema.parse(storageData).fullPath,
+        "/cabin_showcases/" +
+        imageName,
     });
 
     if (error) {
@@ -73,8 +72,10 @@ export async function updateCabin({ newCabin }: UpdateCabinArgs) {
   if (newCabin.newImage) {
     const newImageName = crypto.randomUUID() + newCabin.newImage.name;
     const storageClient = BuildStorageAPIClient().from("cabin_showcases");
-    const { data: storageData, error: newStorageError } =
-      await storageClient.upload(newImageName, newCabin.newImage);
+    const { error: newStorageError } = await storageClient.upload(
+      newImageName,
+      newCabin.newImage,
+    );
 
     if (newStorageError) {
       throw Error("Cabin image could not be updated!!!");
@@ -95,8 +96,8 @@ export async function updateCabin({ newCabin }: UpdateCabinArgs) {
         ...newCabin,
         image:
           import.meta.env.VITE_SUPABASE_STORAGE_URL +
-          "/" +
-          supabaseStorageDataSchema.parse(storageData).fullPath,
+          "/cabin_showcases/" +
+          newImageName,
         newImage: undefined,
       })
       .eq("id", newCabin.id);
@@ -115,5 +116,33 @@ export async function updateCabin({ newCabin }: UpdateCabinArgs) {
     if (updateError) {
       throw Error("Cabin could not be updated!!!");
     }
+  }
+}
+
+type DuplicateCabinArgs = {
+  cabin: CabinValues;
+};
+
+export async function duplicateCabin({ cabin }: DuplicateCabinArgs) {
+  const fromImage = cabin.image.split("/").pop()!;
+  const toImage = `${crypto.randomUUID()}.${cabin.image.split(".").pop()!}`;
+  const storageClient = BuildStorageAPIClient().from("cabin_showcases");
+
+  const { error: storageError } = await storageClient.copy(fromImage, toImage);
+
+  if (storageError) {
+    throw Error("Cabin could not be duplicated!!!");
+  }
+
+  const { error } = await BuildAPIClient("cabins").insert({
+    ...cabin,
+    name: `${cabin.name} (copy)`,
+    image:
+      import.meta.env.VITE_SUPABASE_STORAGE_URL + "/cabin_showcases/" + toImage,
+    id: undefined,
+  });
+
+  if (error) {
+    throw Error("Cabin could not be duplicated!!!");
   }
 }
