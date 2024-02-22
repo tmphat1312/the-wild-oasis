@@ -99,7 +99,6 @@ export function CreateCabinForm({ closeModal }: CreateCabinFormProps) {
 
       <div className="grid grid-cols-[192px_1fr] items-center gap-10">
         <CabinImageUpload
-          file={file}
           previewCabinImage={previewCabinImage}
           isImageRequired={isImageRequired}
           onSelectFile={handleSelectFile}

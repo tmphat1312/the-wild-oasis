@@ -9,13 +9,11 @@ import {
 interface CabinImageUploadProps {
   onDeselectFile: () => void;
   onSelectFile: (file: File) => void;
-  file: File | null;
   previewCabinImage: string | null;
   isImageRequired: boolean;
 }
 
 export function CabinImageUpload({
-  file,
   previewCabinImage,
   isImageRequired,
   onSelectFile,
@@ -59,7 +57,7 @@ export function CabinImageUpload({
         )}
       </DropZone>
 
-      {file && (
+      {previewCabinImage && (
         <div className="absolute inset-0 hidden place-content-center gap-2 rounded-md bg-white/50 group-hover:grid">
           <div className="flex gap-3 rounded-md p-2 backdrop-blur-sm">
             <FileTrigger onSelect={handleSelectFile}>
