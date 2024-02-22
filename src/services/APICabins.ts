@@ -11,9 +11,28 @@ export async function getCabins() {
 
 type DeleteCabinArgs = {
   cabinId: CabinValues["id"];
+  cabinImage: CabinValues["image"];
 };
-export async function deleteCabinById({ cabinId }: DeleteCabinArgs) {
-  await BuildAPIClient("cabins").delete().eq("id", cabinId).throwOnError();
+export async function deleteCabinById({
+  cabinId,
+  cabinImage,
+}: DeleteCabinArgs) {
+  const storageClient = BuildStorageAPIClient().from("cabin_showcases");
+  const oldImage = cabinImage.split("/").pop();
+
+  if (oldImage) {
+    const { error: deleteError } = await storageClient.remove([oldImage]);
+
+    if (deleteError) {
+      throw Error("Cabin could not be deleted!!!");
+    }
+  }
+
+  const { error } = await BuildAPIClient("cabins").delete().eq("id", cabinId);
+
+  if (error) {
+    throw Error("Cabin could not be deleted!!!");
+  }
 }
 
 type CreateCabinArgs = {

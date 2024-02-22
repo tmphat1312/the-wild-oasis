@@ -6,13 +6,17 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface UseDeleteCabinByIdProps {
   cabinId: CabinValues["id"];
+  cabinImage: CabinValues["image"];
 }
 
-export function useDeleteCabinById({ cabinId }: UseDeleteCabinByIdProps) {
+export function useDeleteCabinById({
+  cabinId,
+  cabinImage,
+}: UseDeleteCabinByIdProps) {
   const queryClient = useQueryClient();
 
   const { isPending, mutate, error } = useMutation({
-    mutationFn: () => deleteCabinById({ cabinId }),
+    mutationFn: () => deleteCabinById({ cabinId, cabinImage }),
     onMutate: () => {
       toast.loading("Deleting cabin...");
     },

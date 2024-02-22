@@ -20,7 +20,10 @@ interface CabinTableRowActionsProps {
 
 export function CabinTableRowActions({ cabin }: CabinTableRowActionsProps) {
   const [modalType, setModalType] = useState<"edit" | "delete" | null>();
-  const { deleteCabin } = useDeleteCabinById({ cabinId: cabin.id });
+  const { deleteCabin } = useDeleteCabinById({
+    cabinId: cabin.id,
+    cabinImage: cabin.image,
+  });
 
   function handleAction(key: Key) {
     if (key == "delete") {
