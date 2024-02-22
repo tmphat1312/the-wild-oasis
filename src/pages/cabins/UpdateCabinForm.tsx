@@ -83,7 +83,7 @@ export function UpdateCabinForm({ closeModal, cabin }: CreateCabinFormProps) {
         aria-label="cabin image"
         type="hidden"
         name="image"
-        value={previewCabinImage || ""}
+        value={cabin.image}
       />
 
       <div className="grid grid-cols-[192px_1fr] items-center gap-10">
