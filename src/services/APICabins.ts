@@ -16,7 +16,9 @@ export async function deleteCabinById({ cabinId }: DeleteCabinArgs) {
 }
 
 type CreateCabinArgs = {
-  newCabin: TablesInsert<"cabins">;
+  newCabin: Omit<TablesInsert<"cabins">, "image"> & {
+    image: File;
+  };
 };
 export async function createCabin({ newCabin }: CreateCabinArgs) {
   await BuildAPIClient("cabins")

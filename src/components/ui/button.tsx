@@ -10,7 +10,7 @@ interface ButtonProps extends RACButtonProps {
 }
 
 const buttonVariants = tv({
-  base: "px-5 py-2.5 text-sm text-center transition rounded-md border border-black/10 ",
+  base: "px-4 py-3 text-sm text-center transition rounded-md border border-black/10 ",
   variants: {
     variant: {
       primary: "bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white",

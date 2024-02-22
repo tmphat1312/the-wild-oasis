@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/form/Field";
 import { fieldBorderStyles } from "@/styles/fieldBorderStyles";
 import { StepperButton } from "./StepperButton";
+import { cn, focusRing } from "@/lib/utils";
 
 interface NumberFieldProps extends RACNumberFieldProps {
   label?: string;
@@ -24,8 +25,17 @@ interface NumberFieldProps extends RACNumberFieldProps {
   orientation?: "horizontal" | "vertical";
 }
 
+const input = tv({
+  extend: focusRing,
+  base: "border-0 border-s-[3px] rounded-xs",
+  variants: {
+    isFocused: fieldBorderStyles.variants.isFocusWithin,
+    ...fieldBorderStyles.variants,
+  },
+});
+
 const numberFieldVariants = tv({
-  base: "flex group last-of-type:mb-16",
+  base: "flex group",
   variants: {
     orientation: {
       horizontal: "items-center gap-4",
@@ -41,16 +51,18 @@ export function NumberField({
   label,
   description,
   errorMessage,
-  orientation,
+  orientation = "horizontal",
   ...props
 }: NumberFieldProps) {
   return (
     <RACNumberField {...props} className={numberFieldVariants({ orientation })}>
-      <Label className="w-[24ch]">{label}</Label>
+      <Label className={cn(orientation == "horizontal" ? "w-[24ch]" : "")}>
+        {label}
+      </Label>
       <FieldGroup className="max-w-72">
         {(renderProps) => (
           <Fragment>
-            <Input className="border-s-4" />
+            <Input className={input} />
             <div
               className={fieldBorderStyles({
                 ...renderProps,
