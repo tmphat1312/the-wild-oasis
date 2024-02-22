@@ -1,5 +1,5 @@
 import { CabinValues, cabinsSchema } from "@/schemas/cabinSchema";
-import { TablesInsert, TablesUpdate } from "@/types/database";
+import { TablesInsert } from "@/types/database";
 import { BuildAPIClient, BuildStorageAPIClient } from "./APIClient";
 import { supabaseStorageDataSchema } from "@/schemas/supabaseStorageDataSchema";
 
@@ -46,11 +46,55 @@ export async function createCabin({ newCabin }: CreateCabinArgs) {
 }
 
 type UpdateCabinArgs = {
-  newCabin: TablesUpdate<"cabins">;
+  newCabin: TablesInsert<"cabins"> & {
+    newImage: File | null;
+  };
 };
 export async function updateCabin({ newCabin }: UpdateCabinArgs) {
-  await BuildAPIClient("cabins")
-    .update(newCabin)
-    .eq("id", newCabin.id)
-    .throwOnError();
+  if (newCabin.newImage) {
+    const newImageName = crypto.randomUUID() + newCabin.newImage.name;
+    const storageClient = BuildStorageAPIClient().from("cabin_showcases");
+    const { data: storageData, error: newStorageError } =
+      await storageClient.upload(newImageName, newCabin.newImage);
+
+    if (newStorageError) {
+      throw Error("Cabin image could not be updated!!!");
+    }
+
+    const oldImage = newCabin.image.split("/").pop();
+
+    if (oldImage) {
+      const { error: deleteError } = await storageClient.remove([oldImage]);
+
+      if (deleteError) {
+        throw Error("Cabin image could not be updated!!!");
+      }
+    }
+
+    const { error: updateError } = await BuildAPIClient("cabins")
+      .update({
+        ...newCabin,
+        image:
+          import.meta.env.VITE_SUPABASE_STORAGE_URL +
+          "/" +
+          supabaseStorageDataSchema.parse(storageData).fullPath,
+        newImage: undefined,
+      })
+      .eq("id", newCabin.id);
+
+    if (updateError) {
+      throw Error("Cabin could not be updated!!!");
+    }
+  } else {
+    const { error: updateError } = await BuildAPIClient("cabins")
+      .update({
+        ...newCabin,
+        newImage: undefined,
+      })
+      .eq("id", newCabin.id);
+
+    if (updateError) {
+      throw Error("Cabin could not be updated!!!");
+    }
+  }
 }

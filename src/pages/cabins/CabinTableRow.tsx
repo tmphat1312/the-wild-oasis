@@ -8,6 +8,7 @@ import { CabinTableRowActions } from "./CabinTableRowActions";
 interface CabinTableRowProps {
   row: CabinValues;
 }
+
 export function CabinTableRow({ row }: CabinTableRowProps) {
   return (
     <Row className="text-sm">
@@ -23,7 +24,7 @@ export function CabinTableRow({ row }: CabinTableRowProps) {
         <CurrencyPresenter amount={row.discount} />
       </Cell>
       <Cell>
-        <CabinTableRowActions cabinId={row.id} />
+        <CabinTableRowActions cabin={row} />
       </Cell>
     </Row>
   );
