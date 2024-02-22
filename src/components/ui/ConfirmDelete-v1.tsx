@@ -34,7 +34,7 @@ export function ConfirmDelete({
   return (
     <DialogTrigger {...props}>
       <Button aria-label="Delete" className="sr-only text-red-500" />
-      <Modal>
+      <Modal className="max-w-md">
         <Dialog role="alertdialog">
           {({ close }) => (
             <Fragment>
@@ -57,7 +57,6 @@ export function ConfirmDelete({
                 </Button>
                 <Button
                   variant="destructive"
-                  autoFocus
                   onPress={chain(onAction, closeFn, close)}
                 >
                   {actionLabel}
