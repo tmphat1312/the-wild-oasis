@@ -26,6 +26,10 @@ export async function removeCabinImage(imagePath: string) {
   const path = parsedPath.data;
   const imageId = path.split("/").pop() ?? path;
 
+  if (imageId.includes("cabin-00")) {
+    return; // sample data
+  }
+
   const { error } = await cabinStorageClient.remove([imageId]);
 
   if (error) {
