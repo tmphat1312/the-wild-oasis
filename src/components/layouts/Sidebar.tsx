@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import Logo from "../ui/Logo";
 import MainNav from "./MainNav";
-import { Uploader } from "@/data/Uploader";
+// import { Uploader } from "@/data/Uploader";
 
 type SidebarProps = React.ComponentProps<"aside">;
 
@@ -13,7 +13,7 @@ export default function Sidebar({ className, ...props }: SidebarProps) {
     >
       <Logo />
       <MainNav />
-      <Uploader />
+      {/* <Uploader /> */}
     </aside>
   );
 }
