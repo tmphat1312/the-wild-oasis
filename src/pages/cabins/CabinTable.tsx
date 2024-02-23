@@ -8,11 +8,20 @@ import { CabinTableRow } from "./CabinTableRow";
 import { useCabins } from "./useCabins";
 import { useClientSideSortItems } from "@/hooks/useClientSideSortItems";
 import { CabinValues } from "@/schemas/cabinSchema";
+import { useClientSideFilterItems } from "@/hooks/useClientSideFilterItems";
 
 export default function CabinTable() {
   const { isLoading, error, data } = useCabins();
-  const sortedItems = useClientSideSortItems<CabinValues>({
+  const filteredItems = useClientSideFilterItems<CabinValues>({
     items: data ?? [],
+    filterField: "discount",
+    filter: {
+      with_discount: (i) => i.discount > 0,
+      without_discount: (i) => !i.discount,
+    },
+  });
+  const sortedItems = useClientSideSortItems<CabinValues>({
+    items: filteredItems ?? [],
     sort: {
       name: (a, b) => a.name.localeCompare(b.name),
       regular_price: (a, b) => a.regular_price - b.regular_price,

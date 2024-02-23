@@ -1,8 +1,18 @@
+import { Filter } from "@/components/ui/Filter";
 import { SortBy } from "@/components/ui/SortBy";
 
 export default function CabinTableOperations() {
   return (
-    <div>
+    <div className="flex gap-4">
+      <Filter
+        filterField="discount"
+        options={[
+          { value: "", label: "All" },
+          { value: "without_discount", label: "Without discount" },
+          { value: "with_discount", label: "With discount" },
+        ]}
+      />
+
       <SortBy
         options={[
           { value: "", label: "Sort by default order" },
