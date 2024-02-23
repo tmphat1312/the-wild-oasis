@@ -16,7 +16,7 @@ import Settings from "./pages/settings/Settings";
 import Cabins from "./pages/cabins/Cabins";
 import Login from "./pages/auth/Login";
 import Account from "./pages/Account";
-import Users from "./pages/Users";
+import Users from "./pages/users/Users";
 
 const THIRTY_SECONDS = 30 * 1_000;
 const THREE_SECONDS = 3 * 1_000;

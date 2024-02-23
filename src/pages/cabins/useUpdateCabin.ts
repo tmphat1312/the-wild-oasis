@@ -1,12 +1,12 @@
 import { queryKeys } from "@/constants/query-keys";
-import { createCabin } from "@/services/APICabins";
+import { updateCabin } from "@/services/APICabins";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-export function useCreateCabin() {
+export function useUpdateCabin() {
   const queryClient = useQueryClient();
 
   const { isPending, error, mutate, mutateAsync } = useMutation({
-    mutationFn: createCabin,
+    mutationFn: updateCabin,
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: queryKeys.cabins,
@@ -15,9 +15,9 @@ export function useCreateCabin() {
   });
 
   return {
-    createCabinAsync: mutateAsync,
-    isCreating: isPending,
-    createCabin: mutate,
+    updateCabinAsync: mutateAsync,
+    isUpdating: isPending,
+    updateCabin: mutate,
     error,
   };
 }

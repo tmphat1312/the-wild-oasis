@@ -78,7 +78,7 @@ export default function UpdateSettingsForm({
       <FieldSeparator />
 
       <ButtonGroup>
-        <Button type="submit" disabled={isUpdating}>
+        <Button type="submit" isDisabled={isUpdating}>
           Save changes
         </Button>
       </ButtonGroup>
