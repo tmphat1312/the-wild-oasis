@@ -6,6 +6,8 @@ export const bookingStatusEnum = z.enum([
   "checked in",
 ]);
 
+export type BookingStatus = z.infer<typeof bookingStatusEnum>;
+
 export const bookingSchema = z.object({
   id: z.number(),
   created_at: z.string(),
