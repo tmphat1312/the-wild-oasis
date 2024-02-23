@@ -1,15 +1,15 @@
 import { cn } from "@/lib/utils";
-import { IconType } from "react-icons";
+import { LucideIcon } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
 type MainNavLinkProps = React.ComponentProps<typeof NavLink> & {
-  icon: IconType;
+  icon: LucideIcon;
   label: string;
 };
 
 export default function MainNavLink({
   className,
-  icon,
+  icon: Icon,
   label,
   ...props
 }: MainNavLinkProps) {
@@ -17,7 +17,7 @@ export default function MainNavLink({
     <NavLink
       className={({ isActive }) =>
         cn(
-          "flex items-center gap-2 rounded-sm px-4 py-3 font-medium",
+          "flex items-center gap-3 rounded-sm px-4 py-3 font-medium",
           "hover:bg-gray-50 [&:hover_svg]:stroke-brand-600",
           isActive && "bg-gray-50 [&_svg]:stroke-brand-600",
           className,
@@ -25,7 +25,7 @@ export default function MainNavLink({
       }
       {...props}
     >
-      {icon({ size: 22 })}
+      <Icon size={22} className="text-gray-500" />
       <span className="min-w-[14ch]">{label}</span>
     </NavLink>
   );

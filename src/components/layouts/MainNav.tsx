@@ -1,18 +1,12 @@
-import {
-  HiOutlineCalendarDays,
-  HiOutlineCog8Tooth,
-  HiOutlineHome,
-  HiOutlineHomeModern,
-  HiOutlineUsers,
-} from "react-icons/hi2";
 import MainNavLink from "../ui/MainNavLink";
+import { Home, CalendarDays, Warehouse, Users, Settings } from "lucide-react";
 
 const navLinks = [
-  { to: "/dashboard", label: "Dashboard", icon: HiOutlineHome },
-  { to: "/bookings", label: "Bookings", icon: HiOutlineCalendarDays },
-  { to: "/cabins", label: "Cabins", icon: HiOutlineHomeModern },
-  { to: "/users", label: "Users", icon: HiOutlineUsers },
-  { to: "/settings", label: "Settings", icon: HiOutlineCog8Tooth },
+  { to: "/dashboard", label: "Dashboard", icon: Home },
+  { to: "/bookings", label: "Bookings", icon: CalendarDays },
+  { to: "/cabins", label: "Cabins", icon: Warehouse },
+  { to: "/users", label: "Users", icon: Users },
+  { to: "/settings", label: "Settings", icon: Settings },
 ] as const;
 
 export default function MainNav() {
