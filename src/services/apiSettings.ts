@@ -1,11 +1,11 @@
 import { settingSchema } from "@/schemas/settingSchema";
 import { TablesUpdate } from "@/types/database";
-import { BuildAPIClient } from "./APIClient";
+import { buildAPIClient } from "./APIClient";
 
 const THE_ONLY_SETTING_ID = 1;
 
 export async function getSettings() {
-  const { data } = await BuildAPIClient("settings")
+  const { data } = await buildAPIClient("settings")
     .select()
     .single()
     .throwOnError();
@@ -17,7 +17,7 @@ type UpdateSettingArgs = {
   newSettings: TablesUpdate<"settings">;
 };
 export async function updateSettings({ newSettings }: UpdateSettingArgs) {
-  const { data } = await BuildAPIClient("settings")
+  const { data } = await buildAPIClient("settings")
     .update(newSettings)
     .eq("id", THE_ONLY_SETTING_ID)
     .select()
