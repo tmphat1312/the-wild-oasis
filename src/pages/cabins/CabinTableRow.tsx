@@ -13,7 +13,12 @@ export function CabinTableRow({ row }: CabinTableRowProps) {
   return (
     <Row className="text-sm">
       <Cell>
-        <img src={row.image} className="max-h-14" />
+        <img
+          src={row.image}
+          className="max-h-14 bg-brand-100"
+          width={88}
+          height={56}
+        />
       </Cell>
       <Cell className="font-display text-base font-medium">{row.name}</Cell>
       <Cell>Fits up to {pluralize("guests", row.max_capacity, true)}</Cell>
