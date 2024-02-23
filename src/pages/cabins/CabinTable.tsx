@@ -6,9 +6,19 @@ import { TableBody } from "@/components/ui/table/TableBody";
 import { TableHeader } from "@/components/ui/table/TableHeader";
 import { CabinTableRow } from "./CabinTableRow";
 import { useCabins } from "./useCabins";
+import { useClientSideSortItems } from "@/hooks/useClientSideSortItems";
+import { CabinValues } from "@/schemas/cabinSchema";
 
 export default function CabinTable() {
   const { isLoading, error, data } = useCabins();
+  const sortedItems = useClientSideSortItems<CabinValues>({
+    items: data ?? [],
+    sort: {
+      name: (a, b) => a.name.localeCompare(b.name),
+      regular_price: (a, b) => a.regular_price - b.regular_price,
+      max_capacity: (a, b) => a.max_capacity - b.max_capacity,
+    },
+  });
 
   if (error) {
     return <ErrorMessage message={error.message} />;
@@ -28,7 +38,7 @@ export default function CabinTable() {
         <HeaderColumn>Discount</HeaderColumn>
         <HeaderColumn />
       </TableHeader>
-      <TableBody items={data} renderEmptyState={() => "no results"}>
+      <TableBody items={sortedItems} renderEmptyState={() => "no results"}>
         {(row) => <CabinTableRow row={row} />}
       </TableBody>
     </Table>
