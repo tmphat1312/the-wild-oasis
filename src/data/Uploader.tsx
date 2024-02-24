@@ -12,6 +12,7 @@ import { TableRowNames } from "@/types/table-row";
 import { bookings } from "./bookings";
 import { cabins } from "./cabins";
 import { guests } from "./guests";
+import { QueryClient, useQueryClient } from "@tanstack/react-query";
 
 async function deleteResources(resourceName: TableRowNames) {
   await buildAPIClient(resourceName).delete().gt("id", 0).throwOnError();
@@ -88,6 +89,7 @@ async function createBookings() {
 
 export function Uploader() {
   const [isLoading, setIsLoading] = useState(false);
+  const queryClient = useQueryClient();
 
   async function uploadAll() {
     setIsLoading(true);
@@ -126,7 +128,7 @@ export function Uploader() {
       error: "Error uploading data",
     });
 
-    setIsLoading(false);
+    queryClient.invalidateQueries();
   }
 
   function uploadBookings() {
@@ -146,6 +148,8 @@ export function Uploader() {
       success: "Bookings uploaded",
       error: "Error uploading bookings",
     });
+
+    queryClient.invalidateQueries();
   }
 
   return (

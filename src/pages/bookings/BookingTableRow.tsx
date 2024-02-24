@@ -6,6 +6,7 @@ import { Cell } from "@/components/ui/table/Cell";
 import { Row } from "@/components/ui/table/Row";
 import { BookingStatus, BookingValues } from "@/schemas/bookingSchema";
 import pluralize from "pluralize";
+import { BookingRowActions } from "./BookingRowActions";
 
 interface BookingTableRowProps {
   row: BookingValues;
@@ -51,7 +52,9 @@ export function BookingTableRow({ row }: BookingTableRowProps) {
       <Cell className="font-display py-3 font-medium">
         <CurrencyPresenter amount={row.total_due} />
       </Cell>
-      <Cell>+++</Cell>
+      <Cell>
+        <BookingRowActions booking={row} />
+      </Cell>
     </Row>
   );
 }

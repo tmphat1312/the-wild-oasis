@@ -6,7 +6,7 @@ export default function AppLayout() {
   return (
     <div className="grid grid-cols-[auto_1fr] bg-gray-100">
       <Sidebar className="row-span-full" />
-      <div className="container grid h-dvh grid-rows-[auto_1fr] gap-y-6 px-8 py-3">
+      <div className="container grid h-dvh grid-rows-[auto_1fr] gap-y-6 p-8 pb-6 pt-2">
         <Header />
         <Main />
       </div>
