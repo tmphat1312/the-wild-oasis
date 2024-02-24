@@ -1,9 +1,10 @@
-import { type ClassValue, clsx } from "clsx";
+import { clsx, type ClassValue } from "clsx";
+import { differenceInDays, parseISO } from "date-fns";
 import { composeRenderProps } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
 import { tv } from "tailwind-variants";
 
-import { differenceInDays, parseISO } from "date-fns";
+import { ITEMS_PER_PAGE } from "@/constants/API";
 
 export function subtractDates(date1: string | Date, date2: string | Date) {
   return differenceInDays(parseISO(String(date1)), parseISO(String(date2)));
