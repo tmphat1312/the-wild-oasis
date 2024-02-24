@@ -3,6 +3,7 @@ import { deleteBookingById } from "@/services/APIBookings";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
+// TODO: Accept bookingId as an argument
 export function useDeleteBookingById() {
   const queryClient = useQueryClient();
 

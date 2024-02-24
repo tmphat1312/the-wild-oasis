@@ -4,7 +4,8 @@ import { BookingDetailValues } from "@/schemas/bookingSchema";
 import { useDeleteBookingById } from "../bookings/useDeleteBookingById";
 import { ConfirmDelete } from "@/components/ui/ConfirmDelete-v1";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { Fragment, useState } from "react";
+import { useCheckoutBooking } from "../bookings/useCheckoutBooking";
 
 interface BookingActionsProps {
   bookingId: BookingDetailValues["id"];
@@ -17,10 +18,15 @@ export function BookingActions({
 }: BookingActionsProps) {
   const [isOpen, setIsOpen] = useState(false);
   const { isDeleting, deleteBooking } = useDeleteBookingById();
+  const { isCheckingOut, checkoutBooking } = useCheckoutBooking({ bookingId });
   const navigate = useNavigate();
 
   function handleDelete() {
     deleteBooking({ bookingId }, { onSuccess: () => navigate("/bookings") });
+  }
+
+  function handleCheckOut() {
+    checkoutBooking();
   }
 
   function handleOpenModal() {
@@ -30,6 +36,8 @@ export function BookingActions({
   function handleCloseModal() {
     setIsOpen(false);
   }
+
+  const isWorking = isDeleting || isCheckingOut;
 
   return (
     <div className="space-x-3 text-end">
@@ -41,15 +49,23 @@ export function BookingActions({
         onAction={handleDelete}
       />
       {bookingStatus === "unconfirmed" && (
-        <Button
-          variant="destructive"
-          onPress={handleOpenModal}
-          isDisabled={isDeleting}
-        >
-          Delete booking
+        <Fragment>
+          <Button isDisabled={isWorking}>Check in</Button>
+          <Button
+            variant="destructive"
+            onPress={handleOpenModal}
+            isDisabled={isWorking}
+          >
+            Delete booking
+          </Button>
+        </Fragment>
+      )}
+      {bookingStatus === "checked in" && (
+        <Button isDisabled={isWorking} onPress={handleCheckOut}>
+          Check out
         </Button>
       )}
-      <BackButton />
+      <BackButton disabled={isWorking} />
     </div>
   );
 }

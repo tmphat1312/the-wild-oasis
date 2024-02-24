@@ -93,3 +93,19 @@ export async function deleteBookingById({ bookingId }: DeleteBookingArgs) {
     throw Error(`Cannot delete booking #${bookingId}!`);
   }
 }
+
+interface CheckOutBookingArgs {
+  bookingId: BookingDetailValues["id"];
+}
+
+export async function checkOutBooking({ bookingId }: CheckOutBookingArgs) {
+  try {
+    await buildAPIClient("bookings")
+      .update({ status: "checked out" })
+      .eq("id", bookingId)
+      .throwOnError();
+  } catch (error) {
+    console.error(error);
+    throw Error(`Cannot check out booking #${bookingId}!`);
+  }
+}

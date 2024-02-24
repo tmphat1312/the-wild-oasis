@@ -9,6 +9,7 @@ import { BookingValues } from "@/schemas/bookingSchema";
 import { Key } from "react-aria-components";
 import { useNavigate } from "react-router-dom";
 import { useDeleteBookingById } from "./useDeleteBookingById";
+import { useCheckoutBooking } from "./useCheckoutBooking";
 
 interface BookingTableRowActionsProps {
   booking: BookingValues;
@@ -25,12 +26,15 @@ export function BookingRowActions({ booking }: BookingTableRowActionsProps) {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const { deleteBooking } = useDeleteBookingById();
+  const { checkoutBooking } = useCheckoutBooking({ bookingId: booking.id });
 
   function handleAction(key: Key) {
     if (key == MenuActionKeys.SeeDetails) {
       navigate(`/bookings/${booking.id}`);
     } else if (key == MenuActionKeys.Delete) {
       setIsOpen(true);
+    } else if (key == MenuActionKeys.CheckOut) {
+      checkoutBooking();
     } else {
       alert(`Action: ${key}`);
     }
