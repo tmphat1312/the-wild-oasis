@@ -1,5 +1,9 @@
 import { ITEMS_PER_PAGE } from "@/constants/API";
-import { bookingArraySchema } from "@/schemas/bookingSchema";
+import {
+  BookingDetailValues,
+  bookingArraySchema,
+  bookingDetailSchema,
+} from "@/schemas/bookingSchema";
 import { FilterFieldOption, SortFieldOption } from "@/types/API";
 import { buildAPIClient } from "./APIClient";
 
@@ -52,5 +56,24 @@ export async function getBookings({
   } catch (error) {
     console.error(error);
     throw Error("Error fetching bookings");
+  }
+}
+
+interface GetBookingArgs {
+  bookingId: BookingDetailValues["id"];
+}
+
+export async function getBooking({ bookingId }: GetBookingArgs) {
+  try {
+    const { data } = await buildAPIClient("bookings")
+      .select("*, cabins(*), guests(*)")
+      .eq("id", bookingId)
+      .single()
+      .throwOnError();
+
+    return bookingDetailSchema.parse(data);
+  } catch (error) {
+    console.error(error);
+    throw Error(`Booking #${bookingId} not found`);
   }
 }

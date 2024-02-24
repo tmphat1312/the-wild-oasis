@@ -11,6 +11,7 @@ import AppLayout from "./components/layouts/AppLayout";
 
 import RootErrorBoundary from "./pages/RootErrorBoundary";
 import Dashboard from "./pages/dashboard/Dashboard";
+import { Booking } from "./pages/booking/Booking";
 import Bookings from "./pages/bookings/Bookings";
 import Settings from "./pages/settings/Settings";
 import Cabins from "./pages/cabins/Cabins";
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: "bookings",
         element: <Bookings />,
+      },
+      {
+        path: "bookings/:bookingId",
+        element: <Booking />,
       },
       {
         path: "cabins",

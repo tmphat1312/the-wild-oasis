@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { guestSchema } from "./guestSchema";
+import { cabinSchema } from "./cabinSchema";
 
 export const bookingStatusEnum = z.enum([
   "unconfirmed",
@@ -29,3 +31,13 @@ export const bookingSchema = z.object({
 export const bookingArraySchema = z.array(bookingSchema);
 
 export type BookingValues = z.infer<typeof bookingSchema>;
+
+export const bookingDetailSchema = bookingSchema.extend({
+  has_breakfast: z.boolean(),
+  is_paid: z.boolean(),
+  observations: z.string().optional().default(""),
+  cabins: cabinSchema,
+  guests: guestSchema,
+});
+
+export type BookingDetailValues = z.infer<typeof bookingDetailSchema>;
