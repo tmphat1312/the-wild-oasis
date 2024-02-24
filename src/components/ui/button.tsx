@@ -20,7 +20,7 @@ const buttonVariants = tv({
       icon: "border-0 p-1 flex items-center justify-center text-gray-600 hover:bg-black/[5%] active:bg-black/10 dark:text-zinc-400 disabled:bg-transparent",
     },
     isDisabled: {
-      true: "disabled:bg-gray-100 disabled:text-gray-300 disabled:border-black/5",
+      true: "disabled:opacity-50 disabled:pointer-events-none",
     },
   },
   defaultVariants: {
