@@ -22,7 +22,10 @@ export function BookingActions({
   const navigate = useNavigate();
 
   function handleDelete() {
-    deleteBooking({ bookingId }, { onSuccess: () => navigate("/bookings") });
+    deleteBooking(
+      { bookingId },
+      { onSuccess: () => navigate("/bookings", { replace: true }) },
+    );
   }
 
   function handleCheckOut() {
@@ -31,6 +34,10 @@ export function BookingActions({
 
   function handleOpenModal() {
     setIsOpen(true);
+  }
+
+  function handleCheckIn() {
+    navigate(`/check-in/${bookingId}`);
   }
 
   function handleCloseModal() {
@@ -50,7 +57,9 @@ export function BookingActions({
       />
       {bookingStatus === "unconfirmed" && (
         <Fragment>
-          <Button isDisabled={isWorking}>Check in</Button>
+          <Button isDisabled={isWorking} onPress={handleCheckIn}>
+            Check in
+          </Button>
           <Button
             variant="destructive"
             onPress={handleOpenModal}

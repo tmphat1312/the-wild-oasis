@@ -109,3 +109,20 @@ export async function checkOutBooking({ bookingId }: CheckOutBookingArgs) {
     throw Error(`Cannot check out booking #${bookingId}!`);
   }
 }
+
+interface UpdateBookingArgs {
+  bookingId: BookingDetailValues["id"];
+  data: Partial<BookingDetailValues>;
+}
+
+export async function updateBooking({ bookingId, data }: UpdateBookingArgs) {
+  try {
+    await buildAPIClient("bookings")
+      .update(data)
+      .eq("id", bookingId)
+      .throwOnError();
+  } catch (error) {
+    console.error(error);
+    throw Error(`Cannot update booking #${bookingId}!`);
+  }
+}

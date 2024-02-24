@@ -18,6 +18,7 @@ import Cabins from "./pages/cabins/Cabins";
 import Login from "./pages/auth/Login";
 import Account from "./pages/Account";
 import Users from "./pages/users/Users";
+import { CheckIn } from "./pages/booking/CheckIn";
 
 const THIRTY_SECONDS = 30 * 1_000;
 const THREE_SECONDS = 3 * 1_000;
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: "bookings/:bookingId",
         element: <Booking />,
+      },
+      {
+        path: "check-in/:bookingId",
+        element: <CheckIn />,
       },
       {
         path: "cabins",

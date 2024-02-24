@@ -35,8 +35,10 @@ export function BookingRowActions({ booking }: BookingTableRowActionsProps) {
       setIsOpen(true);
     } else if (key == MenuActionKeys.CheckOut) {
       checkoutBooking();
+    } else if (key == MenuActionKeys.CheckIn) {
+      navigate(`/check-in/${booking.id}`);
     } else {
-      alert(`Action: ${key}`);
+      throw Error(`Unhandled action key: ${key}`);
     }
   }
 
