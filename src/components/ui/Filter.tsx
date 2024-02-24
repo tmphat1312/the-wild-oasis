@@ -49,7 +49,7 @@ export function Filter({ filterField, options }: FilterProps) {
     if (value === currentFilter) return;
 
     if (currentPage) {
-      searchParams.set("page", "1");
+      searchParams.delete("page");
     }
 
     if (value == "") {
