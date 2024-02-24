@@ -7,10 +7,10 @@ interface BackButtonProps extends React.ComponentPropsWithoutRef<"button"> {
 }
 
 const backButtonVariants = tv({
-  base: "font-medium px-4 py-3 text-center rounded-md text-sm",
+  base: "font-medium px-4 py-3 text-center rounded-md text-sm disabled:opacity-50 disabled:pointer-events-none",
   variants: {
     variant: {
-      default: "bg-background border",
+      default: "bg-background hover:bg-gray-50 border",
       text: "text-brand-600 hover:bg-brand-100",
     },
   },
