@@ -36,7 +36,7 @@ export function Pagination({ count }: PaginationProps) {
   }
 
   return (
-    <div className="flex items-center justify-between rounded-md border bg-background px-5 py-2.5 text-sm shadow">
+    <div className="flex items-center justify-between rounded-md border bg-background px-6 py-2.5 text-sm shadow">
       <div>
         Showing
         <span className="font-medium">&nbsp;{from}&nbsp;</span> to
