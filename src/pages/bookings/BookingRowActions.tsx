@@ -8,6 +8,7 @@ import { MenuItem } from "@/components/ui/menu/MenuItem";
 import { BookingValues } from "@/schemas/bookingSchema";
 import { Key } from "react-aria-components";
 import { useNavigate } from "react-router-dom";
+import { useDeleteBookingById } from "./useDeleteBookingById";
 
 interface BookingTableRowActionsProps {
   booking: BookingValues;
@@ -23,10 +24,13 @@ enum MenuActionKeys {
 export function BookingRowActions({ booking }: BookingTableRowActionsProps) {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+  const { deleteBooking } = useDeleteBookingById();
 
   function handleAction(key: Key) {
     if (key == MenuActionKeys.SeeDetails) {
       navigate(`/bookings/${booking.id}`);
+    } else if (key == MenuActionKeys.Delete) {
+      setIsOpen(true);
     } else {
       alert(`Action: ${key}`);
     }
@@ -39,23 +43,27 @@ export function BookingRowActions({ booking }: BookingTableRowActionsProps) {
   return (
     <Fragment>
       <ConfirmDelete
-        title="Delete cabin"
-        description="Are you sure you want to delete this cabin? This action cannot be undone."
+        title="Delete booking"
+        description="Are you sure you want to delete this booking? This action cannot be undone."
         isOpen={isOpen}
         closeFn={handleCloseModal}
-        // onAction={deleteCabin}
+        onAction={() => deleteBooking({ bookingId: booking.id })}
       />
 
       <MenuButton onAction={handleAction}>
         <MenuItem icon={Eye} id={MenuActionKeys.SeeDetails}>
           See details
         </MenuItem>
-        <MenuItem icon={LogOut} id={MenuActionKeys.CheckOut}>
-          Check out
-        </MenuItem>
-        <MenuItem icon={LogIn} id={MenuActionKeys.CheckIn}>
-          Check in
-        </MenuItem>
+        {booking.status == "unconfirmed" && (
+          <MenuItem icon={LogIn} id={MenuActionKeys.CheckIn}>
+            Check in
+          </MenuItem>
+        )}
+        {booking.status == "checked in" && (
+          <MenuItem icon={LogOut} id={MenuActionKeys.CheckOut}>
+            Check out
+          </MenuItem>
+        )}
         <MenuItem icon={Trash} id={MenuActionKeys.Delete} variant="destructive">
           Delete booking
         </MenuItem>

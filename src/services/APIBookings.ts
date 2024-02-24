@@ -77,3 +77,19 @@ export async function getBooking({ bookingId }: GetBookingArgs) {
     throw Error(`Booking #${bookingId} not found`);
   }
 }
+
+interface DeleteBookingArgs {
+  bookingId: BookingDetailValues["id"];
+}
+
+export async function deleteBookingById({ bookingId }: DeleteBookingArgs) {
+  try {
+    await buildAPIClient("bookings")
+      .delete()
+      .eq("id", bookingId)
+      .throwOnError();
+  } catch (error) {
+    console.error(error);
+    throw Error(`Cannot delete booking #${bookingId}!`);
+  }
+}
