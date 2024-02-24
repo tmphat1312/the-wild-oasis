@@ -1,12 +1,19 @@
 import { bookingArraySchema } from "@/schemas/bookingSchema";
 import { buildAPIClient } from "./APIClient";
-import { FilterFieldOption } from "@/types/API";
+import { FilterFieldOption, SortFieldOption } from "@/types/API";
 
 interface GetBookingsArgs {
   filterOptions?: FilterFieldOption[];
+  sortOption?: SortFieldOption;
 }
 
-export async function getBookings({ filterOptions = [] }: GetBookingsArgs) {
+export async function getBookings({
+  filterOptions = [],
+  sortOption = {
+    field: "",
+    order: { ascending: true },
+  },
+}: GetBookingsArgs) {
   let query = buildAPIClient("bookings").select(
     "id, created_at, start_date, end_date, no_nights, no_guests, status, total_due, cabins(name), guests(full_name, email)",
     { count: "exact" },
@@ -19,9 +26,13 @@ export async function getBookings({ filterOptions = [] }: GetBookingsArgs) {
     }
   });
 
+  // Sort bookings
+  if (sortOption.field) {
+    query = query.order(sortOption.field, sortOption.order);
+  }
+
   try {
     const { data, count } = await query.throwOnError();
-    // .eq("status", "checked in")
     // .range(0, 9)
 
     const bookings = bookingArraySchema.parse(data);

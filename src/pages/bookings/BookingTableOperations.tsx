@@ -13,6 +13,19 @@ export function BookingTableOperations() {
           { value: "unconfirmed", label: "Unconfirmed" },
         ]}
       />
+
+      <SortBy
+        options={[
+          { value: "", label: "Sort by default order" },
+          { value: "start_date-desc", label: "Sort by date (recent first)" },
+          { value: "start_date-asc", label: "Sort by date (earlier first)" },
+          {
+            value: "total_due-desc",
+            label: "Sort by amount (high first)",
+          },
+          { value: "total_due-asc", label: "Sort by amount (low first)" },
+        ]}
+      />
     </div>
   );
 }
