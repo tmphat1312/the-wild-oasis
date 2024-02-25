@@ -1,10 +1,13 @@
 import logoSrc from "@/assets/images/logo-light.png";
+import { cn } from "@/lib/utils";
 
-export default function Logo() {
+interface LogoProps extends React.ComponentPropsWithoutRef<"div"> {}
+
+export default function Logo(props: LogoProps) {
   return (
-    <div className="grid justify-items-center">
+    <div className={cn("grid justify-items-center", props.className)}>
       <img
-        height={96}
+        height={84}
         src={logoSrc}
         alt="Logo of the app"
         className="max-h-[84px]"
