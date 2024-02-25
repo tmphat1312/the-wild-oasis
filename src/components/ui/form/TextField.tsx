@@ -10,7 +10,7 @@ import { Description, FieldError, Input, Label } from "./Field";
 
 const inputStyles = tv({
   extend: focusRing,
-  base: "border-2 border-s-4 rounded-md m-full max-w-[32ch]",
+  base: "border-2 border-s-4 rounded-md w-full max-w-[48ch]",
   variants: {
     isFocused: fieldBorderStyles.variants.isFocusWithin,
     ...fieldBorderStyles.variants,

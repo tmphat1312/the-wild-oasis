@@ -14,3 +14,5 @@ export const buildAPIClient = (resource: TableRowNames) =>
   APIClient.from(resource);
 
 export const buildStorageAPIClient = () => APIClient.storage;
+
+export const buildAuthAPIClient = () => APIClient.auth;
