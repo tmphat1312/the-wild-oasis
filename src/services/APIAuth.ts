@@ -51,3 +51,34 @@ export async function getCurrentUser() {
 
   return userSchema.parse(user);
 }
+
+interface SignUpUserArgs {
+  email: string;
+  password: string;
+  full_name: string;
+}
+export async function signUpUser({
+  email,
+  password,
+  full_name,
+}: SignUpUserArgs) {
+  const { error } = await buildAuthAPIClient().signUp({
+    email,
+    password,
+    options: {
+      data: {
+        full_name,
+      },
+    },
+  });
+
+  if (error) {
+    console.log(error);
+
+    if (error.status === 400) {
+      throw Error("Invalid sign up credentials. Please try again.");
+    }
+
+    throw error;
+  }
+}
