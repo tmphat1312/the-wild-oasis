@@ -23,7 +23,7 @@ export function LoginForm() {
 
   return (
     <Form
-      className="w-full max-w-md space-y-5 rounded-md bg-background p-10 shadow"
+      className="mx-2 w-full max-w-[400px] space-y-5 rounded-md bg-background p-10 shadow"
       onSubmit={handleSubmit}
     >
       <TextField
