@@ -24,6 +24,15 @@ export async function loginUser({ email, password }: LoginUserArgs) {
   return authSchema.parse(data);
 }
 
+export async function logoutUser() {
+  const { error } = await buildAuthAPIClient().signOut();
+
+  if (error) {
+    console.log(error);
+    throw Error("Failed to log out");
+  }
+}
+
 export async function getCurrentUser() {
   const { data: sessionData } = await buildAuthAPIClient().getSession();
 
