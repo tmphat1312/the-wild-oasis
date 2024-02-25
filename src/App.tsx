@@ -19,6 +19,8 @@ import Login from "./pages/auth/Login";
 import Account from "./pages/Account";
 import Users from "./pages/users/Users";
 import { CheckIn } from "./pages/booking/CheckIn";
+import { ProtectedRoute } from "./components/layouts/ProtectedRoute";
+import { OnlyPublicRoute } from "./components/layouts/OnlyPublicRoute";
 
 const THIRTY_SECONDS = 30 * 1_000;
 const THREE_SECONDS = 3 * 1_000;
@@ -34,7 +36,11 @@ const queryClient = new QueryClient({
 
 const router = createBrowserRouter([
   {
-    element: <AppLayout />,
+    element: (
+      <ProtectedRoute>
+        <AppLayout />
+      </ProtectedRoute>
+    ),
     errorElement: <RootErrorBoundary />,
     children: [
       {
@@ -76,8 +82,13 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "login",
-    element: <Login />,
+    element: <OnlyPublicRoute />,
+    children: [
+      {
+        path: "login",
+        element: <Login />,
+      },
+    ],
   },
 ]);
 
