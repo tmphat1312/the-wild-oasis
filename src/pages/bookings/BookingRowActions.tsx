@@ -2,7 +2,7 @@ import { Eye, LogIn, LogOut, Trash } from "lucide-react";
 import { Fragment, useState } from "react";
 // import { Key } from "react-aria-components";
 
-import { ConfirmDelete } from "@/components/ui/ConfirmDelete-v1";
+import { ConfirmDelete } from "@/components/ui/ConfirmDelete";
 import { MenuButton } from "@/components/ui/menu/MenuButton";
 import { MenuItem } from "@/components/ui/menu/MenuItem";
 import { BookingValues } from "@/schemas/bookingSchema";
