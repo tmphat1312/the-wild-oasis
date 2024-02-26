@@ -1,1 +1,1 @@
-export { toast } from "react-hot-toast";
+export * from "react-hot-toast";
