@@ -3,6 +3,7 @@ import {
   BookingDetailValues,
   bookingArraySchema,
   bookingDetailSchema,
+  statisticsBookingArraySchema,
 } from "@/schemas/bookingSchema";
 import { FilterFieldOption, SortFieldOption } from "@/types/API";
 import { buildAPIClient } from "./APIClient";
@@ -124,5 +125,32 @@ export async function updateBooking({ bookingId, data }: UpdateBookingArgs) {
   } catch (error) {
     console.error(error);
     throw Error(`Cannot update booking #${bookingId}!`);
+  }
+}
+
+interface GetBookingFromLastNDaysArgs {
+  n: number;
+}
+
+export async function getBookingFromLastNDays({
+  n: lastNDays,
+}: GetBookingFromLastNDaysArgs) {
+  const today = new Date();
+  const startDate = new Date(today);
+  startDate.setDate(today.getDate() - lastNDays);
+
+  try {
+    const { data } = await buildAPIClient("bookings")
+      .select(
+        "id, start_date, end_date, total_due, created_at, status, no_nights, guests(*)",
+      )
+      .gte("created_at", startDate.toISOString())
+      .lte("created_at", today.toISOString())
+      .throwOnError();
+
+    return statisticsBookingArraySchema.parse(data);
+  } catch (error) {
+    console.error(error);
+    throw Error("Error fetching bookings from last N days");
   }
 }
