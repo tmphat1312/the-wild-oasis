@@ -16,7 +16,7 @@ export function ButtonIcon({
       className={cn(
         "inline-flex size-7 items-center rounded p-1",
         "text-brand-600 [&_svg]:text-current",
-        "[&:not(:disabled)]hover:bg-muted",
+        "[&:not(:disabled)]:hover:bg-brand-50",
         "disabled:opacity-50 disabled:grayscale",
         props.className,
       )}
