@@ -28,7 +28,7 @@ export function UserInfo() {
         src={user_metadata.avatar || defaultUserAvt}
         alt="user avatar"
       />
-      <div className="font-display font-medium">{user_metadata.full_name}</div>
+      <div className="text-sm font-medium">{user_metadata.full_name}</div>
     </div>
   );
 }
