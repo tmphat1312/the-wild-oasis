@@ -1,5 +1,12 @@
 import { StatisticsBookingValues } from "@/schemas/bookingSchema";
 import { DashboardBox } from "./DashboardBox";
+import {
+  BadgeDollarSign,
+  CalendarCheck,
+  CalendarPlus,
+  NotebookPen,
+} from "lucide-react";
+import CurrencyPresenter from "@/components/presenters/CurrencyPresenter";
 
 interface BookingStatisticsProps {
   bookings: StatisticsBookingValues[];
@@ -34,10 +41,64 @@ export function BookingStatistics({ bookings }: BookingStatisticsProps) {
 
   return (
     <div className="grid grid-cols-4 gap-[inherit]">
-      <DashboardBox>{statistics.noBookings}</DashboardBox>
-      <DashboardBox>{statistics.totalSales}</DashboardBox>
-      <DashboardBox>{statistics.noCheckIns}</DashboardBox>
-      <DashboardBox>{statistics.noCheckOuts}</DashboardBox>
+      <DashboardBox>
+        <div className="grid grid-cols-[auto_1fr] items-center gap-4">
+          <div
+            role="presentation"
+            className="flex size-12 items-center justify-center rounded-full bg-blue-100 text-blue-700"
+          >
+            <NotebookPen size={22} />
+          </div>
+          <div className="font-medium">
+            <div className="text-xs uppercase">Bookings</div>
+            <div className="text-lg">{statistics.noBookings}</div>
+          </div>
+        </div>
+      </DashboardBox>
+      <DashboardBox>
+        <div className="grid grid-cols-[auto_1fr] items-center gap-4">
+          <div
+            role="presentation"
+            className="flex size-12 items-center justify-center rounded-full bg-green-100 text-green-700"
+          >
+            <BadgeDollarSign size={22} />
+          </div>
+          <div className="font-medium">
+            <div className="text-xs uppercase">Sales</div>
+            <div className="text-lg">
+              <CurrencyPresenter amount={statistics.totalSales} />
+            </div>
+          </div>
+        </div>
+      </DashboardBox>
+      <DashboardBox>
+        <div className="grid grid-cols-[auto_1fr] items-center gap-4">
+          <div
+            role="presentation"
+            className="flex size-12 items-center justify-center rounded-full bg-orange-100 text-orange-700"
+          >
+            <CalendarPlus size={22} />
+          </div>
+          <div className="font-medium">
+            <div className="text-xs uppercase">Check ins</div>
+            <div className="text-lg">{statistics.noCheckIns}</div>
+          </div>
+        </div>
+      </DashboardBox>
+      <DashboardBox>
+        <div className="grid grid-cols-[auto_1fr] items-center gap-4">
+          <div
+            role="presentation"
+            className="flex size-12 items-center justify-center rounded-full bg-yellow-100 text-yellow-700"
+          >
+            <CalendarCheck size={22} />
+          </div>
+          <div className="font-medium">
+            <div className="text-xs uppercase">Check outs</div>
+            <div className="text-lg">{statistics.noCheckOuts}</div>
+          </div>
+        </div>
+      </DashboardBox>
     </div>
   );
 }
