@@ -16,7 +16,7 @@ import Bookings from "./pages/bookings/Bookings";
 import Settings from "./pages/settings/Settings";
 import Cabins from "./pages/cabins/Cabins";
 import Login from "./pages/auth/Login";
-import Account from "./pages/Account";
+import Account from "./pages/Account/Account";
 import Users from "./pages/users/Users";
 import { CheckIn } from "./pages/booking/CheckIn";
 import { ProtectedRoute } from "./components/layouts/ProtectedRoute";

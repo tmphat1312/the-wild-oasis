@@ -82,3 +82,35 @@ export async function signUpUser({
     throw error;
   }
 }
+
+interface UpdateUserDataArgs {
+  data: {
+    full_name: string;
+  };
+}
+
+export async function updateUserData({ data }: UpdateUserDataArgs) {
+  const { error } = await buildAuthAPIClient().updateUser({
+    data,
+  });
+
+  if (error) {
+    throw error;
+  }
+}
+
+interface UpdateUserPasswordArgs {
+  newPassword: string;
+}
+
+export async function updateUserPassword({
+  newPassword,
+}: UpdateUserPasswordArgs) {
+  const { error } = await buildAuthAPIClient().updateUser({
+    password: newPassword,
+  });
+
+  if (error) {
+    throw error;
+  }
+}

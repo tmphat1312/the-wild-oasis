@@ -6,7 +6,7 @@ import { z } from "zod";
 type HeadingProps = React.HTMLAttributes<HTMLHeadingElement>;
 
 const headingVariants = tv({
-  base: "font-semibold tracking-wider",
+  base: "font-semibold tracking-wider first-letter:capitalize",
   variants: {
     level: {
       h1: "text-3xl mb-6",
