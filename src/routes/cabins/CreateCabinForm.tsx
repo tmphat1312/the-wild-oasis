@@ -12,9 +12,9 @@ import { cabinSchema } from "@/schemas/cabinSchema";
 import { CabinImageUpload } from "./CabinImageUpload";
 import { useCreateCabin } from "./useCreateCabin";
 
-interface CreateCabinFormProps {
+type CreateCabinFormProps = {
   closeModal: () => void;
-}
+};
 
 export function CreateCabinForm({ closeModal }: CreateCabinFormProps) {
   const [file, setFile] = useState<File | null>(null);

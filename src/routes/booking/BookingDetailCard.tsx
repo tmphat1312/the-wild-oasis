@@ -12,9 +12,9 @@ import {
 } from "lucide-react";
 import pluralize from "pluralize";
 
-interface BookingDetailCardProps {
+type BookingDetailCardProps = {
   booking: BookingDetailValues;
-}
+};
 
 export function BookingDetailCard({ booking }: BookingDetailCardProps) {
   return (

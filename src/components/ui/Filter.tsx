@@ -1,10 +1,10 @@
 import { useSearchParams } from "react-router-dom";
 
-interface FilterProps {
+type FilterProps = {
   filterField: string;
   defaultValue?: string;
   options: { value: string; label: string }[];
-}
+};
 
 export function Filter({
   filterField,

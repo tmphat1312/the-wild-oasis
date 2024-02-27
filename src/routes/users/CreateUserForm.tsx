@@ -2,12 +2,12 @@ import { FieldSeparator } from "@/components/ui/form/FieldSeparator";
 import { useForm } from "react-hook-form";
 import { useSignUpUser } from "./useSignUpUser";
 
-interface CreateUserFormFields {
+type CreateUserFormFields = {
   full_name: string;
   email: string;
   password: string;
   confirm_password: string;
-}
+};
 
 export function CreateUserForm() {
   const {

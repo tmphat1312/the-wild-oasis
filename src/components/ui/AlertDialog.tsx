@@ -6,7 +6,7 @@ import { DialogProps, Heading } from "react-aria-components";
 import { Button } from "./Button";
 import { Dialog } from "./Dialog";
 
-interface AlertDialogProps extends Omit<DialogProps, "children"> {
+type AlertDialogProps = Omit<DialogProps, "children"> & {
   title: string;
   children: React.ReactNode;
   variant?: "info" | "destructive";
@@ -14,7 +14,7 @@ interface AlertDialogProps extends Omit<DialogProps, "children"> {
   cancelLabel?: string;
   onClose?: () => void;
   onAction?: () => void;
-}
+};
 
 export function AlertDialog({
   title,

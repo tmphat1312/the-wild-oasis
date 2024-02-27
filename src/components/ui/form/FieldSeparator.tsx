@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-interface FieldSeparatorProps extends React.ComponentPropsWithoutRef<"hr"> {}
+type FieldSeparatorProps = React.ComponentPropsWithoutRef<"hr">;
 
 export function FieldSeparator(props: FieldSeparatorProps) {
   return (

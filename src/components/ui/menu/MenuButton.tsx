@@ -8,9 +8,7 @@ import {
   type MenuTriggerProps,
 } from "react-aria-components";
 
-interface MyMenuButtonProps<T>
-  extends MenuProps<T>,
-    Omit<MenuTriggerProps, "children"> {}
+type MyMenuButtonProps<T> = MenuProps<T> & Omit<MenuTriggerProps, "children">;
 
 export function MenuButton<T extends object>({
   children,

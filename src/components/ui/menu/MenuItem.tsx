@@ -5,10 +5,10 @@ import {
   type MenuItemProps as RACMenuItemProps,
 } from "react-aria-components";
 
-interface MenuItemProps extends RACMenuItemProps {
+type MenuItemProps = RACMenuItemProps & {
   icon?: LucideIcon;
   variant?: "default" | "destructive";
-}
+};
 
 export function MenuItem(props: MenuItemProps) {
   const textValue =

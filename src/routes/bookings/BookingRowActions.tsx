@@ -11,9 +11,9 @@ import { useNavigate } from "react-router-dom";
 import { useDeleteBookingById } from "./useDeleteBookingById";
 import { useCheckoutBooking } from "./useCheckoutBooking";
 
-interface BookingTableRowActionsProps {
+type BookingTableRowActionsProps = {
   booking: BookingValues;
-}
+};
 
 enum MenuActionKeys {
   SeeDetails = "see-details",

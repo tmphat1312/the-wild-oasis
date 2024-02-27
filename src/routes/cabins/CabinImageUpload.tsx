@@ -6,12 +6,12 @@ import {
   Button as RACButton,
 } from "react-aria-components";
 
-interface CabinImageUploadProps {
+type CabinImageUploadProps = {
   onDeselectFile: () => void;
   onSelectFile: (file: File) => void;
   previewCabinImage: string | null;
   isImageRequired: boolean;
-}
+};
 
 export function CabinImageUpload({
   previewCabinImage,

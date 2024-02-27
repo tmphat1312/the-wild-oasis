@@ -5,9 +5,9 @@ import { CabinValues } from "@/schemas/cabinSchema";
 import pluralize from "pluralize";
 import { CabinTableRowActions } from "./CabinTableRowActions";
 
-interface CabinTableRowProps {
+type CabinTableRowProps = {
   row: CabinValues;
-}
+};
 
 export function CabinTableRow({ row }: CabinTableRowProps) {
   return (

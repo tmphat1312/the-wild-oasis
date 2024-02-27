@@ -2,9 +2,9 @@ import { ITEMS_PER_PAGE } from "@/lib/constants";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
 
-interface PaginationProps {
+type PaginationProps = {
   count: number;
-}
+};
 
 export function Pagination({ count }: PaginationProps) {
   const [searchParams, setSearchParams] = useSearchParams();

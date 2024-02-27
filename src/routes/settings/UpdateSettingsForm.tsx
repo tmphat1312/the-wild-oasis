@@ -7,9 +7,9 @@ import { useUpdateSettings } from "./useUpdateSettings";
 import { FieldSeparator } from "@/components/ui/form/FieldSeparator";
 import { toast } from "@/lib/toast";
 
-interface UpdateSettingsFormProps {
+type UpdateSettingsFormProps = {
   currentSettings: SettingValues;
-}
+};
 
 export default function UpdateSettingsForm({
   currentSettings,

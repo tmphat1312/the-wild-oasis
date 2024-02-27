@@ -4,9 +4,9 @@ import { BookingDetailValues } from "@/schemas/bookingSchema";
 import { checkOutBooking } from "@/services/APIBookings";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-interface UseCheckoutBookingArgs {
+type UseCheckoutBookingArgs = {
   bookingId: BookingDetailValues["id"];
-}
+};
 
 export function useCheckoutBooking({ bookingId }: UseCheckoutBookingArgs) {
   const queryClient = useQueryClient();

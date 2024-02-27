@@ -1,11 +1,11 @@
-export interface FilterFieldOption {
+export type FilterFieldOption = {
   field: string;
   value: string;
-}
+};
 
-export interface SortFieldOption {
+export type SortFieldOption = {
   field: string;
   order: {
     ascending: boolean;
   };
-}
+};

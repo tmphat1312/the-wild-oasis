@@ -11,7 +11,7 @@ import { Button } from "./Button";
 import { Dialog } from "./Dialog";
 import { Modal } from "./Modal";
 
-interface ConfirmDeleteProps extends Omit<DialogTriggerProps, "children"> {
+type ConfirmDeleteProps = Omit<DialogTriggerProps, "children"> & {
   title: string;
   description: string;
   actionLabel?: string;
@@ -19,7 +19,7 @@ interface ConfirmDeleteProps extends Omit<DialogTriggerProps, "children"> {
   onClose?: () => void;
   onAction?: () => void;
   closeFn?: () => void;
-}
+};
 
 export function ConfirmDelete({
   title,

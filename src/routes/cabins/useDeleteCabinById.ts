@@ -4,10 +4,10 @@ import { CabinValues } from "@/schemas/cabinSchema";
 import { deleteCabinById } from "@/services/APICabins";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-interface UseDeleteCabinByIdProps {
+type UseDeleteCabinByIdProps = {
   cabinId: CabinValues["id"];
   cabinImage: CabinValues["image"];
-}
+};
 
 export function useDeleteCabinById({
   cabinId,

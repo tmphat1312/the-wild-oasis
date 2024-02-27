@@ -4,9 +4,9 @@ import { FieldSeparator } from "@/components/ui/form/FieldSeparator";
 import { useForm } from "react-hook-form";
 import { useUpdateUserPassword } from "./useUpdateUserPassword";
 
-interface UpdateUserDataFormData {
+type UpdateUserDataFormData = {
   newPassword: string;
-}
+};
 
 export function UpdateUserPasswordForm() {
   const { isLoading: isUpdatingUserPassword, updateUserPassword } =

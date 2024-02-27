@@ -31,12 +31,12 @@ const textFieldVariants = tv({
   },
 });
 
-interface TextAreaFieldProps extends RACTextFieldProps {
+type TextAreaFieldProps = RACTextFieldProps & {
   label?: string;
   description?: string;
   errorMessage?: string | ((validation: ValidationResult) => string);
   orientation?: "horizontal" | "vertical";
-}
+};
 
 export function TextAreaField({
   label,

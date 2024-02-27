@@ -6,9 +6,9 @@ import { useUser } from "../auth/useUser";
 import { FullLoadingIndicator } from "@/components/ui/FullLoadingIndicator";
 import { useUpdateUserData } from "./useUpdateUserData";
 
-interface UpdateUserDataFormData {
+type UpdateUserDataFormData = {
   full_name: string;
-}
+};
 
 export function UpdateUserDataForm() {
   const { isLoading: isLoadingUser, user } = useUser();

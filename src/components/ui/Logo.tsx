@@ -1,7 +1,7 @@
 import logoSrc from "@/assets/images/logo-light.png";
 import { cn } from "@/lib/utils";
 
-interface LogoProps extends React.ComponentPropsWithoutRef<"div"> {}
+type LogoProps = React.ComponentPropsWithoutRef<"div">;
 
 export default function Logo(props: LogoProps) {
   return (

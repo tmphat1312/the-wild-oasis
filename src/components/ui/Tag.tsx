@@ -15,9 +15,9 @@ const colorVariants = tv({
 
 export type TagColor = keyof typeof colorVariants.variants.variant;
 
-interface TagProps extends React.ComponentProps<"span"> {
+type TagProps = React.ComponentProps<"span"> & {
   color: TagColor;
-}
+};
 
 export function Tag({ color, ...props }: TagProps) {
   return (

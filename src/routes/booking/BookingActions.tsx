@@ -7,10 +7,10 @@ import { useNavigate } from "react-router-dom";
 import { Fragment, useState } from "react";
 import { useCheckoutBooking } from "../bookings/useCheckoutBooking";
 
-interface BookingActionsProps {
+type BookingActionsProps = {
   bookingId: BookingDetailValues["id"];
   bookingStatus: BookingDetailValues["status"];
-}
+};
 
 export function BookingActions({
   bookingId,

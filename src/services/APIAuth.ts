@@ -2,10 +2,10 @@ import { authSchema } from "@/schemas/authSchema";
 import { buildAuthAPIClient } from "./APIClient";
 import { userSchema } from "@/schemas/userSchema";
 
-interface LoginUserArgs {
+type LoginUserArgs = {
   email: string;
   password: string;
-}
+};
 
 export async function loginUser({ email, password }: LoginUserArgs) {
   const { data, error } = await buildAuthAPIClient().signInWithPassword({
@@ -52,11 +52,11 @@ export async function getCurrentUser() {
   return userSchema.parse(user);
 }
 
-interface SignUpUserArgs {
+type SignUpUserArgs = {
   email: string;
   password: string;
   full_name: string;
-}
+};
 export async function signUpUser({
   email,
   password,
@@ -83,11 +83,11 @@ export async function signUpUser({
   }
 }
 
-interface UpdateUserDataArgs {
+type UpdateUserDataArgs = {
   data: {
     full_name: string;
   };
-}
+};
 
 export async function updateUserData({ data }: UpdateUserDataArgs) {
   const { error } = await buildAuthAPIClient().updateUser({
@@ -99,9 +99,9 @@ export async function updateUserData({ data }: UpdateUserDataArgs) {
   }
 }
 
-interface UpdateUserPasswordArgs {
+type UpdateUserPasswordArgs = {
   newPassword: string;
-}
+};
 
 export async function updateUserPassword({
   newPassword,

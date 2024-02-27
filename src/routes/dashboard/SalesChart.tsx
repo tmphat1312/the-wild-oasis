@@ -13,10 +13,10 @@ import {
   YAxis,
 } from "recharts";
 
-interface SalesChartProps {
+type SalesChartProps = {
   howManyDays: number;
   bookings: StatisticsBookingValues[];
-}
+};
 
 export function SalesChart({ howManyDays, bookings }: SalesChartProps) {
   const today = new Date();

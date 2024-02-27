@@ -1,8 +1,8 @@
 import { cn } from "@/lib/utils";
 
-interface SelectProps extends React.ComponentPropsWithRef<"select"> {
+type SelectProps = React.ComponentPropsWithRef<"select"> & {
   options: { value: string; label: string }[];
-}
+};
 
 export function Select({ options, ...props }: SelectProps) {
   return (

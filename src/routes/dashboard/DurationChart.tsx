@@ -9,9 +9,9 @@ import {
   Legend,
 } from "recharts";
 
-interface DurationChartProps {
+type DurationChartProps = {
   stays: StatisticsBookingValues[];
-}
+};
 
 export function DurationChart({ stays }: DurationChartProps) {
   const piePortions: {

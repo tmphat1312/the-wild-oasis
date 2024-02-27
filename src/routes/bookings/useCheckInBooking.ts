@@ -5,9 +5,9 @@ import { updateBooking } from "@/services/APIBookings";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
-interface UseCheckInBookingArgs {
+type UseCheckInBookingArgs = {
   bookingId: BookingDetailValues["id"];
-}
+};
 
 export function useCheckInBooking({ bookingId }: UseCheckInBookingArgs) {
   const queryClient = useQueryClient();

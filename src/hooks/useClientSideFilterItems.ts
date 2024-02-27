@@ -1,10 +1,10 @@
 import { useSearchParams } from "react-router-dom";
 
-interface UseClientSideFilterItemsProps<T> {
+type UseClientSideFilterItemsProps<T> = {
   items: T[];
   filterField: string;
   filter: Record<string, (i: T) => boolean>;
-}
+};
 
 export function useClientSideFilterItems<T>({
   items,

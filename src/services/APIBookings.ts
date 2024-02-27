@@ -9,11 +9,11 @@ import {
 import { FilterFieldOption, SortFieldOption } from "@/types/API";
 import { buildAPIClient } from "./APIClient";
 
-interface GetBookingsArgs {
+type GetBookingsArgs = {
   filterOptions?: FilterFieldOption[];
   sortOption?: SortFieldOption;
   page?: number;
-}
+};
 
 export async function getBookings({
   filterOptions = [],
@@ -61,9 +61,9 @@ export async function getBookings({
   }
 }
 
-interface GetBookingArgs {
+type GetBookingArgs = {
   bookingId: BookingDetailValues["id"];
-}
+};
 
 export async function getBooking({ bookingId }: GetBookingArgs) {
   try {
@@ -80,9 +80,9 @@ export async function getBooking({ bookingId }: GetBookingArgs) {
   }
 }
 
-interface DeleteBookingArgs {
+type DeleteBookingArgs = {
   bookingId: BookingDetailValues["id"];
-}
+};
 
 export async function deleteBookingById({ bookingId }: DeleteBookingArgs) {
   try {
@@ -96,9 +96,9 @@ export async function deleteBookingById({ bookingId }: DeleteBookingArgs) {
   }
 }
 
-interface CheckOutBookingArgs {
+type CheckOutBookingArgs = {
   bookingId: BookingDetailValues["id"];
-}
+};
 
 export async function checkOutBooking({ bookingId }: CheckOutBookingArgs) {
   try {
@@ -112,10 +112,10 @@ export async function checkOutBooking({ bookingId }: CheckOutBookingArgs) {
   }
 }
 
-interface UpdateBookingArgs {
+type UpdateBookingArgs = {
   bookingId: BookingDetailValues["id"];
   data: Partial<BookingDetailValues>;
-}
+};
 
 export async function updateBooking({ bookingId, data }: UpdateBookingArgs) {
   try {
@@ -129,9 +129,9 @@ export async function updateBooking({ bookingId, data }: UpdateBookingArgs) {
   }
 }
 
-interface GetBookingsFromLastNDaysArgs {
+type GetBookingsFromLastNDaysArgs = {
   n: number;
-}
+};
 
 export async function getBookingsFromLastNDays({
   n: lastNDays,
@@ -156,9 +156,9 @@ export async function getBookingsFromLastNDays({
   }
 }
 
-interface GetStaysFromLastNDaysArgs {
+type GetStaysFromLastNDaysArgs = {
   n: number;
-}
+};
 
 export async function getStaysFromLastNDays({
   n: lastNDays,

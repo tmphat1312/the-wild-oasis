@@ -15,9 +15,9 @@ import { DialogTrigger } from "react-aria-components";
 import { UpdateCabinForm } from "./UpdateCabinForm";
 import { useDuplicateCabin } from "./useDuplicateCabin";
 
-interface CabinTableRowActionsProps {
+type CabinTableRowActionsProps = {
   cabin: CabinValues;
-}
+};
 
 export function CabinTableRowActions({ cabin }: CabinTableRowActionsProps) {
   const [modalType, setModalType] = useState<"edit" | "delete" | null>();

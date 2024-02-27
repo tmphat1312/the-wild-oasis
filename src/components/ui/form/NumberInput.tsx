@@ -18,12 +18,12 @@ import { fieldBorderStyles } from "@/styles/fieldBorderStyles";
 import { StepperButton } from "./StepperButton";
 import { cn, focusRing } from "@/lib/utils";
 
-interface NumberFieldProps extends RACNumberFieldProps {
+type NumberFieldProps = RACNumberFieldProps & {
   label?: string;
   description?: string;
   errorMessage?: string | ((validation: ValidationResult) => string);
   orientation?: "horizontal" | "vertical";
-}
+};
 
 const input = tv({
   extend: focusRing,

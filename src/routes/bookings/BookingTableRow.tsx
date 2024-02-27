@@ -8,9 +8,9 @@ import { BookingStatus, BookingValues } from "@/schemas/bookingSchema";
 import pluralize from "pluralize";
 import { BookingRowActions } from "./BookingRowActions";
 
-interface BookingTableRowProps {
+type BookingTableRowProps = {
   row: BookingValues;
-}
+};
 
 const tagColors: Record<BookingStatus, TagColor> = {
   unconfirmed: "muted",

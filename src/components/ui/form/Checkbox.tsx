@@ -11,13 +11,12 @@ import { tv } from "tailwind-variants";
 import { Description, FieldError, Label } from "./Field";
 import { composeTailwindRenderProps, focusRing } from "@/lib/utils";
 
-export interface CheckboxGroupProps
-  extends Omit<AriaCheckboxGroupProps, "children"> {
+export type CheckboxGroupProps = Omit<AriaCheckboxGroupProps, "children"> & {
   label?: string;
   children?: React.ReactNode;
   description?: string;
   errorMessage?: string | ((validation: ValidationResult) => string);
-}
+};
 
 export function CheckboxGroup(props: CheckboxGroupProps) {
   return (

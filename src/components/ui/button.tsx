@@ -5,9 +5,9 @@ import {
   composeRenderProps,
 } from "react-aria-components";
 
-interface ButtonProps extends RACButtonProps {
+type ButtonProps = RACButtonProps & {
   variant?: keyof typeof buttonVariants.variants.variant;
-}
+};
 
 const buttonVariants = tv({
   base: "px-4 py-3 text-sm text-center transition rounded-md border border-black/10 ",

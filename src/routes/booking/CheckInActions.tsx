@@ -8,9 +8,9 @@ import { useCheckInBooking } from "../bookings/useCheckInBooking";
 import { useSettings } from "../settings/useSettings";
 import { Skeleton } from "@/components/ui/Skeleton";
 
-interface CheckInActionsProps {
+type CheckInActionsProps = {
   booking: BookingDetailValues;
-}
+};
 
 export function CheckInActions({ booking }: CheckInActionsProps) {
   const [isAddingBreakfast, setIsAddingBreakfast] = useState(

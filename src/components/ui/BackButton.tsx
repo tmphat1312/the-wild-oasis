@@ -2,9 +2,9 @@ import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
 import { tv } from "tailwind-variants";
 
-interface BackButtonProps extends React.ComponentPropsWithoutRef<"button"> {
+type BackButtonProps = React.ComponentPropsWithoutRef<"button"> & {
   variant?: keyof (typeof backButtonVariants)["variants"]["variant"];
-}
+};
 
 const backButtonVariants = tv({
   base: "font-medium px-4 py-3 text-center rounded-md text-sm disabled:opacity-50 disabled:pointer-events-none",

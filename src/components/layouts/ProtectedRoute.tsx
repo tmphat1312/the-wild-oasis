@@ -2,9 +2,9 @@ import { useUser } from "@/routes/auth/useUser";
 import { FullLoadingIndicator } from "../ui/FullLoadingIndicator";
 import { Navigate } from "react-router-dom";
 
-interface ProtectedRouteProps {
+type ProtectedRouteProps = {
   children: React.ReactNode;
-}
+};
 
 export function ProtectedRoute({ children }: ProtectedRouteProps) {
   const { isLoading, isAuthenticated } = useUser();

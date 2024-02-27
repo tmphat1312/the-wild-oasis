@@ -1,9 +1,9 @@
 import { SortFieldOption } from "@/types/API";
 import { useSearchParams } from "react-router-dom";
 
-interface SortFieldOptionArgs {
+type SortFieldOptionArgs = {
   sortFields: string[];
-}
+};
 
 export function useSortField({
   sortFields,

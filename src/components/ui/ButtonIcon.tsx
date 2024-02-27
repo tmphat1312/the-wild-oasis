@@ -1,9 +1,9 @@
 import { cn } from "@/lib/utils";
 import { MiniSpinner } from "./MiniSpinner";
 
-interface ButtonIconProps extends React.ComponentPropsWithoutRef<"button"> {
+type ButtonIconProps = React.ComponentPropsWithoutRef<"button"> & {
   loading?: boolean;
-}
+};
 
 export function ButtonIcon({
   loading = false,

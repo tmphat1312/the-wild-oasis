@@ -8,9 +8,9 @@ import {
 } from "lucide-react";
 import CurrencyPresenter from "@/components/presenters/CurrencyPresenter";
 
-interface BookingStatisticsProps {
+type BookingStatisticsProps = {
   bookings: StatisticsBookingValues[];
-}
+};
 
 function calculateStatistics(bookings: StatisticsBookingValues[]) {
   const noBookings = bookings.length;
