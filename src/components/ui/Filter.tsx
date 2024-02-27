@@ -37,12 +37,17 @@ import { useSearchParams } from "react-router-dom";
 
 interface FilterProps {
   filterField: string;
+  defaultValue?: string;
   options: { value: string; label: string }[];
 }
 
-export function Filter({ filterField, options }: FilterProps) {
+export function Filter({
+  filterField,
+  defaultValue = "",
+  options,
+}: FilterProps) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const currentFilter = searchParams.get(filterField) || "";
+  const currentFilter = searchParams.get(filterField) || defaultValue;
   const currentPage = searchParams.get("page");
 
   function handleSetFilter(value: string) {
@@ -52,7 +57,7 @@ export function Filter({ filterField, options }: FilterProps) {
       searchParams.delete("page");
     }
 
-    if (value == "") {
+    if (value == defaultValue) {
       searchParams.delete(filterField);
     } else {
       searchParams.set(filterField, value);

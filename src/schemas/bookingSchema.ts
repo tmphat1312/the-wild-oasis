@@ -41,3 +41,37 @@ export const bookingDetailSchema = bookingSchema.extend({
 });
 
 export type BookingDetailValues = z.infer<typeof bookingDetailSchema>;
+
+export const statisticsBookingSchema = bookingSchema
+  .pick({
+    created_at: true,
+    id: true,
+    status: true,
+    start_date: true,
+    no_nights: true,
+    guests: true,
+    total_due: true,
+  })
+  .extend({
+    extra_price: z.number().default(0),
+    is_paid: z.boolean(),
+  });
+
+export type StatisticsBookingValues = z.infer<typeof statisticsBookingSchema>;
+
+export const statisticsBookingArraySchema = z.array(statisticsBookingSchema);
+
+export const bookingActivitySchema = z.object({
+  status: bookingStatusEnum,
+  id: z.number(),
+  no_guests: z.number(),
+  guests: guestSchema,
+});
+
+export type BookingActivityValues = z.infer<typeof bookingActivitySchema>;
+
+export const bookingActivityArraySchema = z.array(bookingActivitySchema);
+
+export type BookingActivityArrayValues = z.infer<
+  typeof bookingActivityArraySchema
+>;

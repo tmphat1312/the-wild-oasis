@@ -2,7 +2,7 @@ import { BackButton } from "@/components/ui/BackButton";
 import { Button } from "@/components/ui/Button";
 import { BookingDetailValues } from "@/schemas/bookingSchema";
 import { useDeleteBookingById } from "../bookings/useDeleteBookingById";
-import { ConfirmDelete } from "@/components/ui/ConfirmDelete-v1";
+import { ConfirmDelete } from "@/components/ui/ConfirmDelete";
 import { useNavigate } from "react-router-dom";
 import { Fragment, useState } from "react";
 import { useCheckoutBooking } from "../bookings/useCheckoutBooking";

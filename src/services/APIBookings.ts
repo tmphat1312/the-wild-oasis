@@ -1,8 +1,10 @@
 import { ITEMS_PER_PAGE } from "@/constants/API";
 import {
   BookingDetailValues,
+  bookingActivityArraySchema,
   bookingArraySchema,
   bookingDetailSchema,
+  statisticsBookingArraySchema,
 } from "@/schemas/bookingSchema";
 import { FilterFieldOption, SortFieldOption } from "@/types/API";
 import { buildAPIClient } from "./APIClient";
@@ -124,5 +126,78 @@ export async function updateBooking({ bookingId, data }: UpdateBookingArgs) {
   } catch (error) {
     console.error(error);
     throw Error(`Cannot update booking #${bookingId}!`);
+  }
+}
+
+interface GetBookingsFromLastNDaysArgs {
+  n: number;
+}
+
+export async function getBookingsFromLastNDays({
+  n: lastNDays,
+}: GetBookingsFromLastNDaysArgs) {
+  const today = new Date();
+  const startDate = new Date(today);
+  startDate.setDate(today.getDate() - lastNDays);
+
+  try {
+    const { data } = await buildAPIClient("bookings")
+      .select(
+        "id, start_date, end_date, total_due, created_at, is_paid, status, no_nights, guests(*)",
+      )
+      .gte("created_at", startDate.toISOString())
+      .lte("created_at", today.toISOString())
+      .throwOnError();
+
+    return statisticsBookingArraySchema.parse(data);
+  } catch (error) {
+    console.error(error);
+    throw Error("Error fetching bookings from last N days");
+  }
+}
+
+interface GetStaysFromLastNDaysArgs {
+  n: number;
+}
+
+export async function getStaysFromLastNDays({
+  n: lastNDays,
+}: GetStaysFromLastNDaysArgs) {
+  const today = new Date();
+  const startDate = new Date(today);
+  startDate.setDate(today.getDate() - lastNDays);
+
+  try {
+    const { data } = await buildAPIClient("bookings")
+      .select(
+        "id, start_date, end_date, total_due, created_at, is_paid, status, no_nights, guests(*)",
+      )
+      .or("status.eq.checked in, status.eq.checked out")
+      .gte("start_date", startDate.toISOString())
+      .lte("start_date", today.toISOString())
+      .throwOnError();
+
+    return statisticsBookingArraySchema.parse(data);
+  } catch (error) {
+    console.error(error);
+    throw Error("Error fetching stays from last N days");
+  }
+}
+
+export async function getTodayBookingActivities() {
+  const today = new Date().toISOString();
+
+  try {
+    const { data } = await buildAPIClient("bookings")
+      .select("id, status, no_guests, guests(*)")
+      .or(
+        `and(status.eq.checked in, start_date.eq.${today}), and(status.eq.checked out, end_date.eq.${today})`,
+      )
+      .throwOnError();
+
+    return bookingActivityArraySchema.parse(data);
+  } catch (error) {
+    console.error(error);
+    throw Error("Error fetching today's booking activities");
   }
 }

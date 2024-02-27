@@ -5,22 +5,22 @@ import {
 } from "react-router-dom";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Toaster } from "react-hot-toast";
+import { Toaster } from "@/lib/toast";
 
+import { OnlyPublicRoute } from "./components/layouts/OnlyPublicRoute";
+import { ProtectedRoute } from "./components/layouts/ProtectedRoute";
 import AppLayout from "./components/layouts/AppLayout";
 
 import RootErrorBoundary from "./pages/RootErrorBoundary";
 import Dashboard from "./pages/dashboard/Dashboard";
+import { CheckIn } from "./pages/booking/CheckIn";
 import { Booking } from "./pages/booking/Booking";
 import Bookings from "./pages/bookings/Bookings";
 import Settings from "./pages/settings/Settings";
-import Cabins from "./pages/cabins/Cabins";
-import Login from "./pages/auth/Login";
 import Account from "./pages/Account/Account";
+import Cabins from "./pages/cabins/Cabins";
 import Users from "./pages/users/Users";
-import { CheckIn } from "./pages/booking/CheckIn";
-import { ProtectedRoute } from "./components/layouts/ProtectedRoute";
-import { OnlyPublicRoute } from "./components/layouts/OnlyPublicRoute";
+import Login from "./pages/auth/Login";
 
 const THIRTY_SECONDS = 30 * 1_000;
 const THREE_SECONDS = 3 * 1_000;
