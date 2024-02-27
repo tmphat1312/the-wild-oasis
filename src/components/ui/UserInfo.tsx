@@ -1,5 +1,5 @@
 import defaultUserAvt from "@/assets/images/default-user.jpg";
-import { useUser } from "@/pages/auth/useUser";
+import { useUser } from "@/routes/auth/useUser";
 import { Skeleton } from "./Skeleton";
 
 export function UserInfo() {

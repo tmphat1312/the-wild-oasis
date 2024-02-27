@@ -1,4 +1,4 @@
-import { useUser } from "@/pages/auth/useUser";
+import { useUser } from "@/routes/auth/useUser";
 import { FullLoadingIndicator } from "../ui/FullLoadingIndicator";
 import { Navigate, Outlet } from "react-router-dom";
 

@@ -8,16 +8,16 @@ import { AppLayout } from "@/components/layouts/AppLayout";
 import { OnlyPublicRoute } from "@/components/layouts/OnlyPublicRoute";
 import { ProtectedRoute } from "@/components/layouts/ProtectedRoute";
 
-import Account from "@/pages/Account/Account";
-import RootErrorBoundary from "@/pages/RootErrorBoundary";
-import Login from "@/pages/auth/Login";
-import Booking from "@/pages/booking/Booking";
-import CheckIn from "@/pages/booking/CheckIn";
-import Bookings from "@/pages/bookings/Bookings";
-import Cabins from "@/pages/cabins/Cabins";
-import Dashboard from "@/pages/dashboard/Dashboard";
-import Settings from "@/pages/settings/Settings";
-import Users from "@/pages/users/Users";
+import RootErrorBoundary from "./RootErrorBoundary";
+import Account from "./account/Account";
+import Login from "./auth/Login";
+import Booking from "./booking/Booking";
+import CheckIn from "./booking/CheckIn";
+import Bookings from "./bookings/Bookings";
+import Cabins from "./cabins/Cabins";
+import Dashboard from "./dashboard/Dashboard";
+import Settings from "./settings/Settings";
+import Users from "./users/Users";
 
 const router = createBrowserRouter([
   {

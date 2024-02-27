@@ -1,4 +1,4 @@
-import { LogoutButton } from "@/pages/auth/LogoutButton";
+import { LogoutButton } from "@/routes/auth/LogoutButton";
 import { User } from "lucide-react";
 import { Link } from "react-router-dom";
 import { UserInfo } from "../ui/UserInfo";
