@@ -1,7 +1,7 @@
-import { queryKeys } from "@/constants/query-keys";
+import { QUERY_KEYS } from "@/lib/constants";
+import { toast } from "@/lib/toast";
 import { updateUserPassword } from "@/services/APIAuth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "@/lib/toast";
 
 export function useUpdateUserPassword() {
   const queryClient = useQueryClient();
@@ -14,7 +14,7 @@ export function useUpdateUserPassword() {
     onSuccess: () => {
       toast.dismiss();
       toast.success("User password updated");
-      queryClient.invalidateQueries({ queryKey: queryKeys.user });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.user] });
     },
     onError: (error) => {
       toast.dismiss();

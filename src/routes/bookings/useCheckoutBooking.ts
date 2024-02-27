@@ -1,8 +1,8 @@
-import { queryKeys } from "@/constants/query-keys";
+import { QUERY_KEYS } from "@/lib/constants";
+import { toast } from "@/lib/toast";
 import { BookingDetailValues } from "@/schemas/bookingSchema";
 import { checkOutBooking } from "@/services/APIBookings";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "@/lib/toast";
 
 interface UseCheckoutBookingArgs {
   bookingId: BookingDetailValues["id"];
@@ -20,10 +20,10 @@ export function useCheckoutBooking({ bookingId }: UseCheckoutBookingArgs) {
       toast.dismiss();
       toast.success("It's checked out!");
       queryClient.invalidateQueries({
-        queryKey: queryKeys.booking(bookingId),
+        queryKey: [QUERY_KEYS.bookings, bookingId],
       });
       queryClient.invalidateQueries({
-        queryKey: queryKeys.bookings,
+        queryKey: [QUERY_KEYS.bookings],
       });
     },
     onError: (error) => {

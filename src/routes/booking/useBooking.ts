@@ -1,4 +1,4 @@
-import { queryKeys } from "@/constants/query-keys";
+import { QUERY_KEYS } from "@/lib/constants";
 import { BookingValues } from "@/schemas/bookingSchema";
 import { getBooking } from "@/services/APIBookings";
 import { useQuery } from "@tanstack/react-query";
@@ -9,7 +9,7 @@ interface UseBookingArgs {
 
 export function useBooking({ bookingId }: UseBookingArgs) {
   const { isLoading, error, data } = useQuery({
-    queryKey: queryKeys.booking(bookingId),
+    queryKey: [QUERY_KEYS.bookings, bookingId],
     queryFn: () => getBooking({ bookingId }),
   });
 

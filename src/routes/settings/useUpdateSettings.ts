@@ -1,4 +1,4 @@
-import { queryKeys } from "@/constants/query-keys";
+import { QUERY_KEYS } from "@/lib/constants";
 import { updateSettings } from "@/services/APISettings";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
@@ -9,7 +9,7 @@ export function useUpdateSettings() {
     mutationFn: updateSettings,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: queryKeys.settings,
+        queryKey: [QUERY_KEYS.settings],
       });
     },
   });

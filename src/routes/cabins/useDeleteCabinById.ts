@@ -1,4 +1,4 @@
-import { queryKeys } from "@/constants/query-keys";
+import { QUERY_KEYS } from "@/lib/constants";
 import { toast } from "@/lib/toast";
 import { CabinValues } from "@/schemas/cabinSchema";
 import { deleteCabinById } from "@/services/APICabins";
@@ -24,7 +24,7 @@ export function useDeleteCabinById({
       toast.dismiss();
       toast.success("Cabin was successfully deleted");
       queryClient.invalidateQueries({
-        queryKey: queryKeys.cabins,
+        queryKey: [QUERY_KEYS.cabins],
       });
     },
     onError: (error) => {

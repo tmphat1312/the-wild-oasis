@@ -1,8 +1,8 @@
+import { QUERY_KEYS } from "@/lib/constants";
+import { toast } from "@/lib/toast";
 import { loginUser } from "@/services/APIAuth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "@/lib/toast";
 import { useNavigate } from "react-router-dom";
-import { queryKeys } from "@/constants/query-keys";
 
 export function useLogin() {
   const queryClient = useQueryClient();
@@ -11,7 +11,7 @@ export function useLogin() {
   const mutation = useMutation({
     mutationFn: loginUser,
     onSuccess: ({ user }) => {
-      queryClient.setQueryData(queryKeys.user, user);
+      queryClient.setQueryData([QUERY_KEYS.user], user);
       navigate("/", { replace: true });
     },
     onError: (error) => {

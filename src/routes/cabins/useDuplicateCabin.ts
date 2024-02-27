@@ -1,7 +1,7 @@
-import { queryKeys } from "@/constants/query-keys";
+import { QUERY_KEYS } from "@/lib/constants";
+import { toast } from "@/lib/toast";
 import { duplicateCabin } from "@/services/APICabins";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "@/lib/toast";
 
 export function useDuplicateCabin() {
   const queryClient = useQueryClient();
@@ -15,7 +15,7 @@ export function useDuplicateCabin() {
       toast.dismiss();
       toast.success("Cabin was successfully duplicated");
       queryClient.invalidateQueries({
-        queryKey: queryKeys.cabins,
+        queryKey: [QUERY_KEYS.cabins],
       });
     },
     onError: (error) => {

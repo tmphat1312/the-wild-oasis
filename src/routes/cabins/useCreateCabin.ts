@@ -1,4 +1,4 @@
-import { queryKeys } from "@/constants/query-keys";
+import { QUERY_KEYS } from "@/lib/constants";
 import { createCabin } from "@/services/APICabins";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
@@ -9,7 +9,7 @@ export function useCreateCabin() {
     mutationFn: createCabin,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: queryKeys.cabins,
+        queryKey: [QUERY_KEYS.cabins],
       });
     },
   });

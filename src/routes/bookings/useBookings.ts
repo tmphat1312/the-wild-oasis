@@ -1,5 +1,5 @@
-import { ITEMS_PER_PAGE } from "@/constants/API";
-import { queryKeys } from "@/constants/query-keys";
+import { ITEMS_PER_PAGE } from "@/lib/constants";
+import { QUERY_KEYS } from "@/lib/constants";
 import { useFilterField } from "@/hooks/useFilterField";
 import { usePagination } from "@/hooks/usePagination";
 import { useSortField } from "@/hooks/useSortField";
@@ -22,7 +22,7 @@ export function useBookings() {
     error,
     data = { bookings: [], count: 0 },
   } = useQuery({
-    queryKey: [...queryKeys.bookings, filterOption, sortOption, page],
+    queryKey: [QUERY_KEYS.bookings, filterOption, sortOption, page],
     queryFn: () =>
       getBookings({ filterOptions: [filterOption], sortOption, page }),
   });
@@ -34,7 +34,7 @@ export function useBookings() {
     const nextPage = Math.min(page + 1, noPages);
 
     queryClient.prefetchQuery({
-      queryKey: [...queryKeys.bookings, filterOption, sortOption, nextPage],
+      queryKey: [QUERY_KEYS.bookings, filterOption, sortOption, nextPage],
       queryFn: () =>
         getBookings({
           filterOptions: [filterOption],
@@ -48,7 +48,7 @@ export function useBookings() {
     const prevPage = Math.max(page - 1, 1);
 
     queryClient.prefetchQuery({
-      queryKey: [...queryKeys.bookings, filterOption, sortOption, prevPage],
+      queryKey: [QUERY_KEYS.bookings, filterOption, sortOption, prevPage],
       queryFn: () =>
         getBookings({
           filterOptions: [filterOption],

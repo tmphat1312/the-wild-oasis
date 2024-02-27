@@ -1,4 +1,4 @@
-import { ITEMS_PER_PAGE } from "@/constants/API";
+import { ITEMS_PER_PAGE } from "@/lib/constants";
 import {
   BookingDetailValues,
   bookingActivityArraySchema,
