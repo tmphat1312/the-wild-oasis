@@ -1,9 +1,14 @@
 import { BookingStatistics } from "./BookingStatistics";
 import { DashboardBox } from "./DashboardBox";
+import { SalesChart } from "./SalesChart";
 import { useStatisticsBookings } from "./useStatisticsBookings";
 
 export function DashboardLayout() {
-  const { isLoading, bookings } = useStatisticsBookings();
+  const { isLoading, bookings, error, lastNDays } = useStatisticsBookings();
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -13,8 +18,6 @@ export function DashboardLayout() {
     return <div>No bookings found</div>;
   }
 
-  console.log(bookings);
-
   return (
     <div className="grid gap-4">
       <BookingStatistics bookings={bookings} />
@@ -22,9 +25,7 @@ export function DashboardLayout() {
         <DashboardBox>today activities</DashboardBox>
         <DashboardBox>stay chart</DashboardBox>
       </div>
-      <div>
-        <DashboardBox>profit chart</DashboardBox>
-      </div>
+      <SalesChart howManyDays={lastNDays} bookings={bookings} />
     </div>
   );
 }

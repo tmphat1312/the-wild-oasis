@@ -54,6 +54,7 @@ export const statisticsBookingSchema = bookingSchema
   })
   .extend({
     extra_price: z.number().default(0),
+    is_paid: z.boolean(),
   });
 
 export type StatisticsBookingValues = z.infer<typeof statisticsBookingSchema>;

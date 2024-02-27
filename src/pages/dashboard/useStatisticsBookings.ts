@@ -15,5 +15,6 @@ export function useStatisticsBookings() {
     isLoading: query.isLoading,
     bookings: query.data,
     error: query.error,
+    lastNDays: Number(lastNDays),
   };
 }

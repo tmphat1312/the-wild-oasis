@@ -142,7 +142,7 @@ export async function getBookingFromLastNDays({
   try {
     const { data } = await buildAPIClient("bookings")
       .select(
-        "id, start_date, end_date, total_due, created_at, status, no_nights, guests(*)",
+        "id, start_date, end_date, total_due, created_at, is_paid, status, no_nights, guests(*)",
       )
       .gte("created_at", startDate.toISOString())
       .lte("created_at", today.toISOString())
