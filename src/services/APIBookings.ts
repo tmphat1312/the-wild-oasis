@@ -128,13 +128,13 @@ export async function updateBooking({ bookingId, data }: UpdateBookingArgs) {
   }
 }
 
-interface GetBookingFromLastNDaysArgs {
+interface GetBookingsFromLastNDaysArgs {
   n: number;
 }
 
-export async function getBookingFromLastNDays({
+export async function getBookingsFromLastNDays({
   n: lastNDays,
-}: GetBookingFromLastNDaysArgs) {
+}: GetBookingsFromLastNDaysArgs) {
   const today = new Date();
   const startDate = new Date(today);
   startDate.setDate(today.getDate() - lastNDays);

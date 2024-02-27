@@ -1,4 +1,4 @@
-import { getBookingFromLastNDays } from "@/services/APIBookings";
+import { getBookingsFromLastNDays } from "@/services/APIBookings";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 
@@ -8,7 +8,7 @@ export function useStatisticsBookings() {
 
   const query = useQuery({
     queryKey: ["bookings", "statistics", lastNDays],
-    queryFn: () => getBookingFromLastNDays({ n: Number(lastNDays) }),
+    queryFn: () => getBookingsFromLastNDays({ n: Number(lastNDays) }),
   });
 
   return {
