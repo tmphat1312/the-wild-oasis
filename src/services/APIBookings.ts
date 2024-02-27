@@ -1,6 +1,7 @@
 import { ITEMS_PER_PAGE } from "@/constants/API";
 import {
   BookingDetailValues,
+  bookingActivityArraySchema,
   bookingArraySchema,
   bookingDetailSchema,
   statisticsBookingArraySchema,
@@ -180,5 +181,23 @@ export async function getStaysFromLastNDays({
   } catch (error) {
     console.error(error);
     throw Error("Error fetching stays from last N days");
+  }
+}
+
+export async function getTodayBookingActivities() {
+  const today = new Date().toISOString();
+
+  try {
+    const { data } = await buildAPIClient("bookings")
+      .select("id, status, no_guests, guests(*)")
+      .or(
+        `and(status.eq.checked in, start_date.eq.${today}), and(status.eq.checked out, end_date.eq.${today})`,
+      )
+      .throwOnError();
+
+    return bookingActivityArraySchema.parse(data);
+  } catch (error) {
+    console.error(error);
+    throw Error("Error fetching today's booking activities");
   }
 }

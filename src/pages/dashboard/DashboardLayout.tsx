@@ -1,7 +1,7 @@
 import { BookingStatistics } from "./BookingStatistics";
-import { DashboardBox } from "./DashboardBox";
 import { DurationChart } from "./DurationChart";
 import { SalesChart } from "./SalesChart";
+import { TodayActivities } from "./TodayActivities";
 import { useStatisticsBookings } from "./useStatisticsBookings";
 import { useStatisticsStays } from "./useStatisticsStays";
 
@@ -36,7 +36,7 @@ export function DashboardLayout() {
     <div className="grid gap-4">
       <BookingStatistics bookings={bookings} />
       <div className="col-span-full grid grid-cols-2 gap-[inherit]">
-        <DashboardBox>today activities</DashboardBox>
+        <TodayActivities />
         <DurationChart stays={stays} />
       </div>
       <SalesChart howManyDays={lastNDaysBookings} bookings={bookings} />

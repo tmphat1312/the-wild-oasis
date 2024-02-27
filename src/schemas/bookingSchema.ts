@@ -60,3 +60,18 @@ export const statisticsBookingSchema = bookingSchema
 export type StatisticsBookingValues = z.infer<typeof statisticsBookingSchema>;
 
 export const statisticsBookingArraySchema = z.array(statisticsBookingSchema);
+
+export const bookingActivitySchema = z.object({
+  status: bookingStatusEnum,
+  id: z.number(),
+  no_guests: z.number(),
+  guests: guestSchema,
+});
+
+export type BookingActivityValues = z.infer<typeof bookingActivitySchema>;
+
+export const bookingActivityArraySchema = z.array(bookingActivitySchema);
+
+export type BookingActivityArrayValues = z.infer<
+  typeof bookingActivityArraySchema
+>;
