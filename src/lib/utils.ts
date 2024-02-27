@@ -4,8 +4,6 @@ import { composeRenderProps } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
 import { tv } from "tailwind-variants";
 
-import { ITEMS_PER_PAGE } from "@/constants/API";
-
 export function subtractDates(date1: string | Date, date2: string | Date) {
   return differenceInDays(parseISO(String(date1)), parseISO(String(date2)));
 }
