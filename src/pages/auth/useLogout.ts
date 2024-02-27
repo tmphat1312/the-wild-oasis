@@ -1,6 +1,6 @@
 import { logoutUser } from "@/services/APIAuth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import toast from "react-hot-toast";
+import { toast } from "@/lib/toast";
 import { useNavigate } from "react-router-dom";
 
 export function useLogout() {

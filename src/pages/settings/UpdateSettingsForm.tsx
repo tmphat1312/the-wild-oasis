@@ -5,7 +5,7 @@ import { NumberField } from "@/components/ui/form/NumberInput";
 import { SettingValues, settingSchema } from "@/schemas/settingSchema";
 import { useUpdateSettings } from "./useUpdateSettings";
 import { FieldSeparator } from "@/components/ui/form/FieldSeparator";
-import toast from "react-hot-toast";
+import { toast } from "@/lib/toast";
 
 interface UpdateSettingsFormProps {
   currentSettings: SettingValues;

@@ -1,7 +1,7 @@
 import { queryKeys } from "@/constants/query-keys";
 import { updateUserPassword } from "@/services/APIAuth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import toast from "react-hot-toast";
+import { toast } from "@/lib/toast";
 
 export function useUpdateUserPassword() {
   const queryClient = useQueryClient();

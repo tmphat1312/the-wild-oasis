@@ -2,7 +2,7 @@ import { queryKeys } from "@/constants/query-keys";
 import { BookingDetailValues } from "@/schemas/bookingSchema";
 import { checkOutBooking } from "@/services/APIBookings";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import toast from "react-hot-toast";
+import { toast } from "@/lib/toast";
 
 interface UseCheckoutBookingArgs {
   bookingId: BookingDetailValues["id"];
