@@ -8,7 +8,7 @@ import { BookingDetailCard } from "./BookingDetailCard";
 import { CheckInActions } from "./CheckInActions";
 import { useBooking } from "./useBooking";
 
-export function CheckIn() {
+export default function CheckIn() {
   const { bookingId } = useParams();
   const { isLoading, error, booking } = useBooking({
     bookingId: Number(bookingId),

@@ -16,7 +16,7 @@ const tagColors: Record<BookingStatus, TagColor> = {
   "checked out": "info",
 } as const;
 
-export function Booking() {
+export default function Booking() {
   const { bookingId } = useParams();
   const { isLoading, error, booking } = useBooking({
     bookingId: Number(bookingId),
