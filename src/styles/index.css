@@ -108,11 +108,6 @@
     font-variation-settings: "MONO" 1;
   }
 
-  .h-screen {
-    height: 100vh;
-    height: 100dvh;
-  }
-
   .scrollbar-gutter {
     @apply -me-3 pe-3;
   }
