@@ -1,4 +1,4 @@
-import CurrencyPresenter from "@/components/presenters/CurrencyPresenter";
+import { CurrencyPresenter } from "@/components/presenters/CurrencyPresenter";
 import { BackButton } from "@/components/ui/BackButton";
 import { Button } from "@/components/ui/Button";
 import { Form } from "@/components/ui/form/Form";

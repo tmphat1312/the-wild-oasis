@@ -4,7 +4,7 @@ import {
   CurrencyIcon,
   NoteIcon,
 } from "@/components/Icons";
-import CurrencyPresenter from "@/components/presenters/CurrencyPresenter";
+import { CurrencyPresenter } from "@/components/presenters/CurrencyPresenter";
 import { DateDistancePresenter } from "@/components/presenters/DateDistancePresenter";
 import { DatePresenter } from "@/components/presenters/DatePresenter";
 import { classnames } from "@/lib/classnames";

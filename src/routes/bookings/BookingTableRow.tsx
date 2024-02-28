@@ -1,4 +1,4 @@
-import CurrencyPresenter from "@/components/presenters/CurrencyPresenter";
+import { CurrencyPresenter } from "@/components/presenters/CurrencyPresenter";
 import { DateDistancePresenter } from "@/components/presenters/DateDistancePresenter";
 import { DatePresenter } from "@/components/presenters/DatePresenter";
 import { Tag, TagColor } from "@/components/ui/Tag";

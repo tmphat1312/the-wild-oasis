@@ -4,7 +4,7 @@ import {
   CheckOutIcon,
   CurrencyIcon,
 } from "@/components/Icons";
-import CurrencyPresenter from "@/components/presenters/CurrencyPresenter";
+import { CurrencyPresenter } from "@/components/presenters/CurrencyPresenter";
 import { StatisticsBookingValues } from "@/schemas/bookingSchema";
 import { DashboardBox } from "./DashboardBox";
 

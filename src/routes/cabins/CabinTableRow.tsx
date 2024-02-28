@@ -1,4 +1,4 @@
-import CurrencyPresenter from "@/components/presenters/CurrencyPresenter";
+import { CurrencyPresenter } from "@/components/presenters/CurrencyPresenter";
 import { Cell } from "@/components/ui/table/Cell";
 import { Row } from "@/components/ui/table/Row";
 import { CabinValues } from "@/schemas/cabinSchema";
