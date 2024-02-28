@@ -1,7 +1,7 @@
 import CurrencyPresenter from "@/components/presenters/CurrencyPresenter";
 import { DateDistancePresenter } from "@/components/presenters/DateDistancePresenter";
 import { DatePresenter } from "@/components/presenters/DatePresenter";
-import { cn } from "@/lib/utils";
+import { classnames } from "@/lib/classnames";
 import { BookingDetailValues } from "@/schemas/bookingSchema";
 import {
   CircleDollarSign,
@@ -90,7 +90,7 @@ export function BookingDetailCard({ booking }: BookingDetailCardProps) {
         )}
 
         <div
-          className={cn(
+          className={classnames(
             "flex items-center justify-between rounded-md px-8 py-6",
             booking.is_paid
               ? "bg-green-100 text-green-800"

@@ -48,10 +48,15 @@ export function TextAreaField({
   return (
     <RACTextField
       {...props}
-      className={cn(textFieldVariants({ orientation }), props.className)}
+      className={classnames(
+        textFieldVariants({ orientation }),
+        props.className,
+      )}
     >
       {label && (
-        <Label className={cn(orientation == "horizontal" ? "w-[24ch]" : "")}>
+        <Label
+          className={classnames(orientation == "horizontal" ? "w-[24ch]" : "")}
+        >
           {label}
         </Label>
       )}

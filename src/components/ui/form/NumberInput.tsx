@@ -56,7 +56,9 @@ export function NumberField({
 }: NumberFieldProps) {
   return (
     <RACNumberField {...props} className={numberFieldVariants({ orientation })}>
-      <Label className={cn(orientation == "horizontal" ? "w-[24ch]" : "")}>
+      <Label
+        className={classnames(orientation == "horizontal" ? "w-[24ch]" : "")}
+      >
         {label}
       </Label>
       <FieldGroup className="max-w-72">

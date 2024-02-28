@@ -19,7 +19,7 @@ export function Label(props: LabelProps) {
   return (
     <RACLabel
       {...props}
-      className={cn(
+      className={classnames(
         "w-fit cursor-default text-sm font-medium text-gray-500 dark:text-zinc-400",
         props.className,
       )}
@@ -32,7 +32,7 @@ export function Description(props: TextProps) {
     <Text
       {...props}
       slot="description"
-      className={cn("text-sm text-gray-600", props.className)}
+      className={classnames("text-sm text-gray-600", props.className)}
     />
   );
 }

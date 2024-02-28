@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { classnames } from "@/lib/classnames";
 import { tv } from "tailwind-variants";
 
 const colorVariants = tv({
@@ -22,7 +22,7 @@ type TagProps = React.ComponentProps<"span"> & {
 export function Tag({ color, ...props }: TagProps) {
   return (
     <span
-      className={cn(
+      className={classnames(
         "rounded-full px-2 py-1 text-xs font-semibold uppercase",
         colorVariants({ variant: color }),
       )}

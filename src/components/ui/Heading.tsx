@@ -1,5 +1,5 @@
 import { useLevelContext } from "@/contexts/LevelContext";
-import { cn } from "@/lib/utils";
+import { classnames } from "@/lib/classnames";
 import { tv } from "tailwind-variants";
 import { z } from "zod";
 
@@ -32,7 +32,10 @@ export default function Heading({ className, ...props }: HeadingProps) {
   }
 
   const headingLevel = HeadingVariant.parse(`h${level}`);
-  const styles = cn(headingVariants({ level: headingLevel }), className);
+  const styles = classnames(
+    headingVariants({ level: headingLevel }),
+    className,
+  );
 
   switch (level) {
     case 0:

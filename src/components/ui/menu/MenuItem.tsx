@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { classnames } from "@/lib/classnames";
 import { LucideIcon } from "lucide-react";
 import {
   MenuItem as RACMenuItem,
@@ -19,7 +19,7 @@ export function MenuItem(props: MenuItemProps) {
     <RACMenuItem
       {...props}
       textValue={textValue}
-      className={cn(
+      className={classnames(
         "flex cursor-pointer items-center gap-3 px-5 py-2 hover:bg-gray-50",
         props.variant === "destructive" && "text-red-500",
       )}

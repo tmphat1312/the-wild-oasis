@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { classnames } from "@/lib/classnames";
 import { Collection, Row as RACRow, RowProps } from "react-aria-components";
 
 export function Row<T extends object>({
@@ -11,7 +11,7 @@ export function Row<T extends object>({
     <RACRow
       id={id}
       {...props}
-      className={cn(
+      className={classnames(
         "group/row bg-background hover:bg-gray-50",
         props.className,
       )}

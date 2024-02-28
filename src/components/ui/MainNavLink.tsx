@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { classnames } from "@/lib/classnames";
 import { LucideIcon } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
@@ -16,7 +16,7 @@ export default function MainNavLink({
   return (
     <NavLink
       className={({ isActive }) =>
-        cn(
+        classnames(
           "flex items-center gap-3 rounded-sm px-4 py-3 font-medium",
           "hover:bg-gray-50 [&:hover_svg]:stroke-brand-600",
           isActive && "bg-gray-50 [&_svg]:stroke-brand-600",

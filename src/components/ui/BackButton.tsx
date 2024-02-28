@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { classnames } from "@/lib/classnames";
 import { useNavigate } from "react-router-dom";
 import { tv } from "tailwind-variants";
 
@@ -27,12 +27,15 @@ export function BackButton({ variant = "default", ...props }: BackButtonProps) {
   return (
     <button
       {...props}
-      className={cn(backButtonVariants({ variant }), props.className)}
+      className={classnames(backButtonVariants({ variant }), props.className)}
       aria-label="go back to previous page"
       onClick={goBack}
     >
       <span
-        className={cn("text-xl font-bold", variant == "default" && "hidden")}
+        className={classnames(
+          "text-xl font-bold",
+          variant == "default" && "hidden",
+        )}
         role="presentation"
       >
         &larr;{" "}

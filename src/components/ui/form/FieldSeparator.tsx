@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { classnames } from "@/lib/classnames";
 
 type FieldSeparatorProps = React.ComponentPropsWithoutRef<"hr">;
 
@@ -7,7 +7,7 @@ export function FieldSeparator(props: FieldSeparatorProps) {
     <hr
       {...props}
       role="presentation"
-      className={cn(
+      className={classnames(
         "my-3 border-gray-200/80 last-of-type:mb-4",
         props.className,
       )}
