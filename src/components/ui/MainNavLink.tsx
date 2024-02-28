@@ -1,9 +1,9 @@
 import { classnames } from "@/lib/classnames";
-import { LucideIcon } from "lucide-react";
+import { IconType } from "@/types/icon";
 import { NavLink } from "react-router-dom";
 
 type MainNavLinkProps = React.ComponentProps<typeof NavLink> & {
-  icon: LucideIcon;
+  icon: IconType;
   label: string;
 };
 

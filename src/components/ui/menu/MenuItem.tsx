@@ -1,12 +1,12 @@
 import { classnames } from "@/lib/classnames";
-import { LucideIcon } from "lucide-react";
+import { IconType } from "@/types/icon";
 import {
   MenuItem as RACMenuItem,
   type MenuItemProps as RACMenuItemProps,
 } from "react-aria-components";
 
 type MenuItemProps = RACMenuItemProps & {
-  icon?: LucideIcon;
+  icon?: IconType;
   variant?: "default" | "destructive";
 };
 

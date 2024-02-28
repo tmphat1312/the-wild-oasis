@@ -1,12 +1,18 @@
+import {
+  BookingIcon,
+  CabinIcon,
+  DashboardIcon,
+  SettingsIcon,
+  UsersIcon,
+} from "../Icons";
 import MainNavLink from "../ui/MainNavLink";
-import { Home, CalendarDays, Warehouse, Users, Settings } from "lucide-react";
 
 const navLinks = [
-  { to: "/dashboard", label: "Dashboard", icon: Home },
-  { to: "/bookings", label: "Bookings", icon: CalendarDays },
-  { to: "/cabins", label: "Cabins", icon: Warehouse },
-  { to: "/users", label: "Users", icon: Users },
-  { to: "/settings", label: "Settings", icon: Settings },
+  { to: "/dashboard", label: "Dashboard", icon: DashboardIcon },
+  { to: "/bookings", label: "Bookings", icon: BookingIcon },
+  { to: "/cabins", label: "Cabins", icon: CabinIcon },
+  { to: "/users", label: "Users", icon: UsersIcon },
+  { to: "/settings", label: "Settings", icon: SettingsIcon },
 ] as const;
 
 export default function MainNav() {

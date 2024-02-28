@@ -1,5 +1,5 @@
 import { ITEMS_PER_PAGE } from "@/lib/constants";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeftIcon, ChevronRightIcon } from "../Icons";
 import { useSearchParams } from "react-router-dom";
 
 type PaginationProps = {
@@ -51,7 +51,7 @@ export function Pagination({ count }: PaginationProps) {
           disabled={currentPage == 1}
           onClick={goToPrevPage}
         >
-          <ChevronLeft role="presentation" size={18} />
+          <ChevronLeftIcon role="presentation" size={18} />
           previous
         </button>
         <button
@@ -60,7 +60,7 @@ export function Pagination({ count }: PaginationProps) {
           onClick={goToNextPage}
         >
           next
-          <ChevronRight role="presentation" size={18} />
+          <ChevronRightIcon role="presentation" size={18} />
         </button>
       </div>
     </div>

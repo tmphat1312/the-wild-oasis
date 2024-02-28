@@ -1,4 +1,4 @@
-import { MoreVertical } from "lucide-react";
+import { MoreVerticalIcon } from "@/components/Icons";
 import {
   Button,
   Menu,
@@ -18,7 +18,7 @@ export function MenuButton<T extends object>({
     <MenuTrigger {...props}>
       <Button aria-label="Menu" className="aria-expanded:bg-gray-100">
         <span className="sr-only">more actions</span>
-        <MoreVertical role="presentation" size={18} />
+        <MoreVerticalIcon role="presentation" size={18} />
       </Button>
       <Popover placement="bottom right">
         <Menu

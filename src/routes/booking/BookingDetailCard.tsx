@@ -1,15 +1,14 @@
+import {
+  BreakfastIcon,
+  CabinIcon,
+  CurrencyIcon,
+  NoteIcon,
+} from "@/components/Icons";
 import CurrencyPresenter from "@/components/presenters/CurrencyPresenter";
 import { DateDistancePresenter } from "@/components/presenters/DateDistancePresenter";
 import { DatePresenter } from "@/components/presenters/DatePresenter";
 import { classnames } from "@/lib/classnames";
 import { BookingDetailValues } from "@/schemas/bookingSchema";
-import {
-  CircleDollarSign,
-  MessageSquareWarning,
-  Minus,
-  Sandwich,
-  Warehouse,
-} from "lucide-react";
 import pluralize from "pluralize";
 
 type BookingDetailCardProps = {
@@ -21,7 +20,7 @@ export function BookingDetailCard({ booking }: BookingDetailCardProps) {
     <div className="overflow-clip rounded-md bg-background shadow-sm">
       <header className="flex items-center justify-between gap-2 bg-brand-600 px-12 py-6 text-lg font-medium text-brand-50">
         <div className="flex items-center gap-4">
-          <Warehouse role="presentation" />
+          <CabinIcon role="presentation" />
           <div>
             <span>{pluralize("night", booking.no_nights, true)}</span>
             <span>&nbsp;in Cabin {booking.cabins.name}</span>
@@ -37,7 +36,7 @@ export function BookingDetailCard({ booking }: BookingDetailCardProps) {
           <span>
             ( <DateDistancePresenter date={booking.start_date} />)
           </span>
-          <Minus />
+          <span aria-label="to">-</span>
           <span>
             <DatePresenter
               date={booking.start_date}
@@ -70,7 +69,7 @@ export function BookingDetailCard({ booking }: BookingDetailCardProps) {
         </span>
 
         <div className="flex items-center gap-3 font-medium">
-          <Sandwich role="presentation" />
+          <BreakfastIcon role="presentation" />
           <span>Breakfast included?</span>
           {booking.has_breakfast ? (
             <span className="text-green-500">Yes</span>
@@ -82,7 +81,7 @@ export function BookingDetailCard({ booking }: BookingDetailCardProps) {
         {booking.observations && (
           <div>
             <div className="mb-1 flex items-center gap-1.5">
-              <MessageSquareWarning role="presentation" />
+              <NoteIcon role="presentation" />
               <span className="font-medium">Notes</span>
             </div>
             <p className="p-4">{booking.observations}</p>
@@ -98,7 +97,7 @@ export function BookingDetailCard({ booking }: BookingDetailCardProps) {
           )}
         >
           <div className="flex items-center gap-3">
-            <CircleDollarSign role="presentation" />
+            <CurrencyIcon role="presentation" />
             <span className="font-medium">Total price</span>
             <span>
               <CurrencyPresenter amount={booking.total_due} />

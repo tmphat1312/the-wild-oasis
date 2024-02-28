@@ -1,4 +1,4 @@
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDownIcon, ChevronUpIcon } from "@/components/Icons";
 import { Fragment } from "react";
 import {
   NumberField as RACNumberField,
@@ -16,7 +16,8 @@ import {
 } from "@/components/ui/form/Field";
 import { fieldBorderStyles } from "@/styles/fieldBorderStyles";
 import { StepperButton } from "./StepperButton";
-import { cn, focusRing } from "@/lib/utils";
+import { focusRing } from "@/lib/utils";
+import { classnames } from "@/lib/classnames";
 
 type NumberFieldProps = RACNumberFieldProps & {
   label?: string;
@@ -72,7 +73,7 @@ export function NumberField({
               })}
             >
               <StepperButton slot="increment">
-                <ChevronUp aria-hidden className="size-4" />
+                <ChevronUpIcon aria-hidden className="size-4" />
               </StepperButton>
               <div
                 className={fieldBorderStyles({
@@ -81,7 +82,7 @@ export function NumberField({
                 })}
               />
               <StepperButton slot="decrement">
-                <ChevronDown aria-hidden className="size-4" />
+                <ChevronDownIcon aria-hidden className="size-4" />
               </StepperButton>
             </div>
           </Fragment>

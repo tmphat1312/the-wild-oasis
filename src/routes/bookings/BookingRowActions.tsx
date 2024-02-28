@@ -1,7 +1,4 @@
-import { Eye, LogIn, LogOut, Trash } from "lucide-react";
 import { Fragment, useState } from "react";
-// import { Key } from "react-aria-components";
-
 import { ConfirmDelete } from "@/components/ui/ConfirmDelete";
 import { MenuButton } from "@/components/ui/menu/MenuButton";
 import { MenuItem } from "@/components/ui/menu/MenuItem";
@@ -10,6 +7,12 @@ import { Key } from "react-aria-components";
 import { useNavigate } from "react-router-dom";
 import { useDeleteBookingById } from "./useDeleteBookingById";
 import { useCheckoutBooking } from "./useCheckoutBooking";
+import {
+  CheckInIcon,
+  CheckOutIcon,
+  TrashIcon,
+  EyeIcon,
+} from "@/components/Icons";
 
 type BookingTableRowActionsProps = {
   booking: BookingValues;
@@ -57,20 +60,24 @@ export function BookingRowActions({ booking }: BookingTableRowActionsProps) {
       />
 
       <MenuButton onAction={handleAction}>
-        <MenuItem icon={Eye} id={MenuActionKeys.SeeDetails}>
+        <MenuItem icon={EyeIcon} id={MenuActionKeys.SeeDetails}>
           See details
         </MenuItem>
         {booking.status == "unconfirmed" && (
-          <MenuItem icon={LogIn} id={MenuActionKeys.CheckIn}>
+          <MenuItem icon={CheckInIcon} id={MenuActionKeys.CheckIn}>
             Check in
           </MenuItem>
         )}
         {booking.status == "checked in" && (
-          <MenuItem icon={LogOut} id={MenuActionKeys.CheckOut}>
+          <MenuItem icon={CheckOutIcon} id={MenuActionKeys.CheckOut}>
             Check out
           </MenuItem>
         )}
-        <MenuItem icon={Trash} id={MenuActionKeys.Delete} variant="destructive">
+        <MenuItem
+          icon={TrashIcon}
+          id={MenuActionKeys.Delete}
+          variant="destructive"
+        >
           Delete booking
         </MenuItem>
       </MenuButton>

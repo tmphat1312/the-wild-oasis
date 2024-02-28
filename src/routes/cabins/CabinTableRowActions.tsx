@@ -1,4 +1,3 @@
-import { Copy, Pencil, Trash } from "lucide-react";
 import { Fragment, useState } from "react";
 import { Key } from "react-aria-components";
 
@@ -8,6 +7,7 @@ import { MenuItem } from "@/components/ui/menu/MenuItem";
 import { CabinValues } from "@/schemas/cabinSchema";
 import { useDeleteCabinById } from "./useDeleteCabinById";
 
+import { DuplicateIcon, EditIcon, TrashIcon } from "@/components/Icons";
 import { Button } from "@/components/ui/Button";
 import { Dialog } from "@/components/ui/Dialog";
 import { Modal } from "@/components/ui/Modal";
@@ -61,13 +61,13 @@ export function CabinTableRowActions({ cabin }: CabinTableRowActionsProps) {
         </Modal>
       </DialogTrigger>
       <MenuButton onAction={handleAction}>
-        <MenuItem icon={Copy} id="duplicate">
+        <MenuItem icon={DuplicateIcon} id="duplicate">
           Duplicate
         </MenuItem>
-        <MenuItem icon={Pencil} id="edit">
+        <MenuItem icon={EditIcon} id="edit">
           Edit
         </MenuItem>
-        <MenuItem icon={Trash} id="delete" variant="destructive">
+        <MenuItem icon={TrashIcon} id="delete" variant="destructive">
           Delete
         </MenuItem>
       </MenuButton>

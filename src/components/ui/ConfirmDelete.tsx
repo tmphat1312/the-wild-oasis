@@ -1,4 +1,4 @@
-import { AlertCircleIcon } from "lucide-react";
+import { AlertCircleIcon } from "../Icons";
 import { Fragment } from "react";
 import { chain } from "react-aria";
 import {

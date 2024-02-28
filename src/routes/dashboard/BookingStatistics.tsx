@@ -1,12 +1,12 @@
+import {
+  BookingIcon,
+  CheckInIcon,
+  CheckOutIcon,
+  CurrencyIcon,
+} from "@/components/Icons";
+import CurrencyPresenter from "@/components/presenters/CurrencyPresenter";
 import { StatisticsBookingValues } from "@/schemas/bookingSchema";
 import { DashboardBox } from "./DashboardBox";
-import {
-  BadgeDollarSign,
-  CalendarCheck,
-  CalendarPlus,
-  NotebookPen,
-} from "lucide-react";
-import CurrencyPresenter from "@/components/presenters/CurrencyPresenter";
 
 type BookingStatisticsProps = {
   bookings: StatisticsBookingValues[];
@@ -47,7 +47,7 @@ export function BookingStatistics({ bookings }: BookingStatisticsProps) {
             role="presentation"
             className="flex size-12 items-center justify-center rounded-full bg-blue-100 text-blue-700"
           >
-            <NotebookPen size={22} />
+            <BookingIcon size={22} />
           </div>
           <div className="font-medium">
             <div className="text-xs uppercase">Bookings</div>
@@ -61,7 +61,7 @@ export function BookingStatistics({ bookings }: BookingStatisticsProps) {
             role="presentation"
             className="flex size-12 items-center justify-center rounded-full bg-green-100 text-green-700"
           >
-            <BadgeDollarSign size={22} />
+            <CurrencyIcon size={22} />
           </div>
           <div className="font-medium">
             <div className="text-xs uppercase">Sales</div>
@@ -77,7 +77,7 @@ export function BookingStatistics({ bookings }: BookingStatisticsProps) {
             role="presentation"
             className="flex size-12 items-center justify-center rounded-full bg-orange-100 text-orange-700"
           >
-            <CalendarPlus size={22} />
+            <CheckInIcon size={22} />
           </div>
           <div className="font-medium">
             <div className="text-xs uppercase">Check ins</div>
@@ -91,7 +91,7 @@ export function BookingStatistics({ bookings }: BookingStatisticsProps) {
             role="presentation"
             className="flex size-12 items-center justify-center rounded-full bg-yellow-100 text-yellow-700"
           >
-            <CalendarCheck size={22} />
+            <CheckOutIcon size={22} />
           </div>
           <div className="font-medium">
             <div className="text-xs uppercase">Check outs</div>

@@ -1,4 +1,4 @@
-import { Pencil, Trash } from "lucide-react";
+import { EditIcon, TrashIcon } from "@/components/Icons";
 import {
   DropZone,
   FileDropItem,
@@ -62,7 +62,7 @@ export function CabinImageUpload({
           <div className="flex gap-3 rounded-md p-2 backdrop-blur-sm">
             <FileTrigger onSelect={handleSelectFile}>
               <RACButton aria-label="Change image" className="text-gray-900">
-                <Pencil size={20} role="presentation" />
+                <EditIcon size={20} role="presentation" />
               </RACButton>
             </FileTrigger>
             <RACButton
@@ -70,7 +70,7 @@ export function CabinImageUpload({
               aria-label="Discard the image"
               onPress={handleDeselectFile}
             >
-              <Trash size={20} role="presentation" />
+              <TrashIcon size={20} role="presentation" />
             </RACButton>
           </div>
         </div>
