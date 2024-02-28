@@ -1,4 +1,4 @@
-import { buildCabinStorageUrl } from "@/lib/supabase";
+import { buildCabinStorageUrl } from "@/services/APIStorage";
 import { CabinValues } from "@/schemas/cabinSchema";
 
 export const cabins: Array<Omit<CabinValues, "id">> = [

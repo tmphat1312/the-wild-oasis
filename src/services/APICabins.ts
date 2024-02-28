@@ -3,7 +3,7 @@ import {
   createCabinImage,
   duplicateCabinImage,
   removeCabinImage,
-} from "@/lib/supabase";
+} from "@/services/APIStorage";
 import { CabinValues, cabinsSchema } from "@/schemas/cabinSchema";
 import { TablesInsert } from "@/types/database";
 import { buildAPIClient } from "./APIClient";
