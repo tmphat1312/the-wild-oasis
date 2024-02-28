@@ -1,6 +1,6 @@
 import defaultUserAvt from "@/assets/images/default-user.jpg";
 import { useUser } from "@/routes/auth/useUser";
-import { Skeleton } from "./Skeleton";
+import { Skeleton } from "../../components/ui/Skeleton";
 
 export function UserInfo() {
   const { isLoading, user } = useUser();

@@ -1,7 +1,8 @@
-import { LogoutButton } from "@/routes/auth/LogoutButton";
 import { Link } from "react-router-dom";
+
+import { LogoutButton } from "@/routes/auth/LogoutButton";
+import { UserInfo } from "@/routes/auth/UserInfo";
 import { UserIcon } from "../Icons";
-import { UserInfo } from "../ui/UserInfo";
 
 export default function Header() {
   return (
