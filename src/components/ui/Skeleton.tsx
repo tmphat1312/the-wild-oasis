@@ -5,7 +5,7 @@ type SkeletonProps = React.ComponentProps<"div">;
 function Skeleton({ className, ...props }: SkeletonProps) {
   return (
     <div
-      className={classnames("animate-pulse rounded-md bg-muted", className)}
+      role="presentation"
       {...props}
     />
   );
