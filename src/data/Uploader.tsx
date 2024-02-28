@@ -2,8 +2,8 @@ import { isFuture, isPast, isToday } from "date-fns";
 import { useState } from "react";
 import { z } from "zod";
 
-import Section from "@/components/layouts/Section";
-import Heading from "@/components/ui/Heading";
+import { Section } from "@/components/layouts/Section";
+import { Heading } from "@/components/ui/Heading";
 import { toast } from "@/lib/toast";
 import { subtractDates } from "@/lib/utils";
 import { settingSchema } from "@/schemas/settingSchema";

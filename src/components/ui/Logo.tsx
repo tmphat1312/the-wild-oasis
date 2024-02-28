@@ -3,7 +3,7 @@ import { classnames } from "@/lib/classnames";
 
 type LogoProps = React.ComponentPropsWithoutRef<"div">;
 
-export default function Logo(props: LogoProps) {
+export function Logo(props: LogoProps) {
   return (
     <div className={classnames("grid justify-items-center", props.className)}>
       <img

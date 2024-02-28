@@ -4,7 +4,7 @@ import { LogoutButton } from "@/routes/auth/LogoutButton";
 import { UserInfo } from "@/routes/auth/UserInfo";
 import { UserIcon } from "../Icons";
 
-export default function Header() {
+export function Header() {
   return (
     <header className="box flex items-center justify-end gap-3">
       <UserInfo />

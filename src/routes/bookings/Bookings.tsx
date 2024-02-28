@@ -1,5 +1,5 @@
-import Section from "@/components/layouts/Section";
-import Heading from "@/components/ui/Heading";
+import { Section } from "@/components/layouts/Section";
+import { Heading } from "@/components/ui/Heading";
 import { BookingTable } from "./BookingTable";
 import { BookingTableOperations } from "./BookingTableOperations";
 

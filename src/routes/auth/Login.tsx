@@ -1,6 +1,6 @@
-import Section from "@/components/layouts/Section";
-import Heading from "@/components/ui/Heading";
-import Logo from "@/components/ui/Logo";
+import { Section } from "@/components/layouts/Section";
+import { Heading } from "@/components/ui/Heading";
+import { Logo } from "@/components/ui/Logo";
 import { LoginForm } from "./LoginForm";
 
 export default function Login() {

@@ -2,7 +2,7 @@ import { LevelProvider, useLevelContext } from "@/contexts/LevelContext";
 
 type SectionProps = React.ComponentProps<"section">;
 
-export default function Section(props: SectionProps) {
+export function Section(props: SectionProps) {
   const level = useLevelContext();
 
   return (

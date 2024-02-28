@@ -1,8 +1,8 @@
-import Section from "@/components/layouts/Section";
+import { Section } from "@/components/layouts/Section";
 import { BackButton } from "@/components/ui/BackButton";
 import ErrorMessage from "@/components/ui/ErrorMessage";
 import { FullLoadingIndicator } from "@/components/ui/FullLoadingIndicator";
-import Heading from "@/components/ui/Heading";
+import { Heading } from "@/components/ui/Heading";
 import { useParams } from "react-router-dom";
 import { BookingDetailCard } from "./BookingDetailCard";
 import { CheckInActions } from "./CheckInActions";

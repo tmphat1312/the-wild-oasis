@@ -1,10 +1,10 @@
 import { classnames } from "@/lib/classnames";
-import Logo from "../ui/Logo";
-import MainNav from "./MainNav";
+import { Logo } from "../ui/Logo";
+import { MainNav } from "./MainNav";
 
 type SidebarProps = React.ComponentProps<"aside">;
 
-export default function Sidebar(props: SidebarProps) {
+export function Sidebar(props: SidebarProps) {
   return (
     <aside
       {...props}

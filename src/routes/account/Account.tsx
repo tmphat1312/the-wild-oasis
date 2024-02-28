@@ -1,5 +1,5 @@
-import Section from "@/components/layouts/Section";
-import Heading from "@/components/ui/Heading";
+import { Section } from "@/components/layouts/Section";
+import { Heading } from "@/components/ui/Heading";
 import { UpdateUserPasswordForm } from "./UpdateUserPasswordForm";
 import { UpdateUserDataForm } from "./UpdateUserDataForm";
 

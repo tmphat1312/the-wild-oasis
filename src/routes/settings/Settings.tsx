@@ -1,7 +1,7 @@
-import Section from "@/components/layouts/Section";
+import { Section } from "@/components/layouts/Section";
 import ErrorMessage from "@/components/ui/ErrorMessage";
 import { FullLoadingIndicator } from "@/components/ui/FullLoadingIndicator";
-import Heading from "@/components/ui/Heading";
+import { Heading } from "@/components/ui/Heading";
 import UpdateSettingsForm from "./UpdateSettingsForm";
 import { useSettings } from "./useSettings";
 

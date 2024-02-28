@@ -24,7 +24,7 @@ const navLinks: NavLinkType[] = [
   { to: "/settings", label: "Settings", Icon: SettingsIcon },
 ];
 
-export default function MainNav() {
+export function MainNav() {
   return (
     <nav aria-label="Main navigation of the app">
       <ul className="flex flex-col gap-2">

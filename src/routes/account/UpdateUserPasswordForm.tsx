@@ -1,5 +1,5 @@
-import Section from "@/components/layouts/Section";
-import Heading from "@/components/ui/Heading";
+import { Section } from "@/components/layouts/Section";
+import { Heading } from "@/components/ui/Heading";
 import { FieldSeparator } from "@/components/ui/form/FieldSeparator";
 import { useForm } from "react-hook-form";
 import { useUpdateUserPassword } from "./useUpdateUserPassword";

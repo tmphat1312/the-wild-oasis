@@ -24,7 +24,7 @@ const headingVariants = tv({
 
 const HeadingVariant = z.enum(["h1", "h2", "h3", "h4", "h5", "h6"]);
 
-export default function Heading({ className, ...props }: HeadingProps) {
+export function Heading({ className, ...props }: HeadingProps) {
   const level = useLevelContext();
 
   if (level === undefined) {
