@@ -4,11 +4,14 @@ import MainNav from "./MainNav";
 
 type SidebarProps = React.ComponentProps<"aside">;
 
-export default function Sidebar({ className, ...props }: SidebarProps) {
+export default function Sidebar(props: SidebarProps) {
   return (
     <aside
-      className={classnames("space-y-8 bg-background px-4 py-12", className)}
       {...props}
+      className={classnames(
+        "space-y-8 bg-background px-4 py-12",
+        props.className,
+      )}
     >
       <Logo />
       <MainNav />
