@@ -12,8 +12,9 @@ import {
   composeRenderProps,
 } from "react-aria-components";
 
-import { cn, composeTailwindRenderProps } from "@/lib/utils";
+import { composeTailwindRenderProps } from "@/lib/utils";
 import { fieldGroupStyles } from "@/styles/fieldGroupStyles";
+import { classnames } from "@/lib/classnames";
 
 export function Label(props: LabelProps) {
   return (

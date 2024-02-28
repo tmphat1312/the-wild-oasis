@@ -1,4 +1,4 @@
-import { cn, focusRing } from "@/lib/utils";
+import { focusRing } from "@/lib/utils";
 import { fieldBorderStyles } from "@/styles/fieldBorderStyles";
 import {
   TextField as RACTextField,
@@ -6,6 +6,7 @@ import {
   ValidationResult,
 } from "react-aria-components";
 import { tv } from "tailwind-variants";
+import { classnames } from "@/lib/classnames";
 import { Description, FieldError, Input, Label } from "./Field";
 
 const inputStyles = tv({
