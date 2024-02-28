@@ -1,3 +1,4 @@
+export type { LucideIcon as IconType } from "lucide-react";
 export {
   Warehouse as CabinIcon,
   LayoutDashboard as DashboardIcon,

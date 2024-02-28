@@ -1,5 +1,5 @@
+import { IconType } from "@/components/Icons";
 import { classnames } from "@/lib/classnames";
-import { IconType } from "@/types/icon";
 import {
   MenuItem as RACMenuItem,
   type MenuItemProps as RACMenuItemProps,
