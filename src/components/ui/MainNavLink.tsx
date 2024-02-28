@@ -26,7 +26,7 @@ export default function MainNavLink({
       {...props}
     >
       <Icon size={22} className="text-gray-500" />
-      <span className="min-w-[14ch]">{label}</span>
+      <span className="line-clamp-1 min-w-[12ch] max-w-[18ch]">{label}</span>
     </NavLink>
   );
 }

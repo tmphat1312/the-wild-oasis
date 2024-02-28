@@ -5,7 +5,7 @@ import { UserInfo } from "../ui/UserInfo";
 
 export default function Header() {
   return (
-    <header className="flex items-center justify-end gap-3 rounded-md border bg-background px-4 py-3">
+    <header className="box flex items-center justify-end gap-3">
       <UserInfo />
       <Link
         to="/account"
