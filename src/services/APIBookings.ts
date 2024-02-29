@@ -7,7 +7,7 @@ import {
   statisticsBookingArraySchema,
 } from "@/schemas/bookingSchema";
 import { FilterFieldOption, SortFieldOption } from "@/types/API";
-import { buildAPIClient } from "./APIClient";
+import { APIClient } from "./APIClient";
 
 type GetBookingsArgs = {
   filterOptions?: FilterFieldOption[];
@@ -23,7 +23,7 @@ export async function getBookings({
   },
   page = 1,
 }: GetBookingsArgs) {
-  let query = buildAPIClient("bookings").select(
+  let query = APIClient.from("bookings").select(
     "id, created_at, start_date, end_date, no_nights, no_guests, status, total_due, cabins(name), guests(full_name, email)",
     { count: "exact" },
   );
@@ -67,7 +67,7 @@ type GetBookingArgs = {
 
 export async function getBooking({ bookingId }: GetBookingArgs) {
   try {
-    const { data } = await buildAPIClient("bookings")
+    const { data } = await APIClient.from("bookings")
       .select("*, cabins(*), guests(*)")
       .eq("id", bookingId)
       .single()
@@ -86,7 +86,7 @@ type DeleteBookingArgs = {
 
 export async function deleteBookingById({ bookingId }: DeleteBookingArgs) {
   try {
-    await buildAPIClient("bookings")
+    await APIClient.from("bookings")
       .delete()
       .eq("id", bookingId)
       .throwOnError();
@@ -102,7 +102,7 @@ type CheckOutBookingArgs = {
 
 export async function checkOutBooking({ bookingId }: CheckOutBookingArgs) {
   try {
-    await buildAPIClient("bookings")
+    await APIClient.from("bookings")
       .update({ status: "checked out" })
       .eq("id", bookingId)
       .throwOnError();
@@ -119,7 +119,7 @@ type UpdateBookingArgs = {
 
 export async function updateBooking({ bookingId, data }: UpdateBookingArgs) {
   try {
-    await buildAPIClient("bookings")
+    await APIClient.from("bookings")
       .update(data)
       .eq("id", bookingId)
       .throwOnError();
@@ -141,7 +141,7 @@ export async function getBookingsFromLastNDays({
   startDate.setDate(today.getDate() - lastNDays);
 
   try {
-    const { data } = await buildAPIClient("bookings")
+    const { data } = await APIClient.from("bookings")
       .select(
         "id, start_date, end_date, total_due, created_at, is_paid, status, no_nights, guests(*)",
       )
@@ -168,7 +168,7 @@ export async function getStaysFromLastNDays({
   startDate.setDate(today.getDate() - lastNDays);
 
   try {
-    const { data } = await buildAPIClient("bookings")
+    const { data } = await APIClient.from("bookings")
       .select(
         "id, start_date, end_date, total_due, created_at, is_paid, status, no_nights, guests(*)",
       )
@@ -188,7 +188,7 @@ export async function getTodayBookingActivities() {
   const today = new Date().toISOString();
 
   try {
-    const { data } = await buildAPIClient("bookings")
+    const { data } = await APIClient.from("bookings")
       .select("id, status, no_guests, guests(*)")
       .or(
         `and(status.eq.checked in, start_date.eq.${today}), and(status.eq.checked out, end_date.eq.${today})`,

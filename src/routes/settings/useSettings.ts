@@ -3,8 +3,14 @@ import { getSettings } from "@/services/APISettings";
 import { useQuery } from "@tanstack/react-query";
 
 export function useSettings() {
-  return useQuery({
+  const query = useQuery({
     queryKey: [QUERY_KEYS.settings],
     queryFn: getSettings,
   });
+
+  return {
+    isLoading: query.isLoading,
+    settings: query.data,
+    error: query.error,
+  };
 }

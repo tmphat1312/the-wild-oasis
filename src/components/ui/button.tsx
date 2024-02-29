@@ -1,26 +1,22 @@
+import { classnames } from "@/lib/classnames";
 import { tv } from "tailwind-variants";
-import {
-  Button as RACButton,
-  ButtonProps as RACButtonProps,
-  composeRenderProps,
-} from "react-aria-components";
 
-type ButtonProps = RACButtonProps & {
+type ButtonProps = React.ComponentProps<"button"> & {
   variant?: keyof typeof buttonVariants.variants.variant;
 };
 
 const buttonVariants = tv({
-  base: "px-4 py-3 text-sm text-center transition rounded-md border border-black/10 ",
+  base: [
+    "px-4 py-3 text-sm text-center rounded-md border",
+    "hover:bg-opacity-90 hover:shadow-sm",
+    "active:bg-opacity-100 active:shadow-none",
+    "disabled:opacity-100 disabled:bg-gray-400 disabled:text-gray-50 disabled:pointer-events-none",
+  ],
   variants: {
     variant: {
-      primary: "bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white",
-      secondary:
-        "bg-gray-100 hover:bg-gray-200 active:bg-gray-300 text-gray-800",
-      destructive: "bg-red-700 hover:bg-red-800 active:bg-red-900 text-white",
-      icon: "border-0 p-1 flex items-center justify-center text-gray-600 hover:bg-black/[5%] active:bg-black/10 dark:text-zinc-400 disabled:bg-transparent",
-    },
-    isDisabled: {
-      true: "disabled:opacity-50 disabled:pointer-events-none",
+      primary: "bg-brand-600 text-brand-50",
+      secondary: "bg-gray-100 text-gray-600",
+      destructive: "bg-red-600 text-red-50",
     },
   },
   defaultVariants: {
@@ -28,13 +24,12 @@ const buttonVariants = tv({
   },
 });
 
-export function Button(props: ButtonProps) {
+export function Button({ variant, ...props }: ButtonProps) {
   return (
-    <RACButton
+    <button
       {...props}
-      className={composeRenderProps(props.className, (className, renderProps) =>
-        buttonVariants({ ...renderProps, variant: props.variant, className }),
-      )}
+      type={props.type || "button"}
+      className={classnames(buttonVariants({ variant }), props.className)}
     />
   );
 }

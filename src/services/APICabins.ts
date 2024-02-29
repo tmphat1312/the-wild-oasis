@@ -6,11 +6,11 @@ import {
 } from "@/services/APIStorage";
 import { CabinValues, cabinsSchema } from "@/schemas/cabinSchema";
 import { TablesInsert } from "@/types/database";
-import { buildAPIClient } from "./APIClient";
+import { APIClient } from "./APIClient";
 
 export async function getCabins() {
   try {
-    const { data } = await buildAPIClient("cabins").select("*").throwOnError();
+    const { data } = await APIClient.from("cabins").select("*").throwOnError();
     return cabinsSchema.parse(data);
   } catch (error) {
     throw Error("Cabins could not be fetched!!!");
@@ -27,7 +27,7 @@ export async function deleteCabinById({
 }: DeleteCabinArgs) {
   try {
     await Promise.all([
-      buildAPIClient("cabins").delete().eq("id", cabinId).throwOnError(),
+      APIClient.from("cabins").delete().eq("id", cabinId).throwOnError(),
       removeCabinImage(cabinImage),
     ]);
   } catch (error) {
@@ -47,7 +47,7 @@ export async function createCabin({ newCabin }: CreateCabinArgs) {
     const imageName = await createCabinImage(newCabin.image);
     imageStorageUrl = buildCabinStorageUrl(imageName);
 
-    await buildAPIClient("cabins")
+    await APIClient.from("cabins")
       .insert({
         ...newCabin,
         image: imageStorageUrl,
@@ -75,7 +75,7 @@ export async function updateCabin({ newCabin }: UpdateCabinArgs) {
       const newImageName = await createCabinImage(newCabin.newImage);
       newImageStorageUrl = buildCabinStorageUrl(newImageName);
 
-      await buildAPIClient("cabins")
+      await APIClient.from("cabins")
         .update({
           ...newCabin,
           image: newImageStorageUrl,
@@ -85,7 +85,7 @@ export async function updateCabin({ newCabin }: UpdateCabinArgs) {
         .throwOnError();
       await removeCabinImage(newCabin.image);
     } else {
-      await buildAPIClient("cabins")
+      await APIClient.from("cabins")
         .update({
           ...newCabin,
           newImage: undefined,
@@ -113,7 +113,7 @@ export async function duplicateCabin({ cabin }: DuplicateCabinArgs) {
     const toImage = await duplicateCabinImage(cabin.image);
     toImageStorageUrl = buildCabinStorageUrl(toImage);
 
-    await buildAPIClient("cabins")
+    await APIClient.from("cabins")
       .insert({
         ...cabin,
         name: `${cabin.name} (copy)`,
