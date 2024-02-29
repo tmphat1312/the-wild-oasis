@@ -1,4 +1,5 @@
 import { BookingStatistics } from "./BookingStatistics";
+import { DashboardSkeleton } from "./DashboardSkeleton";
 import { DurationChart } from "./DurationChart";
 import { SalesChart } from "./SalesChart";
 import { TodayActivities } from "./TodayActivities";
@@ -25,7 +26,7 @@ export function DashboardLayout() {
   }
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <DashboardSkeleton />;
   }
 
   if (!bookings || !stays) {

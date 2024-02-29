@@ -1,3 +1,4 @@
+import { Skeleton } from "@/components/ui/Skeleton";
 import { DashboardBox } from "./DashboardBox";
 import { useTodayActivities } from "./useTodayActivities";
 
@@ -5,28 +6,32 @@ export function TodayActivities() {
   const { isLoading, error, todayActivities } = useTodayActivities();
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <DashboardBox>Error: {error.message}</DashboardBox>;
   }
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <DashboardBox>
+        <Skeleton className="h-full" />
+      </DashboardBox>
+    );
   }
 
   if (!todayActivities) {
     return <div>No activities today</div>;
   }
 
-  // if (todayActivities.length === 0) {
-  //   return (
-  //     <DashboardBox>
-  //       <div>No activities today</div>
-  //     </DashboardBox>
-  //   );
-  // }
+  if (todayActivities.length === 0) {
+    return (
+      <DashboardBox>
+        <div className="mb-4 text-lg font-semibold">No activities today</div>
+      </DashboardBox>
+    );
+  }
 
   return (
     <DashboardBox>
-      <div className="mb-4 text-lg font-medium">Today</div>
+      <div className="mb-4 text-lg font-semibold">Today</div>
       <ul className="divide-y border-y">
         {OLDdata.map((activity) => (
           <li
