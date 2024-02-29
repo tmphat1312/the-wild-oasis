@@ -1,6 +1,13 @@
-import { FieldSeparator } from "@/components/ui/form/FieldSeparator";
 import { useForm } from "react-hook-form";
+
+import { Form } from "@/components/ui/form-v1/Form";
+import { FormField } from "@/components/ui/form-v1/FormField";
+import { Input } from "@/components/ui/form-v1/Input";
+import { Label } from "@/components/ui/form-v1/Label";
+import { FieldError } from "@/components/ui/form-v1/FieldError";
 import { useSignUpUser } from "./useSignUpUser";
+import { ButtonField } from "@/components/ui/form-v1/ButtonField";
+import { Button } from "@/components/ui/Button";
 
 type CreateUserFormFields = {
   full_name: string;
@@ -10,120 +17,89 @@ type CreateUserFormFields = {
 };
 
 export function CreateUserForm() {
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-    getValues,
-    reset,
-  } = useForm({
-    defaultValues: {
-      full_name: "",
-      email: "",
-      password: "",
-      confirm_password: "",
-    },
-  });
+  const form = useForm<CreateUserFormFields>({});
   const { isLoading, signUp } = useSignUpUser();
 
   function onSubmit(data: CreateUserFormFields) {
     signUp(data, {
-      onSuccess: () => reset(),
+      onSuccess: () => form.reset(),
     });
   }
 
+  const errors = form.formState.errors;
+
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="rounded-md border bg-background p-8"
+    <Form
+      className="box p-12"
+      onSubmit={form.handleSubmit(onSubmit)}
+      isSubmitting={isLoading}
     >
-      <div className="grid grid-cols-[18ch_minmax(10ch,28ch)_1fr] items-center gap-4">
-        <label htmlFor="full-name" className="">
-          Full name
-        </label>
-        <input
-          type="text"
-          {...register("full_name", { required: "Full name is required" })}
-          id="full-name"
-          className="w-full rounded-md border border-s-4 px-2.5 py-1.5"
-          disabled={isLoading}
+      <FormField>
+        <Label>Full name</Label>
+        <Input
+          {...form.register("full_name", {
+            required: "Full name is required",
+            minLength: {
+              value: 3,
+              message: "Full name must be at least 3 characters",
+            },
+            maxLength: {
+              value: 100,
+              message: "Full name must be at most 100 characters",
+            },
+          })}
         />
-        <p className="text-sm text-red-500 first-letter:capitalize">
-          {errors.full_name?.message}
-        </p>
-      </div>
-      <FieldSeparator />
-      <div className="grid grid-cols-[18ch_minmax(10ch,28ch)_1fr] items-center gap-4">
-        <label htmlFor="email" className="">
-          Email
-        </label>
-        <input
+        <FieldError>{errors.full_name?.message}</FieldError>
+      </FormField>
+      <FormField>
+        <Label>Email address</Label>
+        <Input
+          {...form.register("email", {
+            required: "Email is required",
+            pattern: {
+              value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+              message: "Invalid email format",
+            },
+          })}
           type="email"
-          {...register("email", { required: "Email is required" })}
-          id="email"
-          className="w-full rounded-md border border-s-4 px-2.5 py-1.5"
-          disabled={isLoading}
         />
-        <p className="text-sm text-red-500 first-letter:capitalize">
-          {errors.email?.message}
-        </p>
-      </div>
-      <FieldSeparator />
-      <div className="grid grid-cols-[18ch_minmax(10ch,28ch)_1fr] items-center gap-4">
-        <div>
-          <label htmlFor="password" className="">
-            Password
-          </label>
-          <p className="text-sm">(min 8 characters)</p>
-        </div>
-        <input
+        <FieldError>{errors.email?.message}</FieldError>
+      </FormField>
+      <FormField>
+        <Label>
+          Password <br /> (min 8 characters)
+        </Label>
+        <Input
+          {...form.register("password", {
+            required: "Password is required",
+            minLength: {
+              value: 8,
+              message: "Password must be at least 8 characters",
+            },
+          })}
           type="password"
-          {...register("password", { required: "Password is required" })}
-          id="password"
-          className="w-full rounded-md border border-s-4 px-2.5 py-1.5"
-          disabled={isLoading}
         />
-        <p className="text-sm text-red-500 first-letter:capitalize">
-          {errors.email?.message}
-        </p>
-      </div>
-      <FieldSeparator />
-      <div className="grid grid-cols-[18ch_minmax(10ch,28ch)_1fr] items-center gap-4">
-        <label htmlFor="confirm-password" className="">
-          Repeat Password
-        </label>
-        <input
-          type="password"
-          {...register("confirm_password", {
+        <FieldError>{errors.password?.message}</FieldError>
+      </FormField>
+      <FormField>
+        <Label>Password confirmation</Label>
+        <Input
+          {...form.register("confirm_password", {
             required: "Password confirmation is required",
             validate: (value) =>
-              value === getValues("password") || "Passwords do not match",
+              value === form.getValues("password") || "Passwords do not match",
           })}
-          id="confirm-password"
-          className="w-full rounded-md border border-s-4 px-2.5 py-1.5"
-          disabled={isLoading}
+          type="password"
         />
-        <p className="text-sm text-red-500 first-letter:capitalize">
-          {errors.confirm_password?.message}
-        </p>
-      </div>
-      <FieldSeparator />
-      <div className="space-x-3 text-end">
-        <button
-          disabled={isLoading}
-          className="rounded border bg-gray-50 px-3.5 py-2.5 text-sm"
-          type="reset"
-        >
+        <FieldError>{errors.confirm_password?.message}</FieldError>
+      </FormField>
+
+      <ButtonField>
+        <Button variant="secondary" onClick={() => form.reset()}>
           Cancel
-        </button>
-        <button
-          disabled={isLoading}
-          type="submit"
-          className="rounded border bg-brand-600 px-3.5 py-2.5 text-sm text-brand-50"
-        >
-          Create new user
-        </button>
-      </div>
-    </form>
+        </Button>
+        <Button type="submit">Create new user</Button>
+      </ButtonField>
+    </Form>
   );
 }
