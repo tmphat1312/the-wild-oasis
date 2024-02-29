@@ -1,25 +1,25 @@
+import { CabinInput, CabinSchema, CabinType } from "@/schemas/CabinSchema";
 import {
   buildCabinStorageUrl,
   createCabinImage,
   duplicateCabinImage,
   removeCabinImage,
 } from "@/services/APIStorage";
-import { CabinValues, cabinsSchema } from "@/schemas/cabinSchema";
-import { TablesInsert } from "@/types/database";
+import { z } from "zod";
 import { APIClient } from "./APIClient";
 
 export async function getCabins() {
   try {
     const { data } = await APIClient.from("cabins").select("*").throwOnError();
-    return cabinsSchema.parse(data);
+    return z.array(CabinSchema).parse(data);
   } catch (error) {
     throw Error("Cabins could not be fetched!!!");
   }
 }
 
 type DeleteCabinArgs = {
-  cabinId: CabinValues["id"];
-  cabinImage: CabinValues["image"];
+  cabinId: CabinType["id"];
+  cabinImage: CabinType["image"];
 };
 export async function deleteCabinById({
   cabinId,
@@ -36,7 +36,7 @@ export async function deleteCabinById({
 }
 
 type CreateCabinArgs = {
-  newCabin: Omit<TablesInsert<"cabins">, "image"> & {
+  newCabin: Omit<CabinInput, "image"> & {
     image: File;
   };
 };
@@ -63,7 +63,7 @@ export async function createCabin({ newCabin }: CreateCabinArgs) {
 }
 
 type UpdateCabinArgs = {
-  newCabin: TablesInsert<"cabins"> & {
+  newCabin: CabinInput & {
     newImage: File | null;
   };
 };
@@ -103,7 +103,7 @@ export async function updateCabin({ newCabin }: UpdateCabinArgs) {
 }
 
 type DuplicateCabinArgs = {
-  cabin: CabinValues;
+  cabin: CabinType;
 };
 
 export async function duplicateCabin({ cabin }: DuplicateCabinArgs) {

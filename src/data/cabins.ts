@@ -1,7 +1,7 @@
 import { buildCabinStorageUrl } from "@/services/APIStorage";
-import { CabinValues } from "@/schemas/cabinSchema";
+import { CabinType } from "@/schemas/CabinSchema";
 
-export const cabins: Array<Omit<CabinValues, "id">> = [
+export const cabins: Array<Omit<CabinType, "id">> = [
   {
     name: "001",
     max_capacity: 2,

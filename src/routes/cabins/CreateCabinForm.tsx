@@ -8,7 +8,7 @@ import { NumberField } from "@/components/ui/form/NumberInput";
 import { TextAreaField } from "@/components/ui/form/TextAreaField";
 import { TextField } from "@/components/ui/form/TextField";
 import { toast } from "@/lib/toast";
-import { cabinSchema } from "@/schemas/cabinSchema";
+import { CabinSchema } from "@/schemas/CabinSchema";
 import { CabinImageUpload } from "./CabinImageUpload";
 import { useCreateCabin } from "./useCreateCabin";
 
@@ -60,11 +60,9 @@ export function CreateCabinForm({ closeModal }: CreateCabinFormProps) {
     }
 
     const data = Object.fromEntries(new FormData(e.currentTarget));
-    const newCabin = cabinSchema
-      .omit({
-        id: true,
-      })
-      .parse(data);
+    const newCabin = CabinSchema.omit({
+      id: true,
+    }).parse(data);
 
     toast.promise(
       createCabinAsync(

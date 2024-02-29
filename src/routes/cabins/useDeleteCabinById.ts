@@ -1,12 +1,12 @@
 import { QUERY_KEYS } from "@/lib/constants";
 import { toast } from "@/lib/toast";
-import { CabinValues } from "@/schemas/cabinSchema";
+import { CabinType } from "@/schemas/CabinSchema";
 import { deleteCabinById } from "@/services/APICabins";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 type UseDeleteCabinByIdProps = {
-  cabinId: CabinValues["id"];
-  cabinImage: CabinValues["image"];
+  cabinId: CabinType["id"];
+  cabinImage: CabinType["image"];
 };
 
 export function useDeleteCabinById({

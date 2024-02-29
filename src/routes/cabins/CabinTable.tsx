@@ -1,18 +1,19 @@
 import ErrorMessage from "@/components/ui/ErrorMessage";
 import TableSkeleton from "@/components/ui/TableSkeleton";
-import { HeaderColumn } from "@/components/ui/table/HeaderColumn";
-import { Table } from "@/components/ui/table/Table";
-import { TableBody } from "@/components/ui/table/TableBody";
-import { TableHeader } from "@/components/ui/table/TableHeader";
+import { Column } from "@/components/ui/table-v1/Column";
+import { Table } from "@/components/ui/table-v1/Table";
+import { TableBody } from "@/components/ui/table-v1/TableBody";
+import { TableHeader } from "@/components/ui/table-v1/TableHeader";
+import { useClientSideFilterItems } from "@/hooks/useClientSideFilterItems";
+import { useClientSideSortItems } from "@/hooks/useClientSideSortItems";
+import { CabinType } from "@/schemas/CabinSchema";
 import { CabinTableRow } from "./CabinTableRow";
 import { useCabins } from "./useCabins";
-import { useClientSideSortItems } from "@/hooks/useClientSideSortItems";
-import { CabinValues } from "@/schemas/cabinSchema";
-import { useClientSideFilterItems } from "@/hooks/useClientSideFilterItems";
+import { Empty } from "@/components/ui/Empty";
 
 export default function CabinTable() {
   const { isLoading, error, data } = useCabins();
-  const filteredItems = useClientSideFilterItems<CabinValues>({
+  const filteredItems = useClientSideFilterItems<CabinType>({
     items: data ?? [],
     filterField: "discount",
     filter: {
@@ -20,7 +21,7 @@ export default function CabinTable() {
       without_discount: (i) => !i.discount,
     },
   });
-  const sortedItems = useClientSideSortItems<CabinValues>({
+  const sortedItems = useClientSideSortItems<CabinType>({
     items: filteredItems ?? [],
     sort: {
       name: (a, b) => a.name.localeCompare(b.name),
@@ -40,16 +41,18 @@ export default function CabinTable() {
   return (
     <Table aria-label="Cabins">
       <TableHeader>
-        <HeaderColumn isRowHeader>Showcase</HeaderColumn>
-        <HeaderColumn>Cabin</HeaderColumn>
-        <HeaderColumn>Capacity</HeaderColumn>
-        <HeaderColumn>Price</HeaderColumn>
-        <HeaderColumn>Discount</HeaderColumn>
-        <HeaderColumn />
+        <Column>Showcase</Column>
+        <Column>Cabin</Column>
+        <Column>Capacity</Column>
+        <Column>Price</Column>
+        <Column>Discount</Column>
+        <Column aria-label="Row actions" />
       </TableHeader>
-      <TableBody items={sortedItems} renderEmptyState={() => "no results"}>
-        {(row) => <CabinTableRow row={row} />}
-      </TableBody>
+      <TableBody
+        items={sortedItems}
+        renderEmpty={() => <Empty>No items found</Empty>}
+        renderRow={(item) => <CabinTableRow row={item} key={item.id} />}
+      />
     </Table>
   );
 }

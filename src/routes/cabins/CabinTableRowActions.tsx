@@ -4,7 +4,7 @@ import { Key } from "react-aria-components";
 import { ConfirmDelete } from "@/components/ui/ConfirmDelete";
 import { MenuButton } from "@/components/ui/menu/MenuButton";
 import { MenuItem } from "@/components/ui/menu/MenuItem";
-import { CabinValues } from "@/schemas/cabinSchema";
+import { CabinType } from "@/schemas/CabinSchema";
 import { useDeleteCabinById } from "./useDeleteCabinById";
 
 import { DuplicateIcon, EditIcon, TrashIcon } from "@/components/Icons";
@@ -16,7 +16,7 @@ import { UpdateCabinForm } from "./UpdateCabinForm";
 import { useDuplicateCabin } from "./useDuplicateCabin";
 
 type CabinTableRowActionsProps = {
-  cabin: CabinValues;
+  cabin: CabinType;
 };
 
 export function CabinTableRowActions({ cabin }: CabinTableRowActionsProps) {

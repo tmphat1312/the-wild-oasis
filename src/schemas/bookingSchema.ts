@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { guestSchema } from "./guestSchema";
-import { cabinSchema } from "./cabinSchema";
+import { CabinSchema } from "./CabinSchema";
 
 export const bookingStatusEnum = z.enum([
   "unconfirmed",
@@ -36,7 +36,7 @@ export const bookingDetailSchema = bookingSchema.extend({
   has_breakfast: z.boolean(),
   is_paid: z.boolean(),
   observations: z.string().optional().default(""),
-  cabins: cabinSchema,
+  cabins: CabinSchema,
   guests: guestSchema,
 });
 

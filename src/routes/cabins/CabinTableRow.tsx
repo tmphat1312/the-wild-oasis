@@ -1,15 +1,15 @@
 import { CurrencyPresenter } from "@/components/presenters/CurrencyPresenter";
-import { Cell } from "@/components/ui/table/Cell";
-import { Row } from "@/components/ui/table/Row";
-import { CabinValues } from "@/schemas/cabinSchema";
+import { Cell } from "@/components/ui/table-v1/Cell";
+import { Row } from "@/components/ui/table-v1/Row";
+import { CabinType } from "@/schemas/CabinSchema";
 import pluralize from "pluralize";
 import { CabinTableRowActions } from "./CabinTableRowActions";
 
-type CabinTableRowProps = {
-  row: CabinValues;
+type Props = {
+  row: CabinType;
 };
 
-export function CabinTableRow({ row }: CabinTableRowProps) {
+export function CabinTableRow({ row }: Props) {
   return (
     <Row className="text-sm">
       <Cell>
