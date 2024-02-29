@@ -1,4 +1,4 @@
-import { bookingSchema as originalSchema } from "@/schemas/bookingSchema";
+import { BookingSchema as originalSchema } from "@/schemas/BookingSchema";
 import { add } from "date-fns";
 import { z } from "zod";
 

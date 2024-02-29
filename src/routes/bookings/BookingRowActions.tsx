@@ -2,7 +2,7 @@ import { Fragment, useState } from "react";
 import { ConfirmDelete } from "@/components/ui/ConfirmDelete";
 import { MenuButton } from "@/components/ui/menu/MenuButton";
 import { MenuItem } from "@/components/ui/menu/MenuItem";
-import { BookingValues } from "@/schemas/bookingSchema";
+import { BookingType } from "@/schemas/BookingSchema";
 import { Key } from "react-aria-components";
 import { useNavigate } from "react-router-dom";
 import { useDeleteBookingById } from "./useDeleteBookingById";
@@ -15,7 +15,7 @@ import {
 } from "@/components/Icons";
 
 type BookingTableRowActionsProps = {
-  booking: BookingValues;
+  booking: BookingType;
 };
 
 enum MenuActionKeys {

@@ -1,12 +1,12 @@
 import { QUERY_KEYS } from "@/lib/constants";
 import { toast } from "@/lib/toast";
-import { BookingDetailValues } from "@/schemas/bookingSchema";
+import { BookingDetailType } from "@/schemas/BookingSchema";
 import { updateBooking } from "@/services/APIBookings";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
 type UseCheckInBookingArgs = {
-  bookingId: BookingDetailValues["id"];
+  bookingId: BookingDetailType["id"];
 };
 
 export function useCheckInBooking({ bookingId }: UseCheckInBookingArgs) {

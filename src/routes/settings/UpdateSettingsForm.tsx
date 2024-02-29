@@ -7,7 +7,7 @@ import { Form } from "@/components/ui/form/Form";
 import { FormField } from "@/components/ui/form/FormField";
 import { Input } from "@/components/ui/form/Input";
 import { Label } from "@/components/ui/form/Label";
-import { SettingType } from "@/schemas/settingSchema";
+import { SettingType } from "@/schemas/SettingSchema";
 import { useUpdateSettings } from "./useUpdateSettings";
 
 function mustBeInteger(value: number) {

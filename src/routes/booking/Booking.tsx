@@ -4,7 +4,7 @@ import ErrorMessage from "@/components/ui/ErrorMessage";
 import { FullLoadingIndicator } from "@/components/ui/FullLoadingIndicator";
 import { Heading } from "@/components/ui/Heading";
 import { Tag, TagColor } from "@/components/ui/Tag";
-import { BookingStatus } from "@/schemas/bookingSchema";
+import { BookingStatus } from "@/schemas/BookingSchema";
 import { useParams } from "react-router-dom";
 import { BookingActions } from "./BookingActions";
 import { BookingDetailCard } from "./BookingDetailCard";

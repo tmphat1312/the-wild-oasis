@@ -1,4 +1,4 @@
-import { StatisticsBookingValues } from "@/schemas/bookingSchema";
+import { StatisticsBookingType } from "@/schemas/BookingSchema";
 import { DashboardBox } from "./DashboardBox";
 import {
   PieChart,
@@ -10,7 +10,7 @@ import {
 } from "recharts";
 
 type DurationChartProps = {
-  stays: StatisticsBookingValues[];
+  stays: StatisticsBookingType[];
 };
 
 export function DurationChart({ stays }: DurationChartProps) {

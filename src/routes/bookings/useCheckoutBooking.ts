@@ -1,11 +1,11 @@
 import { QUERY_KEYS } from "@/lib/constants";
 import { toast } from "@/lib/toast";
-import { BookingDetailValues } from "@/schemas/bookingSchema";
+import { BookingDetailType } from "@/schemas/BookingSchema";
 import { checkOutBooking } from "@/services/APIBookings";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 type UseCheckoutBookingArgs = {
-  bookingId: BookingDetailValues["id"];
+  bookingId: BookingDetailType["id"];
 };
 
 export function useCheckoutBooking({ bookingId }: UseCheckoutBookingArgs) {

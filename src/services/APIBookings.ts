@@ -1,12 +1,13 @@
 import { ITEMS_PER_PAGE } from "@/lib/constants";
 import {
-  BookingDetailValues,
-  bookingActivityArraySchema,
-  bookingArraySchema,
-  bookingDetailSchema,
-  statisticsBookingArraySchema,
-} from "@/schemas/bookingSchema";
+  BookingDetailType,
+  BookingSchema,
+  BookingActivityArraySchema,
+  BookingDetailSchema,
+  StatisticsBookingArraySchema,
+} from "@/schemas/BookingSchema";
 import { FilterFieldOption, SortFieldOption } from "@/types/API";
+import { z } from "zod";
 import { APIClient } from "./APIClient";
 
 type GetBookingsArgs = {
@@ -52,7 +53,7 @@ export async function getBookings({
 
   try {
     const { data, count } = await query.throwOnError();
-    const bookings = bookingArraySchema.parse(data);
+    const bookings = z.array(BookingSchema).parse(data);
 
     return { bookings, count: Number(count) };
   } catch (error) {
@@ -62,7 +63,7 @@ export async function getBookings({
 }
 
 type GetBookingArgs = {
-  bookingId: BookingDetailValues["id"];
+  bookingId: BookingDetailType["id"];
 };
 
 export async function getBooking({ bookingId }: GetBookingArgs) {
@@ -73,7 +74,7 @@ export async function getBooking({ bookingId }: GetBookingArgs) {
       .single()
       .throwOnError();
 
-    return bookingDetailSchema.parse(data);
+    return BookingDetailSchema.parse(data);
   } catch (error) {
     console.error(error);
     throw Error(`Booking #${bookingId} not found`);
@@ -81,7 +82,7 @@ export async function getBooking({ bookingId }: GetBookingArgs) {
 }
 
 type DeleteBookingArgs = {
-  bookingId: BookingDetailValues["id"];
+  bookingId: BookingDetailType["id"];
 };
 
 export async function deleteBookingById({ bookingId }: DeleteBookingArgs) {
@@ -97,7 +98,7 @@ export async function deleteBookingById({ bookingId }: DeleteBookingArgs) {
 }
 
 type CheckOutBookingArgs = {
-  bookingId: BookingDetailValues["id"];
+  bookingId: BookingDetailType["id"];
 };
 
 export async function checkOutBooking({ bookingId }: CheckOutBookingArgs) {
@@ -113,8 +114,8 @@ export async function checkOutBooking({ bookingId }: CheckOutBookingArgs) {
 }
 
 type UpdateBookingArgs = {
-  bookingId: BookingDetailValues["id"];
-  data: Partial<BookingDetailValues>;
+  bookingId: BookingDetailType["id"];
+  data: Partial<BookingDetailType>;
 };
 
 export async function updateBooking({ bookingId, data }: UpdateBookingArgs) {
@@ -149,7 +150,7 @@ export async function getBookingsFromLastNDays({
       .lte("created_at", today.toISOString())
       .throwOnError();
 
-    return statisticsBookingArraySchema.parse(data);
+    return StatisticsBookingArraySchema.parse(data);
   } catch (error) {
     console.error(error);
     throw Error("Error fetching bookings from last N days");
@@ -177,7 +178,7 @@ export async function getStaysFromLastNDays({
       .lte("start_date", today.toISOString())
       .throwOnError();
 
-    return statisticsBookingArraySchema.parse(data);
+    return StatisticsBookingArraySchema.parse(data);
   } catch (error) {
     console.error(error);
     throw Error("Error fetching stays from last N days");
@@ -195,7 +196,7 @@ export async function getTodayBookingActivities() {
       )
       .throwOnError();
 
-    return bookingActivityArraySchema.parse(data);
+    return BookingActivityArraySchema.parse(data);
   } catch (error) {
     console.error(error);
     throw Error("Error fetching today's booking activities");

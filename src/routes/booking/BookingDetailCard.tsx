@@ -8,11 +8,11 @@ import { CurrencyPresenter } from "@/components/presenters/CurrencyPresenter";
 import { DateDistancePresenter } from "@/components/presenters/DateDistancePresenter";
 import { DatePresenter } from "@/components/presenters/DatePresenter";
 import { classnames } from "@/lib/classnames";
-import { BookingDetailValues } from "@/schemas/bookingSchema";
+import { BookingDetailType } from "@/schemas/BookingSchema";
 import pluralize from "pluralize";
 
 type BookingDetailCardProps = {
-  booking: BookingDetailValues;
+  booking: BookingDetailType;
 };
 
 export function BookingDetailCard({ booking }: BookingDetailCardProps) {

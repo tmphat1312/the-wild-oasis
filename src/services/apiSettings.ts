@@ -1,4 +1,4 @@
-import { SettingInput, SettingSchema } from "@/schemas/settingSchema";
+import { SettingInput, SettingSchema } from "@/schemas/SettingSchema";
 import { APIClient } from "./APIClient";
 
 const THE_ONLY_SETTING_ID = 1;

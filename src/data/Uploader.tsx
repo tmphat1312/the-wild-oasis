@@ -6,7 +6,7 @@ import { Section } from "@/components/layouts/Section";
 import { Heading } from "@/components/ui/Heading";
 import { toast } from "@/lib/toast";
 import { subtractDates } from "@/lib/utils";
-import { SettingSchema } from "@/schemas/settingSchema";
+import { SettingSchema } from "@/schemas/SettingSchema";
 import { APIClient } from "@/services/APIClient";
 import { TableRowNames } from "@/types/table-row";
 import { bookings } from "./bookings";

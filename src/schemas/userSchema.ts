@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const userSchema = z.object({
+export const UserSchema = z.object({
   email: z.string().email(),
   role: z.enum([
     "authenticated",
@@ -10,9 +10,6 @@ export const userSchema = z.object({
     "server_role",
   ]),
   user_metadata: z.object({
-    avatar: z.string().optional().default(""),
     full_name: z.string().optional().default("---"),
   }),
 });
-
-export type UserValues = z.infer<typeof userSchema>;

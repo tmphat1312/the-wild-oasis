@@ -4,12 +4,12 @@ import { DatePresenter } from "@/components/presenters/DatePresenter";
 import { Tag, TagColor } from "@/components/ui/Tag";
 import { Cell } from "@/components/ui/table/Cell";
 import { Row } from "@/components/ui/table/Row";
-import { BookingStatus, BookingValues } from "@/schemas/bookingSchema";
+import { BookingStatus, BookingType } from "@/schemas/BookingSchema";
 import pluralize from "pluralize";
 import { BookingRowActions } from "./BookingRowActions";
 
 type BookingTableRowProps = {
-  row: BookingValues;
+  row: BookingType;
 };
 
 const tagColors: Record<BookingStatus, TagColor> = {

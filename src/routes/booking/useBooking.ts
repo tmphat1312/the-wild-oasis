@@ -1,10 +1,10 @@
 import { QUERY_KEYS } from "@/lib/constants";
-import { BookingValues } from "@/schemas/bookingSchema";
+import { BookingType } from "@/schemas/BookingSchema";
 import { getBooking } from "@/services/APIBookings";
 import { useQuery } from "@tanstack/react-query";
 
 type UseBookingArgs = {
-  bookingId: BookingValues["id"];
+  bookingId: BookingType["id"];
 };
 
 export function useBooking({ bookingId }: UseBookingArgs) {

@@ -1,6 +1,6 @@
-import { authSchema } from "@/schemas/authSchema";
+import { AuthSchema } from "@/schemas/authSchema";
 import { buildAuthAPIClient } from "./APIClient";
-import { userSchema } from "@/schemas/userSchema";
+import { UserSchema } from "@/schemas/UserSchema";
 
 type LoginUserArgs = {
   email: string;
@@ -21,7 +21,7 @@ export async function loginUser({ email, password }: LoginUserArgs) {
     throw error;
   }
 
-  return authSchema.parse(data);
+  return AuthSchema.parse(data);
 }
 
 export async function logoutUser() {
@@ -49,7 +49,7 @@ export async function getCurrentUser() {
     throw error;
   }
 
-  return userSchema.parse(user);
+  return UserSchema.parse(user);
 }
 
 type SignUpUserArgs = {

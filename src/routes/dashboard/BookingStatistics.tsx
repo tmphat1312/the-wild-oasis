@@ -5,14 +5,14 @@ import {
   CurrencyIcon,
 } from "@/components/Icons";
 import { CurrencyPresenter } from "@/components/presenters/CurrencyPresenter";
-import { StatisticsBookingValues } from "@/schemas/bookingSchema";
+import { StatisticsBookingType } from "@/schemas/BookingSchema";
 import { DashboardBox } from "./DashboardBox";
 
 type BookingStatisticsProps = {
-  bookings: StatisticsBookingValues[];
+  bookings: StatisticsBookingType[];
 };
 
-function calculateStatistics(bookings: StatisticsBookingValues[]) {
+function calculateStatistics(bookings: StatisticsBookingType[]) {
   const noBookings = bookings.length;
   let noCheckIns = 0;
   let noCheckOuts = 0;

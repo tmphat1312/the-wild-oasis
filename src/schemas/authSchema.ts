@@ -1,14 +1,12 @@
 import { z } from "zod";
-import { userSchema } from "./userSchema";
+import { UserSchema } from "./UserSchema";
 
-export const sessionSchema = z.object({
+export const SessionSchema = z.object({
   access_token: z.string(),
   refresh_token: z.string(),
 });
 
-export const authSchema = z.object({
-  session: sessionSchema,
-  user: userSchema,
+export const AuthSchema = z.object({
+  session: SessionSchema,
+  user: UserSchema,
 });
-
-export type AuthValues = z.infer<typeof authSchema>;

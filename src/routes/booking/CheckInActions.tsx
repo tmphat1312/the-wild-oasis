@@ -2,14 +2,14 @@ import { CurrencyPresenter } from "@/components/presenters/CurrencyPresenter";
 import { BackButton } from "@/components/ui/BackButton";
 import { Button } from "@/components/ui/Button";
 import { Form } from "@/components/ui/form/Form";
-import { BookingDetailValues } from "@/schemas/bookingSchema";
+import { BookingDetailType } from "@/schemas/BookingSchema";
 import { useState } from "react";
 import { useCheckInBooking } from "../bookings/useCheckInBooking";
 import { useSettings } from "../settings/useSettings";
 import { Skeleton } from "@/components/ui/Skeleton";
 
 type CheckInActionsProps = {
-  booking: BookingDetailValues;
+  booking: BookingDetailType;
 };
 
 export function CheckInActions({ booking }: CheckInActionsProps) {

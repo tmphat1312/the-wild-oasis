@@ -1,6 +1,6 @@
 import { BackButton } from "@/components/ui/BackButton";
 import { Button } from "@/components/ui/Button";
-import { BookingDetailValues } from "@/schemas/bookingSchema";
+import { BookingDetailType } from "@/schemas/BookingSchema";
 import { useDeleteBookingById } from "../bookings/useDeleteBookingById";
 import { ConfirmDelete } from "@/components/ui/ConfirmDelete";
 import { useNavigate } from "react-router-dom";
@@ -8,8 +8,8 @@ import { Fragment, useState } from "react";
 import { useCheckoutBooking } from "../bookings/useCheckoutBooking";
 
 type BookingActionsProps = {
-  bookingId: BookingDetailValues["id"];
-  bookingStatus: BookingDetailValues["status"];
+  bookingId: BookingDetailType["id"];
+  bookingStatus: BookingDetailType["status"];
 };
 
 export function BookingActions({

@@ -1,5 +1,5 @@
 import { DatePresenter } from "@/components/presenters/DatePresenter";
-import { StatisticsBookingValues } from "@/schemas/bookingSchema";
+import { StatisticsBookingType } from "@/schemas/BookingSchema";
 import { DashboardBox } from "./DashboardBox";
 import { eachDayOfInterval, format, isSameDay, subDays } from "date-fns";
 import {
@@ -15,7 +15,7 @@ import {
 
 type SalesChartProps = {
   howManyDays: number;
-  bookings: StatisticsBookingValues[];
+  bookings: StatisticsBookingType[];
 };
 
 export function SalesChart({ howManyDays, bookings }: SalesChartProps) {
