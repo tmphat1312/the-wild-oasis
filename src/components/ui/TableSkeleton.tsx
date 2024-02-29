@@ -1,6 +1,6 @@
 import { Skeleton } from "./Skeleton";
 
-export default function TableSkeleton() {
+export function TableSkeleton() {
   return (
     <div
       className="space-y-4 rounded bg-background p-8"

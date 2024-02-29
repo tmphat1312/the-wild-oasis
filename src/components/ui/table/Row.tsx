@@ -1,22 +1,13 @@
-import { cn } from "@/lib/utils";
-import { Collection, Row as RACRow, RowProps } from "react-aria-components";
+import { classnames } from "@/lib/classnames";
 
-export function Row<T extends object>({
-  id,
-  columns,
-  children,
-  ...props
-}: RowProps<T>) {
+export function Row(props: React.ComponentPropsWithoutRef<"tr">) {
   return (
-    <RACRow
-      id={id}
+    <tr
       {...props}
-      className={cn(
-        "group/row bg-background hover:bg-gray-50",
+      className={classnames(
+        "group/row bg-background hover:bg-gray-50/50",
         props.className,
       )}
-    >
-      <Collection items={columns}>{children}</Collection>
-    </RACRow>
+    />
   );
 }

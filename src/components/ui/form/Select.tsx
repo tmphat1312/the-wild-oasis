@@ -1,14 +1,14 @@
-import { cn } from "@/lib/utils";
+import { classnames } from "@/lib/classnames";
 
-interface SelectProps extends React.ComponentPropsWithRef<"select"> {
+type SelectProps = React.ComponentPropsWithRef<"select"> & {
   options: { value: string; label: string }[];
-}
+};
 
 export function Select({ options, ...props }: SelectProps) {
   return (
     <select
       {...props}
-      className={cn(
+      className={classnames(
         "rounded-md border px-3 py-2 text-sm font-medium shadow",
         props.className,
       )}
@@ -21,5 +21,3 @@ export function Select({ options, ...props }: SelectProps) {
     </select>
   );
 }
-
-export default Select;

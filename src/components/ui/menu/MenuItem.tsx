@@ -1,33 +1,26 @@
-import { cn } from "@/lib/utils";
-import { LucideIcon } from "lucide-react";
-import {
-  MenuItem as RACMenuItem,
-  type MenuItemProps as RACMenuItemProps,
-} from "react-aria-components";
+import { IconType } from "@/components/Icons";
+import { classnames } from "@/lib/classnames";
+import { Item } from "@radix-ui/react-dropdown-menu";
 
-interface MenuItemProps extends RACMenuItemProps {
-  icon?: LucideIcon;
+type Props = React.ComponentProps<"button"> & {
+  Icon?: IconType;
   variant?: "default" | "destructive";
-}
+};
 
-export function MenuItem(props: MenuItemProps) {
-  const textValue =
-    props.textValue ||
-    (typeof props.children === "string" ? props.children : undefined);
-
+export function MenuItem({ Icon, children, variant, ...props }: Props) {
   return (
-    <RACMenuItem
-      {...props}
-      textValue={textValue}
-      className={cn(
-        "flex cursor-pointer items-center gap-3 px-5 py-2 hover:bg-gray-50",
-        props.variant === "destructive" && "text-red-500",
-      )}
-    >
-      <>
-        {props.icon && <props.icon size={14} />}
-        {props.children}
-      </>
-    </RACMenuItem>
+    <Item>
+      <button
+        {...props}
+        className={classnames(
+          "flex w-full cursor-pointer items-center gap-3 px-5 py-2 text-sm hover:bg-gray-50/80",
+          variant === "destructive" && "text-destructive",
+          props.className,
+        )}
+      >
+        {Icon && <Icon size={14} />}
+        {children}
+      </button>
+    </Item>
   );
 }

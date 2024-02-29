@@ -1,14 +1,17 @@
-import { cn } from "@/lib/utils";
-import Logo from "../ui/Logo";
-import MainNav from "./MainNav";
+import { classnames } from "@/lib/classnames";
+import { Logo } from "../ui/Logo";
+import { MainNav } from "./MainNav";
 
 type SidebarProps = React.ComponentProps<"aside">;
 
-export default function Sidebar({ className, ...props }: SidebarProps) {
+export function Sidebar(props: SidebarProps) {
   return (
     <aside
-      className={cn("space-y-8 bg-background px-6 py-8", className)}
       {...props}
+      className={classnames(
+        "space-y-8 bg-background px-8 py-12",
+        props.className,
+      )}
     >
       <Logo />
       <MainNav />

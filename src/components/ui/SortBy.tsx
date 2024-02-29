@@ -1,9 +1,9 @@
 import { useSearchParams } from "react-router-dom";
-import Select from "./form/Select";
+import { Select } from "./form/Select";
 
-interface SortByProps {
+type SortByProps = {
   options: { value: string; label: string }[];
-}
+};
 
 export function SortBy({ options }: SortByProps) {
   const [searchParams, setSearchParams] = useSearchParams();

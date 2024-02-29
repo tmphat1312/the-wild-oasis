@@ -1,19 +1,20 @@
-import { ITEMS_PER_PAGE } from "@/constants/API";
+import { ITEMS_PER_PAGE } from "@/lib/constants";
 import {
-  BookingDetailValues,
-  bookingActivityArraySchema,
-  bookingArraySchema,
-  bookingDetailSchema,
-  statisticsBookingArraySchema,
-} from "@/schemas/bookingSchema";
+  BookingDetailType,
+  BookingSchema,
+  BookingActivityArraySchema,
+  BookingDetailSchema,
+  StatisticsBookingArraySchema,
+} from "@/schemas/BookingSchema";
 import { FilterFieldOption, SortFieldOption } from "@/types/API";
-import { buildAPIClient } from "./APIClient";
+import { z } from "zod";
+import { APIClient } from "./APIClient";
 
-interface GetBookingsArgs {
+type GetBookingsArgs = {
   filterOptions?: FilterFieldOption[];
   sortOption?: SortFieldOption;
   page?: number;
-}
+};
 
 export async function getBookings({
   filterOptions = [],
@@ -23,7 +24,7 @@ export async function getBookings({
   },
   page = 1,
 }: GetBookingsArgs) {
-  let query = buildAPIClient("bookings").select(
+  let query = APIClient.from("bookings").select(
     "id, created_at, start_date, end_date, no_nights, no_guests, status, total_due, cabins(name), guests(full_name, email)",
     { count: "exact" },
   );
@@ -52,7 +53,7 @@ export async function getBookings({
 
   try {
     const { data, count } = await query.throwOnError();
-    const bookings = bookingArraySchema.parse(data);
+    const bookings = z.array(BookingSchema).parse(data);
 
     return { bookings, count: Number(count) };
   } catch (error) {
@@ -61,32 +62,32 @@ export async function getBookings({
   }
 }
 
-interface GetBookingArgs {
-  bookingId: BookingDetailValues["id"];
-}
+type GetBookingArgs = {
+  bookingId: BookingDetailType["id"];
+};
 
 export async function getBooking({ bookingId }: GetBookingArgs) {
   try {
-    const { data } = await buildAPIClient("bookings")
+    const { data } = await APIClient.from("bookings")
       .select("*, cabins(*), guests(*)")
       .eq("id", bookingId)
       .single()
       .throwOnError();
 
-    return bookingDetailSchema.parse(data);
+    return BookingDetailSchema.parse(data);
   } catch (error) {
     console.error(error);
     throw Error(`Booking #${bookingId} not found`);
   }
 }
 
-interface DeleteBookingArgs {
-  bookingId: BookingDetailValues["id"];
-}
+type DeleteBookingArgs = {
+  bookingId: BookingDetailType["id"];
+};
 
 export async function deleteBookingById({ bookingId }: DeleteBookingArgs) {
   try {
-    await buildAPIClient("bookings")
+    await APIClient.from("bookings")
       .delete()
       .eq("id", bookingId)
       .throwOnError();
@@ -96,13 +97,13 @@ export async function deleteBookingById({ bookingId }: DeleteBookingArgs) {
   }
 }
 
-interface CheckOutBookingArgs {
-  bookingId: BookingDetailValues["id"];
-}
+type CheckOutBookingArgs = {
+  bookingId: BookingDetailType["id"];
+};
 
 export async function checkOutBooking({ bookingId }: CheckOutBookingArgs) {
   try {
-    await buildAPIClient("bookings")
+    await APIClient.from("bookings")
       .update({ status: "checked out" })
       .eq("id", bookingId)
       .throwOnError();
@@ -112,14 +113,14 @@ export async function checkOutBooking({ bookingId }: CheckOutBookingArgs) {
   }
 }
 
-interface UpdateBookingArgs {
-  bookingId: BookingDetailValues["id"];
-  data: Partial<BookingDetailValues>;
-}
+type UpdateBookingArgs = {
+  bookingId: BookingDetailType["id"];
+  data: Partial<BookingDetailType>;
+};
 
 export async function updateBooking({ bookingId, data }: UpdateBookingArgs) {
   try {
-    await buildAPIClient("bookings")
+    await APIClient.from("bookings")
       .update(data)
       .eq("id", bookingId)
       .throwOnError();
@@ -129,9 +130,9 @@ export async function updateBooking({ bookingId, data }: UpdateBookingArgs) {
   }
 }
 
-interface GetBookingsFromLastNDaysArgs {
+type GetBookingsFromLastNDaysArgs = {
   n: number;
-}
+};
 
 export async function getBookingsFromLastNDays({
   n: lastNDays,
@@ -141,7 +142,7 @@ export async function getBookingsFromLastNDays({
   startDate.setDate(today.getDate() - lastNDays);
 
   try {
-    const { data } = await buildAPIClient("bookings")
+    const { data } = await APIClient.from("bookings")
       .select(
         "id, start_date, end_date, total_due, created_at, is_paid, status, no_nights, guests(*)",
       )
@@ -149,16 +150,16 @@ export async function getBookingsFromLastNDays({
       .lte("created_at", today.toISOString())
       .throwOnError();
 
-    return statisticsBookingArraySchema.parse(data);
+    return StatisticsBookingArraySchema.parse(data);
   } catch (error) {
     console.error(error);
     throw Error("Error fetching bookings from last N days");
   }
 }
 
-interface GetStaysFromLastNDaysArgs {
+type GetStaysFromLastNDaysArgs = {
   n: number;
-}
+};
 
 export async function getStaysFromLastNDays({
   n: lastNDays,
@@ -168,7 +169,7 @@ export async function getStaysFromLastNDays({
   startDate.setDate(today.getDate() - lastNDays);
 
   try {
-    const { data } = await buildAPIClient("bookings")
+    const { data } = await APIClient.from("bookings")
       .select(
         "id, start_date, end_date, total_due, created_at, is_paid, status, no_nights, guests(*)",
       )
@@ -177,7 +178,7 @@ export async function getStaysFromLastNDays({
       .lte("start_date", today.toISOString())
       .throwOnError();
 
-    return statisticsBookingArraySchema.parse(data);
+    return StatisticsBookingArraySchema.parse(data);
   } catch (error) {
     console.error(error);
     throw Error("Error fetching stays from last N days");
@@ -188,14 +189,14 @@ export async function getTodayBookingActivities() {
   const today = new Date().toISOString();
 
   try {
-    const { data } = await buildAPIClient("bookings")
+    const { data } = await APIClient.from("bookings")
       .select("id, status, no_guests, guests(*)")
       .or(
         `and(status.eq.checked in, start_date.eq.${today}), and(status.eq.checked out, end_date.eq.${today})`,
       )
       .throwOnError();
 
-    return bookingActivityArraySchema.parse(data);
+    return BookingActivityArraySchema.parse(data);
   } catch (error) {
     console.error(error);
     throw Error("Error fetching today's booking activities");

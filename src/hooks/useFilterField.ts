@@ -1,10 +1,10 @@
 import { FilterFieldOption } from "@/types/API";
 import { useSearchParams } from "react-router-dom";
 
-interface UseFilterFieldArgs {
+type UseFilterFieldArgs = {
   filterField: FilterFieldOption["field"];
   formatValue?: (value: string) => FilterFieldOption["value"];
-}
+};
 
 export function useFilterField({
   filterField,

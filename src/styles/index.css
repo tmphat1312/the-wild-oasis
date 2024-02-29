@@ -31,8 +31,6 @@
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
   }
 
   .dark {
@@ -72,7 +70,8 @@
   }
 
   body {
-    @apply text-gray-600;
+    @apply text-gray-700;
+    contain: paint;
   }
 
   :focus-visible {
@@ -91,6 +90,12 @@
   }
 }
 
+@layer components {
+  .box {
+    @apply rounded-md border bg-background p-4;
+  }
+}
+
 @layer utilities {
   .font-body {
     font-family: "Poppins", system-ui, sans-serif;
@@ -106,25 +111,5 @@
     font-optical-sizing: auto;
     font-style: normal;
     font-variation-settings: "MONO" 1;
-  }
-
-  .h-screen {
-    height: 100vh;
-    height: 100dvh;
-  }
-
-  .scrollbar-gutter {
-    @apply -me-3 pe-3;
-  }
-
-  @supports (scrollbar-gutter: stable) {
-    .scrollbar-gutter {
-      @apply pe-1.5;
-      scrollbar-gutter: stable;
-    }
-  }
-
-  .contain-paint {
-    contain: paint;
   }
 }

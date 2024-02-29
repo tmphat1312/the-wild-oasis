@@ -1,10 +1,9 @@
-import { cn } from "@/lib/utils";
-import { Table as RACTable, TableProps } from "react-aria-components";
+import { classnames } from "@/lib/classnames";
 
-export function Table(props: TableProps) {
+export function Table(props: React.ComponentPropsWithoutRef<"table">) {
   return (
-    <div className="contain-paint rounded-lg border shadow">
-      <RACTable {...props} className={cn("w-full", props.className)} />
+    <div className="box overflow-clip p-0">
+      <table {...props} className={classnames("w-full", props.className)} />
     </div>
   );
 }

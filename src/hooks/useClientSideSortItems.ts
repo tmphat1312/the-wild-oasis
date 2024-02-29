@@ -2,10 +2,10 @@ import { useSearchParams } from "react-router-dom";
 
 type SortDirection = "asc" | "desc";
 
-interface UseClientSideSortItemsProps<T> {
+type UseClientSideSortItemsProps<T> = {
   items: T[];
   sort: Record<string, (a: T, b: T) => number>;
-}
+};
 
 function isSortDirection(direction: string): direction is SortDirection {
   return direction === "asc" || direction === "desc";

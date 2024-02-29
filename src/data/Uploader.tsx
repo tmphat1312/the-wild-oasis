@@ -2,12 +2,12 @@ import { isFuture, isPast, isToday } from "date-fns";
 import { useState } from "react";
 import { z } from "zod";
 
-import Section from "@/components/layouts/Section";
-import Heading from "@/components/ui/Heading";
+import { Section } from "@/components/layouts/Section";
+import { Heading } from "@/components/ui/Heading";
 import { toast } from "@/lib/toast";
 import { subtractDates } from "@/lib/utils";
-import { settingSchema } from "@/schemas/settingSchema";
-import { buildAPIClient } from "@/services/APIClient";
+import { SettingSchema } from "@/schemas/SettingSchema";
+import { APIClient } from "@/services/APIClient";
 import { TableRowNames } from "@/types/table-row";
 import { bookings } from "./bookings";
 import { cabins } from "./cabins";
@@ -15,15 +15,15 @@ import { guests } from "./guests";
 import { QueryClient, useQueryClient } from "@tanstack/react-query";
 
 async function deleteResources(resourceName: TableRowNames) {
-  await buildAPIClient(resourceName).delete().gt("id", 0).throwOnError();
+  await APIClient.from(resourceName).delete().gt("id", 0).throwOnError();
 }
 
 async function createGuests() {
-  await buildAPIClient("guests").insert(guests).throwOnError();
+  await APIClient.from("guests").insert(guests).throwOnError();
 }
 
 async function createCabins() {
-  await buildAPIClient("cabins").insert(cabins).throwOnError();
+  await APIClient.from("cabins").insert(cabins).throwOnError();
 }
 
 async function createBookings() {
@@ -36,14 +36,14 @@ async function createBookings() {
   try {
     const [{ data: guestsData }, { data: cabinsData }, { data: settingsData }] =
       await Promise.all([
-        buildAPIClient("guests").select("id").order("id").throwOnError(),
-        buildAPIClient("cabins").select("id").order("id").throwOnError(),
-        buildAPIClient("settings").select().throwOnError(),
+        APIClient.from("guests").select("id").order("id").throwOnError(),
+        APIClient.from("cabins").select("id").order("id").throwOnError(),
+        APIClient.from("settings").select().throwOnError(),
       ]);
 
     const guestsIds = idSchema.parse(guestsData).map((g) => g.id);
     const cabinsIds = idSchema.parse(cabinsData).map((c) => c.id);
-    const settings = settingSchema.parse(settingsData![0]);
+    const settings = SettingSchema.parse(settingsData![0]);
 
     const finalBookings = bookings.map((booking) => {
       const cabin = cabins.at(booking.cabin_id - 1)!;
@@ -81,7 +81,7 @@ async function createBookings() {
         status,
       };
     });
-    await buildAPIClient("bookings").insert(finalBookings).throwOnError();
+    await APIClient.from("bookings").insert(finalBookings).throwOnError();
   } catch (error) {
     throw Error("Error creating bookings");
   }

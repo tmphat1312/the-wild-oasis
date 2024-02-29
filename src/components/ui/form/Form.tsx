@@ -1,3 +1,17 @@
-import { Form as RACForm } from "react-aria-components";
+import { FormProvider } from "@/contexts/FormContext";
 
-export const Form = RACForm;
+type FormProps = React.ComponentProps<"form"> & {
+  isSubmitting?: boolean;
+};
+
+export function Form({ isSubmitting = false, ...props }: FormProps) {
+  return (
+    <FormProvider
+      value={{
+        isSubmitting,
+      }}
+    >
+      <form {...props} />
+    </FormProvider>
+  );
+}

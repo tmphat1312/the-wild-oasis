@@ -40,9 +40,5 @@ export default {
       },
     },
   },
-  plugins: [
-    "tailwindcss-animate",
-    "tailwindcss-react-aria-components",
-    "@tailwindcss/container-queries",
-  ],
+  plugins: ["tailwindcss-animate", "@tailwindcss/container-queries"],
 };

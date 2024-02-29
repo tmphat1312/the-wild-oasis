@@ -1,14 +1,16 @@
-import { cn } from "@/lib/utils";
+import { classnames } from "@/lib/classnames";
 
 type SkeletonProps = React.ComponentProps<"div">;
 
-function Skeleton({ className, ...props }: SkeletonProps) {
+export function Skeleton(props: SkeletonProps) {
   return (
     <div
-      className={cn("animate-pulse rounded-md bg-muted", className)}
+      role="presentation"
       {...props}
+      className={classnames(
+        "animate-pulse rounded-md bg-muted",
+        props.className,
+      )}
     />
   );
 }
-
-export { Skeleton };

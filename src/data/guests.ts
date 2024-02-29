@@ -1,7 +1,7 @@
 // Search for: 'jo', 'fa', 'mar', 'emm', 'ah'
-import { GuestValues } from "@/schemas/guestSchema";
+import { GuestType } from "@/schemas/guestSchema";
 
-export const guests: Array<Omit<GuestValues, "id">> = [
+export const guests: Array<Omit<GuestType, "id">> = [
   {
     full_name: "Jonas Schmedtmann",
     email: "hello@jonas.io",

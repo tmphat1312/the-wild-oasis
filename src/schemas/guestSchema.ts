@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const guestSchema = z.object({
+export const GuestSchema = z.object({
   id: z.number().positive(),
   full_name: z.string(),
   email: z.string().email(),
@@ -9,4 +9,4 @@ export const guestSchema = z.object({
   country_flag: z.string(),
 });
 
-export type GuestValues = z.infer<typeof guestSchema>;
+export type GuestType = z.infer<typeof GuestSchema>;

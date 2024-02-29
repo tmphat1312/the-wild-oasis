@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { guestSchema } from "./guestSchema";
-import { cabinSchema } from "./cabinSchema";
+import { GuestSchema } from "./guestSchema";
+import { CabinSchema } from "./CabinSchema";
 
 export const bookingStatusEnum = z.enum([
   "unconfirmed",
@@ -10,8 +10,8 @@ export const bookingStatusEnum = z.enum([
 
 export type BookingStatus = z.infer<typeof bookingStatusEnum>;
 
-export const bookingSchema = z.object({
-  id: z.number(),
+export const BookingSchema = z.object({
+  id: z.number().int().positive(),
   created_at: z.string(),
   start_date: z.string(),
   end_date: z.string(),
@@ -28,50 +28,46 @@ export const bookingSchema = z.object({
   }),
 });
 
-export const bookingArraySchema = z.array(bookingSchema);
+export type BookingType = z.infer<typeof BookingSchema>;
 
-export type BookingValues = z.infer<typeof bookingSchema>;
-
-export const bookingDetailSchema = bookingSchema.extend({
+export const BookingDetailSchema = BookingSchema.extend({
   has_breakfast: z.boolean(),
   is_paid: z.boolean(),
   observations: z.string().optional().default(""),
-  cabins: cabinSchema,
-  guests: guestSchema,
+  cabins: CabinSchema,
+  guests: GuestSchema,
 });
 
-export type BookingDetailValues = z.infer<typeof bookingDetailSchema>;
+export type BookingDetailType = z.infer<typeof BookingDetailSchema>;
 
-export const statisticsBookingSchema = bookingSchema
-  .pick({
-    created_at: true,
-    id: true,
-    status: true,
-    start_date: true,
-    no_nights: true,
-    guests: true,
-    total_due: true,
-  })
-  .extend({
-    extra_price: z.number().default(0),
-    is_paid: z.boolean(),
-  });
+export const StatisticsBookingSchema = BookingSchema.pick({
+  created_at: true,
+  id: true,
+  status: true,
+  start_date: true,
+  no_nights: true,
+  guests: true,
+  total_due: true,
+}).extend({
+  extra_price: z.number().default(0),
+  is_paid: z.boolean(),
+});
 
-export type StatisticsBookingValues = z.infer<typeof statisticsBookingSchema>;
+export type StatisticsBookingType = z.infer<typeof StatisticsBookingSchema>;
 
-export const statisticsBookingArraySchema = z.array(statisticsBookingSchema);
+export const StatisticsBookingArraySchema = z.array(StatisticsBookingSchema);
 
-export const bookingActivitySchema = z.object({
+export const BookingActivitySchema = z.object({
   status: bookingStatusEnum,
   id: z.number(),
   no_guests: z.number(),
-  guests: guestSchema,
+  guests: GuestSchema,
 });
 
-export type BookingActivityValues = z.infer<typeof bookingActivitySchema>;
+export type BookingActivityType = z.infer<typeof BookingActivitySchema>;
 
-export const bookingActivityArraySchema = z.array(bookingActivitySchema);
+export const BookingActivityArraySchema = z.array(BookingActivitySchema);
 
-export type BookingActivityArrayValues = z.infer<
-  typeof bookingActivityArraySchema
+export type BookingActivityArrayType = z.infer<
+  typeof BookingActivityArraySchema
 >;

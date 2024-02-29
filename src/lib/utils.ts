@@ -1,32 +1,10 @@
-import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 import { differenceInDays, parseISO } from "date-fns";
 import { composeRenderProps } from "react-aria-components";
-import { twMerge } from "tailwind-merge";
 import { tv } from "tailwind-variants";
-
-import { ITEMS_PER_PAGE } from "@/constants/API";
 
 export function subtractDates(date1: string | Date, date2: string | Date) {
   return differenceInDays(parseISO(String(date1)), parseISO(String(date2)));
-}
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
-
-export function ts({
-  state,
-  className,
-}: {
-  state: string;
-  className: string | Array<string>;
-}) {
-  const classes = Array.isArray(className) ? className.join(" ") : className;
-
-  return classes
-    .split(" ")
-    .map((c) => `${state}:${c}`)
-    .join(" ");
 }
 
 export const focusRing = tv({

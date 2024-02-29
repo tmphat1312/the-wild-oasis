@@ -1,5 +1,5 @@
 import { useLevelContext } from "@/contexts/LevelContext";
-import { cn } from "@/lib/utils";
+import { classnames } from "@/lib/classnames";
 import { tv } from "tailwind-variants";
 import { z } from "zod";
 
@@ -10,8 +10,8 @@ const headingVariants = tv({
   variants: {
     level: {
       h1: "text-3xl mb-6",
-      h2: "text-2xl mb-5",
-      h3: "text-1xl mb-4",
+      h2: "text-xl mb-4",
+      h3: "text-lg mb-4",
       h4: "text-lg mb-3",
       h5: "mb-2",
       h6: "text-sm mb-1",
@@ -22,9 +22,9 @@ const headingVariants = tv({
   },
 });
 
-const HeadingVariant = z.enum(["h1", "h2", "h3", "h4", "h5", "h6"] as const);
+const HeadingVariant = z.enum(["h1", "h2", "h3", "h4", "h5", "h6"]);
 
-export default function Heading({ className, ...props }: HeadingProps) {
+export function Heading({ className, ...props }: HeadingProps) {
   const level = useLevelContext();
 
   if (level === undefined) {
@@ -32,7 +32,10 @@ export default function Heading({ className, ...props }: HeadingProps) {
   }
 
   const headingLevel = HeadingVariant.parse(`h${level}`);
-  const styles = cn(headingVariants({ level: headingLevel }), className);
+  const styles = classnames(
+    headingVariants({ level: headingLevel }),
+    className,
+  );
 
   switch (level) {
     case 0:

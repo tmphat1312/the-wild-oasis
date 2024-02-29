@@ -1,25 +1,25 @@
+import { CabinInput, CabinSchema, CabinType } from "@/schemas/CabinSchema";
 import {
   buildCabinStorageUrl,
   createCabinImage,
   duplicateCabinImage,
   removeCabinImage,
-} from "@/lib/supabase";
-import { CabinValues, cabinsSchema } from "@/schemas/cabinSchema";
-import { TablesInsert } from "@/types/database";
-import { buildAPIClient } from "./APIClient";
+} from "@/services/APIStorage";
+import { z } from "zod";
+import { APIClient } from "./APIClient";
 
 export async function getCabins() {
   try {
-    const { data } = await buildAPIClient("cabins").select("*").throwOnError();
-    return cabinsSchema.parse(data);
+    const { data } = await APIClient.from("cabins").select("*").throwOnError();
+    return z.array(CabinSchema).parse(data);
   } catch (error) {
     throw Error("Cabins could not be fetched!!!");
   }
 }
 
 type DeleteCabinArgs = {
-  cabinId: CabinValues["id"];
-  cabinImage: CabinValues["image"];
+  cabinId: CabinType["id"];
+  cabinImage: CabinType["image"];
 };
 export async function deleteCabinById({
   cabinId,
@@ -27,7 +27,7 @@ export async function deleteCabinById({
 }: DeleteCabinArgs) {
   try {
     await Promise.all([
-      buildAPIClient("cabins").delete().eq("id", cabinId).throwOnError(),
+      APIClient.from("cabins").delete().eq("id", cabinId).throwOnError(),
       removeCabinImage(cabinImage),
     ]);
   } catch (error) {
@@ -35,25 +35,28 @@ export async function deleteCabinById({
   }
 }
 
-type CreateCabinArgs = {
-  newCabin: Omit<TablesInsert<"cabins">, "image"> & {
-    image: File;
+export async function createCabin({
+  newCabin,
+}: {
+  newCabin: CabinInput & {
+    newImage: FileList;
   };
-};
-export async function createCabin({ newCabin }: CreateCabinArgs) {
+}) {
   let imageStorageUrl: string | null = null;
 
   try {
-    const imageName = await createCabinImage(newCabin.image);
+    const imageName = await createCabinImage(newCabin.newImage[0]);
     imageStorageUrl = buildCabinStorageUrl(imageName);
 
-    await buildAPIClient("cabins")
+    await APIClient.from("cabins")
       .insert({
         ...newCabin,
         image: imageStorageUrl,
+        newImage: undefined,
       })
       .throwOnError();
   } catch (error) {
+    console.log(error);
     if (imageStorageUrl) {
       await removeCabinImage(imageStorageUrl);
     }
@@ -62,20 +65,20 @@ export async function createCabin({ newCabin }: CreateCabinArgs) {
   }
 }
 
-type UpdateCabinArgs = {
-  newCabin: TablesInsert<"cabins"> & {
-    newImage: File | null;
+export async function updateCabin({
+  newCabin,
+}: {
+  newCabin: CabinInput & {
+    newImage: FileList | null;
   };
-};
-export async function updateCabin({ newCabin }: UpdateCabinArgs) {
+}) {
   let newImageStorageUrl: string | null = null;
 
   try {
     if (newCabin.newImage) {
-      const newImageName = await createCabinImage(newCabin.newImage);
+      const newImageName = await createCabinImage(newCabin.newImage[0]);
       newImageStorageUrl = buildCabinStorageUrl(newImageName);
-
-      await buildAPIClient("cabins")
+      await APIClient.from("cabins")
         .update({
           ...newCabin,
           image: newImageStorageUrl,
@@ -85,7 +88,7 @@ export async function updateCabin({ newCabin }: UpdateCabinArgs) {
         .throwOnError();
       await removeCabinImage(newCabin.image);
     } else {
-      await buildAPIClient("cabins")
+      await APIClient.from("cabins")
         .update({
           ...newCabin,
           newImage: undefined,
@@ -97,13 +100,12 @@ export async function updateCabin({ newCabin }: UpdateCabinArgs) {
     if (newImageStorageUrl) {
       await removeCabinImage(newImageStorageUrl);
     }
-
     throw Error("Cabin could not be updated!!!");
   }
 }
 
 type DuplicateCabinArgs = {
-  cabin: CabinValues;
+  cabin: CabinType;
 };
 
 export async function duplicateCabin({ cabin }: DuplicateCabinArgs) {
@@ -113,7 +115,7 @@ export async function duplicateCabin({ cabin }: DuplicateCabinArgs) {
     const toImage = await duplicateCabinImage(cabin.image);
     toImageStorageUrl = buildCabinStorageUrl(toImage);
 
-    await buildAPIClient("cabins")
+    await APIClient.from("cabins")
       .insert({
         ...cabin,
         name: `${cabin.name} (copy)`,

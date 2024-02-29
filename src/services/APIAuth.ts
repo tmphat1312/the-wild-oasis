@@ -1,11 +1,11 @@
-import { authSchema } from "@/schemas/authSchema";
+import { AuthSchema } from "@/schemas/authSchema";
 import { buildAuthAPIClient } from "./APIClient";
-import { userSchema } from "@/schemas/userSchema";
+import { UserSchema } from "@/schemas/UserSchema";
 
-interface LoginUserArgs {
+type LoginUserArgs = {
   email: string;
   password: string;
-}
+};
 
 export async function loginUser({ email, password }: LoginUserArgs) {
   const { data, error } = await buildAuthAPIClient().signInWithPassword({
@@ -21,7 +21,7 @@ export async function loginUser({ email, password }: LoginUserArgs) {
     throw error;
   }
 
-  return authSchema.parse(data);
+  return AuthSchema.parse(data);
 }
 
 export async function logoutUser() {
@@ -49,14 +49,14 @@ export async function getCurrentUser() {
     throw error;
   }
 
-  return userSchema.parse(user);
+  return UserSchema.parse(user);
 }
 
-interface SignUpUserArgs {
+type SignUpUserArgs = {
   email: string;
   password: string;
   full_name: string;
-}
+};
 export async function signUpUser({
   email,
   password,
@@ -83,11 +83,11 @@ export async function signUpUser({
   }
 }
 
-interface UpdateUserDataArgs {
+type UpdateUserDataArgs = {
   data: {
     full_name: string;
   };
-}
+};
 
 export async function updateUserData({ data }: UpdateUserDataArgs) {
   const { error } = await buildAuthAPIClient().updateUser({
@@ -99,9 +99,9 @@ export async function updateUserData({ data }: UpdateUserDataArgs) {
   }
 }
 
-interface UpdateUserPasswordArgs {
+type UpdateUserPasswordArgs = {
   newPassword: string;
-}
+};
 
 export async function updateUserPassword({
   newPassword,

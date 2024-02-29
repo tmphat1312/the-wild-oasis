@@ -1,11 +1,11 @@
 import logoSrc from "@/assets/images/logo-light.png";
-import { cn } from "@/lib/utils";
+import { classnames } from "@/lib/classnames";
 
-interface LogoProps extends React.ComponentPropsWithoutRef<"div"> {}
+type LogoProps = React.ComponentPropsWithoutRef<"div">;
 
-export default function Logo(props: LogoProps) {
+export function Logo(props: LogoProps) {
   return (
-    <div className={cn("grid justify-items-center", props.className)}>
+    <div className={classnames("grid justify-items-center", props.className)}>
       <img
         height={84}
         src={logoSrc}
