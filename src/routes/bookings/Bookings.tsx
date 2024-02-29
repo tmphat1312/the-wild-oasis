@@ -7,7 +7,7 @@ export default function Bookings() {
   return (
     <Section className="space-y-4">
       <div className="flex items-center justify-between">
-        <Heading>Bookings</Heading>
+        <Heading className="mb-0">Bookings</Heading>
         <BookingTableOperations />
       </div>
       <BookingTable />

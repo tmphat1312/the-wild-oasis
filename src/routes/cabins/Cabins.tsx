@@ -8,7 +8,7 @@ export default function Cabins() {
   return (
     <Section className="space-y-4">
       <div className="flex items-center justify-between">
-        <Heading>All cabins</Heading>
+        <Heading className="mb-0">All cabins</Heading>
         <CabinTableOperations />
       </div>
       <CabinTable />
