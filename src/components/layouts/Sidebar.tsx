@@ -9,7 +9,7 @@ export function Sidebar(props: SidebarProps) {
     <aside
       {...props}
       className={classnames(
-        "space-y-8 bg-background px-4 py-12",
+        "space-y-8 bg-background px-8 py-12",
         props.className,
       )}
     >
