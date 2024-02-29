@@ -1,12 +1,12 @@
 import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/Button";
-import { ButtonField } from "@/components/ui/form-v1/ButtonField";
-import { FieldError } from "@/components/ui/form-v1/FieldError";
-import { Form } from "@/components/ui/form-v1/Form";
-import { FormField } from "@/components/ui/form-v1/FormField";
-import { Input } from "@/components/ui/form-v1/Input";
-import { Label } from "@/components/ui/form-v1/Label";
+import { ButtonField } from "@/components/ui/form/ButtonField";
+import { FieldError } from "@/components/ui/form/FieldError";
+import { Form } from "@/components/ui/form/Form";
+import { FormField } from "@/components/ui/form/FormField";
+import { Input } from "@/components/ui/form/Input";
+import { Label } from "@/components/ui/form/Label";
 import { SettingType } from "@/schemas/settingSchema";
 import { useUpdateSettings } from "./useUpdateSettings";
 

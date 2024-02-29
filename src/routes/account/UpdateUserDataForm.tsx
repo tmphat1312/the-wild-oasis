@@ -1,9 +1,15 @@
 import { Section } from "@/components/layouts/Section";
+import { Button } from "@/components/ui/Button";
+import { FullLoadingIndicator } from "@/components/ui/FullLoadingIndicator";
 import { Heading } from "@/components/ui/Heading";
-import { FieldSeparator } from "@/components/ui/form/FieldSeparator";
+import { ButtonField } from "@/components/ui/form/ButtonField";
+import { FieldError } from "@/components/ui/form/FieldError";
+import { Form } from "@/components/ui/form/Form";
+import { FormField } from "@/components/ui/form/FormField";
+import { Input } from "@/components/ui/form/Input";
+import { Label } from "@/components/ui/form/Label";
 import { useForm } from "react-hook-form";
 import { useUser } from "../auth/useUser";
-import { FullLoadingIndicator } from "@/components/ui/FullLoadingIndicator";
 import { useUpdateUserData } from "./useUpdateUserData";
 
 type UpdateUserDataFormData = {
@@ -13,14 +19,8 @@ type UpdateUserDataFormData = {
 export function UpdateUserDataForm() {
   const { isLoading: isLoadingUser, user } = useUser();
   const { isLoading: isUpdatingUserData, updateUserData } = useUpdateUserData();
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      full_name: user?.user_metadata.full_name || "",
-    },
+  const form = useForm({
+    defaultValues: user?.user_metadata,
   });
 
   function onSubmit(data: UpdateUserDataFormData) {
@@ -31,59 +31,41 @@ export function UpdateUserDataForm() {
     return <FullLoadingIndicator />;
   }
 
+  const errors = form.formState.errors;
+
   return (
     <Section>
       <Heading>Update user data</Heading>
-      <form
-        className="rounded-md border bg-background p-8"
-        onSubmit={handleSubmit(onSubmit)}
+      <Form
+        className="box p-8"
+        isSubmitting={isUpdatingUserData}
+        onSubmit={form.handleSubmit(onSubmit)}
       >
-        <div className="grid grid-cols-[18ch_minmax(10ch,28ch)_1fr] items-center gap-4">
-          <label htmlFor="email" className="">
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            className="w-full rounded-md border border-s-4 px-2.5 py-1.5"
-            disabled
-            value={user?.email}
-          />
-        </div>
-        <FieldSeparator />
-        <div className="grid grid-cols-[18ch_minmax(10ch,28ch)_1fr] items-center gap-4">
-          <label htmlFor="full-name" className="">
-            Full name
-          </label>
-          <input
+        <FormField>
+          <Label>Email</Label>
+          <Input type="email" value={user?.email} disabled />
+        </FormField>
+        <FormField>
+          <Label>Full name</Label>
+          <Input
             type="text"
-            {...register("full_name", { required: "Full name is required" })}
-            id="full-name"
-            className="w-full rounded-md border border-s-4 px-2.5 py-1.5"
-            disabled={isUpdatingUserData}
+            {...form.register("full_name", {
+              required: "Full name is required",
+            })}
           />
-          <p className="text-sm text-red-500 first-letter:capitalize">
-            {errors.full_name?.message}
-          </p>
-        </div>
-        <FieldSeparator />
-        <div className="space-x-3 text-end">
-          <button
-            disabled={isUpdatingUserData}
-            className="rounded border bg-gray-50 px-3.5 py-2.5 text-sm"
-            type="reset"
+          <FieldError>{errors.full_name?.message}</FieldError>
+        </FormField>
+
+        <ButtonField>
+          <Button
+            variant="secondary"
+            onClick={() => form.reset(user?.user_metadata)}
           >
             Cancel
-          </button>
-          <button
-            disabled={isUpdatingUserData}
-            type="submit"
-            className="rounded border bg-brand-600 px-3.5 py-2.5 text-sm text-brand-50"
-          >
-            Save changes
-          </button>
-        </div>
-      </form>
+          </Button>
+          <Button type="submit">Save changes</Button>
+        </ButtonField>
+      </Form>
     </Section>
   );
 }

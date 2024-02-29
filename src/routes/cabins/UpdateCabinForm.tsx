@@ -1,13 +1,13 @@
 import { Button } from "@/components/ui/Button";
-import { ButtonField } from "@/components/ui/form-v1/ButtonField";
-import { FieldError } from "@/components/ui/form-v1/FieldError";
-import { Form } from "@/components/ui/form-v1/Form";
-import { FormField } from "@/components/ui/form-v1/FormField";
-import { Input } from "@/components/ui/form-v1/Input";
-import { TextArea } from "@/components/ui/form-v1/TextArea";
-import { TextAreaField } from "@/components/ui/form-v1/TextAreaField";
-import { Label } from "@/components/ui/form/Field";
-import { CabinInput, CabinType } from "@/schemas/CabinSchema";
+import { ButtonField } from "@/components/ui/form/ButtonField";
+import { FieldError } from "@/components/ui/form/FieldError";
+import { Form } from "@/components/ui/form/Form";
+import { FormField } from "@/components/ui/form/FormField";
+import { Input } from "@/components/ui/form/Input";
+import { TextArea } from "@/components/ui/form/TextArea";
+import { TextAreaField } from "@/components/ui/form/TextAreaField";
+import { Label } from "@/components/ui/form/Label";
+import { CabinType } from "@/schemas/CabinSchema";
 import { useForm } from "react-hook-form";
 import { useUpdateCabin } from "./useUpdateCabin";
 
@@ -16,17 +16,13 @@ type Props = {
   cabin: CabinType;
 };
 
-type Input = CabinInput & {
-  newImage: FileList | null;
-};
-
 type Type = CabinType & {
   newImage: FileList | null;
 };
 
 export function UpdateCabinForm({ closeModal, cabin }: Props) {
   const { isUpdating, updateCabin } = useUpdateCabin();
-  const form = useForm<Input>({
+  const form = useForm<Type>({
     defaultValues: cabin,
   });
 

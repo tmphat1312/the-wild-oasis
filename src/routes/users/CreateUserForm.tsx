@@ -1,12 +1,12 @@
 import { useForm } from "react-hook-form";
 
-import { Form } from "@/components/ui/form-v1/Form";
-import { FormField } from "@/components/ui/form-v1/FormField";
-import { Input } from "@/components/ui/form-v1/Input";
-import { Label } from "@/components/ui/form-v1/Label";
-import { FieldError } from "@/components/ui/form-v1/FieldError";
+import { Form } from "@/components/ui/form/Form";
+import { FormField } from "@/components/ui/form/FormField";
+import { Input } from "@/components/ui/form/Input";
+import { Label } from "@/components/ui/form/Label";
+import { FieldError } from "@/components/ui/form/FieldError";
 import { useSignUpUser } from "./useSignUpUser";
-import { ButtonField } from "@/components/ui/form-v1/ButtonField";
+import { ButtonField } from "@/components/ui/form/ButtonField";
 import { Button } from "@/components/ui/Button";
 
 type CreateUserFormFields = {

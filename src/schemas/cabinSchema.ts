@@ -7,7 +7,7 @@ export const CabinSchema = z.object({
   description: z.string(),
   max_capacity: z.number().int().positive(),
   regular_price: z.number().positive(),
-  discount: z.number().min(0).default(0),
+  discount: z.number().min(0).nullable().default(0),
 });
 
 export const cabinsSchema = z.array(CabinSchema);

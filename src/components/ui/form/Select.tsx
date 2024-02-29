@@ -21,5 +21,3 @@ export function Select({ options, ...props }: SelectProps) {
     </select>
   );
 }
-
-export default Select;

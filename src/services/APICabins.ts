@@ -35,25 +35,28 @@ export async function deleteCabinById({
   }
 }
 
-type CreateCabinArgs = {
-  newCabin: Omit<CabinInput, "image"> & {
-    image: File;
+export async function createCabin({
+  newCabin,
+}: {
+  newCabin: CabinInput & {
+    newImage: FileList;
   };
-};
-export async function createCabin({ newCabin }: CreateCabinArgs) {
+}) {
   let imageStorageUrl: string | null = null;
 
   try {
-    const imageName = await createCabinImage(newCabin.image);
+    const imageName = await createCabinImage(newCabin.newImage[0]);
     imageStorageUrl = buildCabinStorageUrl(imageName);
 
     await APIClient.from("cabins")
       .insert({
         ...newCabin,
         image: imageStorageUrl,
+        newImage: undefined,
       })
       .throwOnError();
   } catch (error) {
+    console.log(error);
     if (imageStorageUrl) {
       await removeCabinImage(imageStorageUrl);
     }

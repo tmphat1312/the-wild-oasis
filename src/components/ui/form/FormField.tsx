@@ -3,9 +3,14 @@ import { useId } from "react";
 import { useFormContext } from "@/contexts/FormContext";
 import { classnames } from "@/lib/classnames";
 
-type FormFieldProps = React.ComponentProps<"div">;
+type FormFieldProps = React.ComponentProps<"div"> & {
+  variant?: "vertical" | "horizontal";
+};
 
-export function FormField(props: FormFieldProps) {
+export function FormField({
+  variant = "horizontal",
+  ...props
+}: FormFieldProps) {
   const { isSubmitting } = useFormContext();
   const id = useId();
 
@@ -14,8 +19,10 @@ export function FormField(props: FormFieldProps) {
       <div
         {...props}
         className={classnames(
-          "grid grid-cols-[20ch_minmax(16ch,32ch)_1fr] items-center gap-4",
-          "border-t border-border p-3",
+          "flex w-full flex-col gap-1.5",
+          variant == "horizontal" &&
+            "grid grid-cols-[20ch_minmax(16ch,32ch)_1fr] items-center gap-4",
+          "border-t border-border py-3",
           "first:border-t-0 first:pt-0",
           props.className,
         )}
