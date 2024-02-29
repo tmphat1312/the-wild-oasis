@@ -62,19 +62,19 @@ export async function createCabin({ newCabin }: CreateCabinArgs) {
   }
 }
 
-type UpdateCabinArgs = {
+export async function updateCabin({
+  newCabin,
+}: {
   newCabin: CabinInput & {
-    newImage: File | null;
+    newImage: FileList | null;
   };
-};
-export async function updateCabin({ newCabin }: UpdateCabinArgs) {
+}) {
   let newImageStorageUrl: string | null = null;
 
   try {
     if (newCabin.newImage) {
-      const newImageName = await createCabinImage(newCabin.newImage);
+      const newImageName = await createCabinImage(newCabin.newImage[0]);
       newImageStorageUrl = buildCabinStorageUrl(newImageName);
-
       await APIClient.from("cabins")
         .update({
           ...newCabin,
@@ -97,7 +97,6 @@ export async function updateCabin({ newCabin }: UpdateCabinArgs) {
     if (newImageStorageUrl) {
       await removeCabinImage(newImageStorageUrl);
     }
-
     throw Error("Cabin could not be updated!!!");
   }
 }

@@ -7,7 +7,6 @@ import { Form } from "@/components/ui/form/Form";
 import { NumberField } from "@/components/ui/form/NumberInput";
 import { TextAreaField } from "@/components/ui/form/TextAreaField";
 import { TextField } from "@/components/ui/form/TextField";
-import { toast } from "@/lib/toast";
 import { CabinSchema } from "@/schemas/CabinSchema";
 import { CabinImageUpload } from "./CabinImageUpload";
 import { useCreateCabin } from "./useCreateCabin";
@@ -22,7 +21,7 @@ export function CreateCabinForm({ closeModal }: CreateCabinFormProps) {
     null,
   );
   const [isImageRequired, setIsImageRequired] = useState(false);
-  const { isCreating, createCabinAsync } = useCreateCabin();
+  const { isCreating, createCabin } = useCreateCabin();
 
   useEffect(() => {
     if (!file) {
@@ -64,24 +63,17 @@ export function CreateCabinForm({ closeModal }: CreateCabinFormProps) {
       id: true,
     }).parse(data);
 
-    toast.promise(
-      createCabinAsync(
-        {
-          newCabin: {
-            ...newCabin,
-            image: file,
-          },
-        },
-        {
-          onSuccess: () => {
-            closeModal();
-          },
-        },
-      ),
+    createCabin(
       {
-        loading: "Creating a new cabin...",
-        success: "Cabin created successfully",
-        error: (error) => error.message || "Something went wrong",
+        newCabin: {
+          ...newCabin,
+          image: file,
+        },
+      },
+      {
+        onSuccess: () => {
+          closeModal();
+        },
       },
     );
   }

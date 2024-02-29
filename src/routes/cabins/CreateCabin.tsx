@@ -1,7 +1,6 @@
-import { Button } from "@/components/ui/Button";
 import { Dialog } from "@/components/ui/Dialog";
 import { Modal } from "@/components/ui/Modal";
-import { DialogTrigger } from "react-aria-components";
+import { DialogTrigger, Button } from "react-aria-components";
 import { CreateCabinForm } from "./CreateCabinForm";
 
 export function CreateCabin() {

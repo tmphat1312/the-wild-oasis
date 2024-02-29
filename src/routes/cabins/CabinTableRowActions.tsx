@@ -1,18 +1,15 @@
 import { Fragment, useState } from "react";
-import { Key } from "react-aria-components";
-
-import { ConfirmDelete } from "@/components/ui/ConfirmDelete";
-import { MenuButton } from "@/components/ui/menu/MenuButton";
-import { MenuItem } from "@/components/ui/menu/MenuItem";
-import { CabinType } from "@/schemas/CabinSchema";
-import { useDeleteCabinById } from "./useDeleteCabinById";
 
 import { DuplicateIcon, EditIcon, TrashIcon } from "@/components/Icons";
-import { Button } from "@/components/ui/Button";
+import { ConfirmDelete } from "@/components/ui/ConfirmDelete";
 import { Dialog } from "@/components/ui/Dialog";
+import { Menu } from "@/components/ui/Menu-v1/Menu";
+import { MenuItem } from "@/components/ui/Menu-v1/MenuItem";
 import { Modal } from "@/components/ui/Modal";
-import { DialogTrigger } from "react-aria-components";
+import { CabinType } from "@/schemas/CabinSchema";
+import { Button, DialogTrigger } from "react-aria-components";
 import { UpdateCabinForm } from "./UpdateCabinForm";
+import { useDeleteCabinById } from "./useDeleteCabinById";
 import { useDuplicateCabin } from "./useDuplicateCabin";
 
 type CabinTableRowActionsProps = {
@@ -20,24 +17,12 @@ type CabinTableRowActionsProps = {
 };
 
 export function CabinTableRowActions({ cabin }: CabinTableRowActionsProps) {
-  const [modalType, setModalType] = useState<"edit" | "delete" | null>();
+  const [modalType, setModalType] = useState<"edit" | "delete" | null>(null);
   const { deleteCabin } = useDeleteCabinById({
     cabinId: cabin.id,
     cabinImage: cabin.image,
   });
   const { duplicateCabin } = useDuplicateCabin();
-
-  function handleAction(key: Key) {
-    if (key == "delete") {
-      setModalType("delete");
-    } else if (key == "edit") {
-      setModalType("edit");
-    } else if (key == "duplicate") {
-      duplicateCabin({ cabin });
-    } else {
-      throw new Error("Invalid action");
-    }
-  }
 
   function handleCloseModal() {
     setModalType(null);
@@ -45,32 +30,39 @@ export function CabinTableRowActions({ cabin }: CabinTableRowActionsProps) {
 
   return (
     <Fragment>
+      <Menu>
+        <MenuItem
+          Icon={DuplicateIcon}
+          onClick={() => duplicateCabin({ cabin })}
+        >
+          Duplicate
+        </MenuItem>
+        <MenuItem Icon={EditIcon} onClick={() => setModalType("edit")}>
+          Edit
+        </MenuItem>
+        <MenuItem
+          Icon={TrashIcon}
+          variant="destructive"
+          onClick={() => setModalType("delete")}
+        >
+          Delete
+        </MenuItem>
+      </Menu>
       <ConfirmDelete
-        title="Delete cabin"
-        description="Are you sure you want to delete this cabin? This action cannot be undone."
-        isOpen={modalType === "delete"}
-        closeFn={handleCloseModal}
+        isOpen={modalType == "delete"}
+        description="Are you sure you want to delete this cabin?"
+        title="Delete Cabin"
         onAction={deleteCabin}
+        closeFn={handleCloseModal}
       />
       <DialogTrigger isOpen={modalType == "edit"}>
         <Button aria-label="update the cabin" className="sr-only" />
-        <Modal isDismissable className="max-w-[880px]">
+        <Modal className="max-w-[880px]">
           <Dialog>
             <UpdateCabinForm closeModal={handleCloseModal} cabin={cabin} />
           </Dialog>
         </Modal>
       </DialogTrigger>
-      <MenuButton onAction={handleAction}>
-        <MenuItem icon={DuplicateIcon} id="duplicate">
-          Duplicate
-        </MenuItem>
-        <MenuItem icon={EditIcon} id="edit">
-          Edit
-        </MenuItem>
-        <MenuItem icon={TrashIcon} id="delete" variant="destructive">
-          Delete
-        </MenuItem>
-      </MenuButton>
     </Fragment>
   );
 }

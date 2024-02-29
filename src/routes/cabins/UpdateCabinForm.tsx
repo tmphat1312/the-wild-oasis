@@ -1,151 +1,125 @@
-import { useEffect, useState } from "react";
-
 import { Button } from "@/components/ui/Button";
-import { ButtonGroup } from "@/components/ui/form/ButtonGroup";
-import { FieldSeparator } from "@/components/ui/form/FieldSeparator";
-import { Form } from "@/components/ui/form/Form";
-import { NumberField } from "@/components/ui/form/NumberInput";
-import { TextAreaField } from "@/components/ui/form/TextAreaField";
-import { TextField } from "@/components/ui/form/TextField";
-import { toast } from "@/lib/toast";
-import { CabinType, CabinSchema } from "@/schemas/CabinSchema";
-import { CabinImageUpload } from "./CabinImageUpload";
+import { ButtonField } from "@/components/ui/form-v1/ButtonField";
+import { FieldError } from "@/components/ui/form-v1/FieldError";
+import { Form } from "@/components/ui/form-v1/Form";
+import { FormField } from "@/components/ui/form-v1/FormField";
+import { Input } from "@/components/ui/form-v1/Input";
+import { TextArea } from "@/components/ui/form-v1/TextArea";
+import { TextAreaField } from "@/components/ui/form-v1/TextAreaField";
+import { Label } from "@/components/ui/form/Field";
+import { CabinInput, CabinType } from "@/schemas/CabinSchema";
+import { useForm } from "react-hook-form";
 import { useUpdateCabin } from "./useUpdateCabin";
 
-type CreateCabinFormProps = {
+type Props = {
   closeModal: () => void;
   cabin: CabinType;
 };
 
-export function UpdateCabinForm({ closeModal, cabin }: CreateCabinFormProps) {
-  const [file, setFile] = useState<File | null>(null);
-  const [previewCabinImage, setPreviewCabinImage] = useState<string | null>(
-    null,
-  );
-  const { isUpdating, updateCabinAsync } = useUpdateCabin();
+type Input = CabinInput & {
+  newImage: FileList | null;
+};
 
-  useEffect(() => {
-    if (!file) {
-      setPreviewCabinImage(cabin.image);
-      return;
-    }
+type Type = CabinType & {
+  newImage: FileList | null;
+};
 
-    const objectUrl = URL.createObjectURL(file);
-    setPreviewCabinImage(objectUrl);
+export function UpdateCabinForm({ closeModal, cabin }: Props) {
+  const { isUpdating, updateCabin } = useUpdateCabin();
+  const form = useForm<Input>({
+    defaultValues: cabin,
+  });
 
-    return () => URL.revokeObjectURL(objectUrl);
-  }, [file, cabin.image]);
-
-  function handleSelectFile(file: File | null) {
-    setFile(file);
+  function onSubmit(data: Type) {
+    updateCabin({ newCabin: data });
   }
 
-  function handleDeselectFile() {
-    setFile(null);
-  }
-
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-
-    const data = Object.fromEntries(new FormData(e.currentTarget));
-    const newCabin = CabinSchema.omit({
-      id: true,
-    }).parse(data);
-
-    toast.promise(
-      updateCabinAsync(
-        {
-          newCabin: {
-            ...newCabin,
-            id: cabin.id,
-            newImage: file,
-          },
-        },
-        {
-          onSuccess: () => {
-            closeModal();
-          },
-        },
-      ),
-      {
-        loading: "Updating cabin...",
-        success: "Cabin updated successfully",
-        error: (error) => error.message || "Something went wrong",
-      },
-    );
-  }
+  const errors = form.formState.errors;
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <TextField
-        aria-label="cabin image"
-        type="hidden"
-        name="image"
-        value={cabin.image}
-      />
-
-      <div className="grid grid-cols-[192px_1fr] items-center gap-10">
-        <CabinImageUpload
-          previewCabinImage={previewCabinImage}
-          isImageRequired={false}
-          onSelectFile={handleSelectFile}
-          onDeselectFile={handleDeselectFile}
+    <Form onSubmit={form.handleSubmit(onSubmit)} isSubmitting={isUpdating}>
+      <FormField>
+        <Label>Cabin name</Label>
+        <Input
+          {...form.register("name", {
+            required: "Cabin name is required",
+            minLength: {
+              value: 3,
+              message: "Cabin name must be at least 3 characters long",
+            },
+          })}
         />
-        <div>
-          <TextField
-            label="Cabin name"
-            name="name"
-            orientation="vertical"
-            isRequired
-            minLength={3}
-            defaultValue={cabin.name}
-          />
-          <FieldSeparator />
-          <TextAreaField
-            name="description"
-            orientation="vertical"
-            label="Description for website"
-            isRequired
-            defaultValue={cabin.description}
-          />
-        </div>
-      </div>
-      <FieldSeparator />
-      <NumberField
-        name="max_capacity"
-        label="Maximum capacity"
-        isRequired
-        minValue={1}
-        defaultValue={cabin.max_capacity}
-      />
-      <FieldSeparator />
-      <NumberField
-        name="regular_price"
-        label="Regular price"
-        isRequired
-        minValue={1}
-        defaultValue={cabin.regular_price}
-      />
-      <FieldSeparator />
-      <NumberField
-        name="discount"
-        label="Discount"
-        defaultValue={cabin.discount}
-      />
-      <FieldSeparator />
-      <ButtonGroup className="text-end">
-        <Button
-          variant="secondary"
-          type="reset"
-          onPress={closeModal}
-          isDisabled={isUpdating}
-        >
+        <FieldError>{errors.name?.message}</FieldError>
+      </FormField>
+      <FormField>
+        <Label>Maximum capacity</Label>
+        <Input
+          {...form.register("max_capacity", {
+            valueAsNumber: true,
+            required: "Maximum capacity is required",
+            min: {
+              value: 1,
+              message: "Maximum capacity must be at least 1",
+            },
+            validate: (value) => value % 1 === 0 || "Must be an integer",
+          })}
+          type="number"
+        />
+        <FieldError>{errors.max_capacity?.message}</FieldError>
+      </FormField>
+      <FormField>
+        <Label>Regular price</Label>
+        <Input
+          {...form.register("regular_price", {
+            valueAsNumber: true,
+            required: "Regular price is required",
+            min: {
+              value: 1,
+              message: "Regular price must be at least 1",
+            },
+          })}
+        />
+        <FieldError>{errors.regular_price?.message}</FieldError>
+      </FormField>
+      <FormField>
+        <Label>Discount</Label>
+        <Input
+          {...form.register("discount", {
+            valueAsNumber: true,
+            min: {
+              value: 0,
+              message: "Discount must be at least 0",
+            },
+          })}
+          type="number"
+        />
+        <FieldError>{errors.discount?.message}</FieldError>
+      </FormField>
+      <FormField>
+        <Label>Cabin image</Label>
+        <Input type="file" {...form.register("newImage")} />
+        <FieldError>{errors.newImage?.message}</FieldError>
+      </FormField>
+      <TextAreaField>
+        <Label>Description for website</Label>
+        <TextArea
+          {...form.register("description", {
+            required: "Description is required",
+            minLength: {
+              value: 10,
+              message: "Description must be at least 10 characters long",
+            },
+          })}
+        />
+        <FieldError>{errors.description?.message}</FieldError>
+      </TextAreaField>
+
+      <ButtonField>
+        <Button variant="secondary" type="reset" onClick={closeModal}>
           Cancel
         </Button>
-        <Button type="submit" isDisabled={isUpdating}>
-          Save changes
-        </Button>
-      </ButtonGroup>
+        <Button type="submit">Save changes</Button>
+      </ButtonField>
     </Form>
   );
 }

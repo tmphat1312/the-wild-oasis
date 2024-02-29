@@ -15,7 +15,7 @@ export function useDeleteCabinById({
 }: UseDeleteCabinByIdProps) {
   const queryClient = useQueryClient();
 
-  const { isPending, mutate, error } = useMutation({
+  const mutation = useMutation({
     mutationFn: () => deleteCabinById({ cabinId, cabinImage }),
     onMutate: () => {
       toast.loading("Deleting cabin...");
@@ -29,13 +29,13 @@ export function useDeleteCabinById({
     },
     onError: (error) => {
       toast.dismiss();
-      toast.error(error.message || "Something went wrong");
+      toast.error(error.message);
     },
   });
 
   return {
-    isDeleting: isPending,
-    error,
-    deleteCabin: mutate,
+    isDeleting: mutation.isPending,
+    error: mutation.error,
+    deleteCabin: mutation.mutate,
   };
 }

@@ -25,4 +25,5 @@ export {
   CircleDollarSign as CurrencyIcon,
   Pencil as EditIcon,
   Copy as DuplicateIcon,
+  MoreVertical as MenuIcon,
 } from "lucide-react";

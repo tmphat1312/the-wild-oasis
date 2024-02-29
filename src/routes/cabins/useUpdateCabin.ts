@@ -1,23 +1,32 @@
 import { QUERY_KEYS } from "@/lib/constants";
 import { updateCabin } from "@/services/APICabins";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "@/lib/toast";
 
 export function useUpdateCabin() {
   const queryClient = useQueryClient();
 
-  const { isPending, error, mutate, mutateAsync } = useMutation({
+  const mutation = useMutation({
     mutationFn: updateCabin,
+    onMutate: () => {
+      toast.loading("Updating cabin...");
+    },
     onSuccess: () => {
+      toast.dismiss();
+      toast.success("Cabin was successfully updated");
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.cabins],
       });
     },
+    onError: (error) => {
+      toast.dismiss();
+      toast.error(error.message);
+    },
   });
 
   return {
-    updateCabinAsync: mutateAsync,
-    isUpdating: isPending,
-    updateCabin: mutate,
-    error,
+    isUpdating: mutation.isPending,
+    updateCabin: mutation.mutate,
+    error: mutation.error,
   };
 }

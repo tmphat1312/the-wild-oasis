@@ -15,8 +15,9 @@ const buttonVariants = tv({
   variants: {
     variant: {
       primary: "bg-brand-600 text-brand-50",
-      secondary: "bg-gray-100 text-gray-600",
+      secondary: "text-gray-600 border-2 bg-gray-50/50",
       destructive: "bg-red-600 text-red-50",
+      icon: "size-7 bg-transparent hover:bg-muted",
     },
   },
   defaultVariants: {
