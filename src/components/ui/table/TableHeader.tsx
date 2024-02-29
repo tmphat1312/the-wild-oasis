@@ -1,8 +1,7 @@
-import {
-  TableHeader as RACTableHeader,
-  TableHeaderProps,
-} from "react-aria-components";
-
-export function TableHeader<T extends object>(props: TableHeaderProps<T>) {
-  return <RACTableHeader {...props} />;
+export function TableHeader(props: React.PropsWithChildren) {
+  return (
+    <thead>
+      <tr {...props} />
+    </thead>
+  );
 }

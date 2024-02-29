@@ -57,20 +57,20 @@ export function BookingActions({
       />
       {bookingStatus === "unconfirmed" && (
         <Fragment>
-          <Button isDisabled={isWorking} onPress={handleCheckIn}>
+          <Button disabled={isWorking} onClick={handleCheckIn}>
             Check in
           </Button>
           <Button
             variant="destructive"
-            onPress={handleOpenModal}
-            isDisabled={isWorking}
+            onClick={handleOpenModal}
+            disabled={isWorking}
           >
             Delete booking
           </Button>
         </Fragment>
       )}
       {bookingStatus === "checked in" && (
-        <Button isDisabled={isWorking} onPress={handleCheckOut}>
+        <Button disabled={isWorking} onClick={handleCheckOut}>
           Check out
         </Button>
       )}

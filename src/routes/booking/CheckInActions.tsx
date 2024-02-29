@@ -20,7 +20,7 @@ export function CheckInActions({ booking }: CheckInActionsProps) {
   const { isCheckingIn, checkInBooking } = useCheckInBooking({
     bookingId: booking.id,
   });
-  const { isLoading: isSettingsLoading, data: settings } = useSettings();
+  const { isLoading: isSettingsLoading, settings } = useSettings();
 
   if (isSettingsLoading) {
     return (
@@ -98,7 +98,7 @@ export function CheckInActions({ booking }: CheckInActionsProps) {
       )}
 
       <div className="space-x-3 text-end">
-        <Button isDisabled={cannotSubmit} type="submit">
+        <Button disabled={cannotSubmit} type="submit">
           Check in booking #{booking.id}
         </Button>
         <BackButton type="button" />

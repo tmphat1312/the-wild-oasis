@@ -1,9 +1,9 @@
-import ErrorMessage from "@/components/ui/ErrorMessage";
-import TableSkeleton from "@/components/ui/TableSkeleton";
-import { Column } from "@/components/ui/table-v1/Column";
-import { Table } from "@/components/ui/table-v1/Table";
-import { TableBody } from "@/components/ui/table-v1/TableBody";
-import { TableHeader } from "@/components/ui/table-v1/TableHeader";
+import { ErrorMessage } from "@/components/ui/ErrorMessage";
+import { TableSkeleton } from "@/components/ui/TableSkeleton";
+import { Column } from "@/components/ui/table/Column";
+import { Table } from "@/components/ui/table/Table";
+import { TableBody } from "@/components/ui/table/TableBody";
+import { TableHeader } from "@/components/ui/table/TableHeader";
 import { useClientSideFilterItems } from "@/hooks/useClientSideFilterItems";
 import { useClientSideSortItems } from "@/hooks/useClientSideSortItems";
 import { CabinType } from "@/schemas/CabinSchema";

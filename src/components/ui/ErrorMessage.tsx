@@ -1,7 +1,3 @@
-type ErrorMessageProps = {
-  message: string;
-};
-
-export default function ErrorMessage({ message }: ErrorMessageProps) {
+export function ErrorMessage({ message }: { message: string }) {
   return <div>{message}</div>;
 }

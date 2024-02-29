@@ -1,6 +1,6 @@
 import { CurrencyPresenter } from "@/components/presenters/CurrencyPresenter";
-import { Cell } from "@/components/ui/table-v1/Cell";
-import { Row } from "@/components/ui/table-v1/Row";
+import { Cell } from "@/components/ui/table/Cell";
+import { Row } from "@/components/ui/table/Row";
 import { CabinType } from "@/schemas/CabinSchema";
 import pluralize from "pluralize";
 import { CabinTableRowActions } from "./CabinTableRowActions";
