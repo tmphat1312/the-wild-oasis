@@ -11,11 +11,12 @@ export function DashboardLayout() {
     isLoading: isBookingsLoading,
     bookings,
     error: bookingsError,
-    lastNDays: lastNDaysBookings,
+    lastNDays,
   } = useStatisticsBookings();
   const {
     isLoading: isStaysLoading,
     stays,
+    noCabins,
     error: staysError,
   } = useStatisticsStays();
   const error = bookingsError || staysError;
@@ -35,12 +36,16 @@ export function DashboardLayout() {
 
   return (
     <div className="grid gap-4">
-      <BookingStatistics bookings={bookings} />
+      <BookingStatistics
+        bookings={bookings}
+        howManyDays={lastNDays}
+        noCabins={noCabins!}
+      />
       <div className="col-span-full grid grid-cols-2 gap-[inherit]">
         <TodayActivities />
         <DurationChart stays={stays} />
       </div>
-      <SalesChart howManyDays={lastNDaysBookings} bookings={bookings} />
+      <SalesChart howManyDays={lastNDays} bookings={bookings} />
     </div>
   );
 }

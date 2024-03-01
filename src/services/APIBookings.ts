@@ -169,16 +169,27 @@ export async function getStaysFromLastNDays({
   startDate.setDate(today.getDate() - lastNDays);
 
   try {
-    const { data } = await APIClient.from("bookings")
-      .select(
-        "id, start_date, end_date, total_due, created_at, is_paid, status, no_nights, guests(*)",
-      )
-      .or("status.eq.checked in, status.eq.checked out")
-      .gte("start_date", startDate.toISOString())
-      .lte("start_date", today.toISOString())
-      .throwOnError();
+    const [stays, noCabins] = await Promise.all([
+      APIClient.from("bookings")
+        .select(
+          "id, start_date, end_date, total_due, created_at, is_paid, status, no_nights, guests(*)",
+        )
+        .or("status.eq.checked in, status.eq.checked out")
+        .gte("start_date", startDate.toISOString())
+        .lte("start_date", today.toISOString())
+        .throwOnError(),
+      APIClient.from("cabins")
+        .select("*", {
+          count: "exact",
+          head: true,
+        })
+        .throwOnError(),
+    ]);
 
-    return StatisticsBookingArraySchema.parse(data);
+    return {
+      stays: StatisticsBookingArraySchema.parse(stays.data),
+      noCabins: noCabins.count,
+    };
   } catch (error) {
     console.error(error);
     throw Error("Error fetching stays from last N days");

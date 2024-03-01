@@ -26,4 +26,5 @@ export {
   Pencil as EditIcon,
   Copy as DuplicateIcon,
   MoreVertical as MenuIcon,
+  PercentSquare as OccupationRateIcon,
 } from "lucide-react";
