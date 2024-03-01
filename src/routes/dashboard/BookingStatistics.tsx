@@ -69,6 +69,20 @@ export function BookingStatistics({
         <div className="grid grid-cols-[auto_1fr] items-center gap-4">
           <div
             role="presentation"
+            className="flex size-12 items-center justify-center rounded-full bg-yellow-100 text-yellow-700"
+          >
+            <OccupationRateIcon size={22} />
+          </div>
+          <div className="font-medium">
+            <div className="text-xs uppercase">Occupancy rate</div>
+            <div className="text-lg">{statistics.occupancyRate}%</div>
+          </div>
+        </div>
+      </DashboardBox>
+      <DashboardBox>
+        <div className="grid grid-cols-[auto_1fr] items-center gap-4">
+          <div
+            role="presentation"
             className="flex size-12 items-center justify-center rounded-full bg-green-100 text-green-700"
           >
             <CurrencyIcon size={22} />
@@ -94,20 +108,6 @@ export function BookingStatistics({
             <div className="text-lg">
               <CurrencyPresenter amount={statistics.extraSales} />
             </div>
-          </div>
-        </div>
-      </DashboardBox>
-      <DashboardBox>
-        <div className="grid grid-cols-[auto_1fr] items-center gap-4">
-          <div
-            role="presentation"
-            className="flex size-12 items-center justify-center rounded-full bg-yellow-100 text-yellow-700"
-          >
-            <OccupationRateIcon size={22} />
-          </div>
-          <div className="font-medium">
-            <div className="text-xs uppercase">Occupancy rate</div>
-            <div className="text-lg">{statistics.occupancyRate}%</div>
           </div>
         </div>
       </DashboardBox>
