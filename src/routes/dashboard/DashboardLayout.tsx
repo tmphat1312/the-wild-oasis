@@ -1,3 +1,4 @@
+import { BookingChart } from "./BookingChart";
 import { BookingStatistics } from "./BookingStatistics";
 import { DashboardSkeleton } from "./DashboardSkeleton";
 import { DurationChart } from "./DurationChart";
@@ -46,6 +47,7 @@ export function DashboardLayout() {
         <DurationChart stays={stays} />
       </div>
       <SalesChart howManyDays={lastNDays} bookings={bookings} />
+      <BookingChart howManyDays={lastNDays} bookings={bookings} />
     </div>
   );
 }
