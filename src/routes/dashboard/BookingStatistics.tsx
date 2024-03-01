@@ -29,7 +29,7 @@ function calculateStatistics(
     totalNights += booking.no_nights;
   }
 
-  const occupationRate = (
+  const occupancyRate = (
     (totalNights / (noCabins * howManyDays)) *
     100
   ).toFixed(2);
@@ -38,7 +38,7 @@ function calculateStatistics(
     noBookings,
     totalSales,
     extraSales,
-    occupationRate,
+    occupancyRate,
   };
 }
 
@@ -74,7 +74,7 @@ export function BookingStatistics({
             <CurrencyIcon size={22} />
           </div>
           <div className="font-medium">
-            <div className="text-xs uppercase">Sales</div>
+            <div className="text-xs uppercase">Booking Sales</div>
             <div className="text-lg">
               <CurrencyPresenter amount={statistics.totalSales} />
             </div>
@@ -106,8 +106,8 @@ export function BookingStatistics({
             <OccupationRateIcon size={22} />
           </div>
           <div className="font-medium">
-            <div className="text-xs uppercase">Occupation rate</div>
-            <div className="text-lg">{statistics.occupationRate}%</div>
+            <div className="text-xs uppercase">Occupancy rate</div>
+            <div className="text-lg">{statistics.occupancyRate}%</div>
           </div>
         </div>
       </DashboardBox>
