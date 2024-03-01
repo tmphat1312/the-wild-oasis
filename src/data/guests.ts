@@ -1,5 +1,5 @@
 // Search for: 'jo', 'fa', 'mar', 'emm', 'ah'
-import { GuestType } from "@/schemas/guestSchema";
+import { GuestType } from "@/schemas/GuestSchema";
 
 export const guests: Array<Omit<GuestType, "id">> = [
   {

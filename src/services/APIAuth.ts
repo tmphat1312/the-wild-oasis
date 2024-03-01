@@ -1,4 +1,4 @@
-import { AuthSchema } from "@/schemas/authSchema";
+import { AuthSchema } from "@/schemas/AuthSchema";
 import { buildAuthAPIClient } from "./APIClient";
 import { UserSchema } from "@/schemas/UserSchema";
 

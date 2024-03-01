@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { GuestSchema } from "./guestSchema";
+import { GuestSchema } from "./GuestSchema";
 import { CabinSchema } from "./CabinSchema";
 
 export const bookingStatusEnum = z.enum([
