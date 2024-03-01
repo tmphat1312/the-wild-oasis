@@ -1,8 +1,7 @@
 import {
   BookingIcon,
-  CheckInIcon,
-  CheckOutIcon,
   CurrencyIcon,
+  OccupationRateIcon,
 } from "@/components/Icons";
 import { CurrencyPresenter } from "@/components/presenters/CurrencyPresenter";
 import { StatisticsBookingType } from "@/schemas/BookingSchema";
@@ -10,34 +9,45 @@ import { DashboardBox } from "./DashboardBox";
 
 type BookingStatisticsProps = {
   bookings: StatisticsBookingType[];
+  noCabins: number;
+  howManyDays: number;
 };
 
-function calculateStatistics(bookings: StatisticsBookingType[]) {
+function calculateStatistics(
+  bookings: StatisticsBookingType[],
+  noCabins: number,
+  howManyDays: number,
+) {
   const noBookings = bookings.length;
-  let noCheckIns = 0;
-  let noCheckOuts = 0;
   let totalSales = 0;
+  let extraSales = 0;
+  let totalNights = 0;
 
   for (const booking of bookings) {
-    if (booking.status === "checked in") {
-      noCheckIns++;
-    } else if (booking.status === "checked out") {
-      noCheckOuts++;
-    }
-
     totalSales += booking.total_due;
+    extraSales += booking.extra_price;
+    totalNights += booking.no_nights;
   }
+
+  const occupancyRate = (
+    (totalNights / (noCabins * howManyDays)) *
+    100
+  ).toFixed(2);
 
   return {
     noBookings,
     totalSales,
-    noCheckIns,
-    noCheckOuts,
+    extraSales,
+    occupancyRate,
   };
 }
 
-export function BookingStatistics({ bookings }: BookingStatisticsProps) {
-  const statistics = calculateStatistics(bookings);
+export function BookingStatistics({
+  bookings,
+  noCabins,
+  howManyDays,
+}: BookingStatisticsProps) {
+  const statistics = calculateStatistics(bookings, noCabins, howManyDays);
 
   return (
     <div className="grid grid-cols-4 gap-[inherit]">
@@ -50,8 +60,22 @@ export function BookingStatistics({ bookings }: BookingStatisticsProps) {
             <BookingIcon size={22} />
           </div>
           <div className="font-medium">
-            <div className="text-xs uppercase">Bookings</div>
+            <div className="text-xs uppercase">Total Bookings</div>
             <div className="text-lg">{statistics.noBookings}</div>
+          </div>
+        </div>
+      </DashboardBox>
+      <DashboardBox>
+        <div className="grid grid-cols-[auto_1fr] items-center gap-4">
+          <div
+            role="presentation"
+            className="flex size-12 items-center justify-center rounded-full bg-yellow-100 text-yellow-700"
+          >
+            <OccupationRateIcon size={22} />
+          </div>
+          <div className="font-medium">
+            <div className="text-xs uppercase">Occupancy rate</div>
+            <div className="text-lg">{statistics.occupancyRate}%</div>
           </div>
         </div>
       </DashboardBox>
@@ -64,7 +88,7 @@ export function BookingStatistics({ bookings }: BookingStatisticsProps) {
             <CurrencyIcon size={22} />
           </div>
           <div className="font-medium">
-            <div className="text-xs uppercase">Sales</div>
+            <div className="text-xs uppercase">Booking Sales</div>
             <div className="text-lg">
               <CurrencyPresenter amount={statistics.totalSales} />
             </div>
@@ -77,25 +101,13 @@ export function BookingStatistics({ bookings }: BookingStatisticsProps) {
             role="presentation"
             className="flex size-12 items-center justify-center rounded-full bg-orange-100 text-orange-700"
           >
-            <CheckInIcon size={22} />
+            <CurrencyIcon size={22} />
           </div>
           <div className="font-medium">
-            <div className="text-xs uppercase">Check ins</div>
-            <div className="text-lg">{statistics.noCheckIns}</div>
-          </div>
-        </div>
-      </DashboardBox>
-      <DashboardBox>
-        <div className="grid grid-cols-[auto_1fr] items-center gap-4">
-          <div
-            role="presentation"
-            className="flex size-12 items-center justify-center rounded-full bg-yellow-100 text-yellow-700"
-          >
-            <CheckOutIcon size={22} />
-          </div>
-          <div className="font-medium">
-            <div className="text-xs uppercase">Check outs</div>
-            <div className="text-lg">{statistics.noCheckOuts}</div>
+            <div className="text-xs uppercase">Extra sales</div>
+            <div className="text-lg">
+              <CurrencyPresenter amount={statistics.extraSales} />
+            </div>
           </div>
         </div>
       </DashboardBox>

@@ -13,7 +13,8 @@ export function useStatisticsStays() {
 
   return {
     isLoading: query.isLoading,
-    stays: query.data,
+    stays: query.data?.stays,
+    noCabins: query.data?.noCabins,
     error: query.error,
   };
 }
