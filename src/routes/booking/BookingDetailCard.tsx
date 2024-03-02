@@ -48,18 +48,14 @@ export function BookingDetailCard({ booking }: BookingDetailCardProps) {
       <div className="space-y-7 px-12 py-6">
         <div className="flex items-center gap-3">
           <div className="font-medium">
-            {booking.guests.full_name}
+            {booking.full_name}
             <span aria-label="and">&nbsp;+&nbsp;</span>
             {pluralize("guest", booking.no_guests, true)}
           </div>
           <span className="text-2xl font-bold" role="presentation">
             &middot;
           </span>
-          <div>{booking.guests.email}</div>
-          <span className="text-2xl font-bold" role="presentation">
-            &middot;
-          </span>
-          <div>{booking.guests.nationality}</div>
+          <div>{booking.email}</div>
         </div>
 
         <span className="sr-only">

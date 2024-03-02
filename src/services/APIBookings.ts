@@ -1,10 +1,10 @@
 import { ITEMS_PER_PAGE } from "@/lib/constants";
 import {
+  BookingActivitySchema,
+  BookingDetailSchema,
   BookingDetailType,
   BookingSchema,
-  BookingActivityArraySchema,
-  BookingDetailSchema,
-  StatisticsBookingArraySchema,
+  StatisticsBookingSchema,
 } from "@/schemas/BookingSchema";
 import { FilterFieldOption, SortFieldOption } from "@/types/API";
 import { z } from "zod";
@@ -25,7 +25,7 @@ export async function getBookings({
   page = 1,
 }: GetBookingsArgs) {
   let query = APIClient.from("bookings").select(
-    "id, created_at, start_date, end_date, no_nights, no_guests, status, total_due, cabins(name), guests(full_name, email)",
+    "id, created_at, start_date, end_date, no_nights, no_guests, status, total_due, cabins(name), full_name, email",
     { count: "exact" },
   );
 
@@ -69,7 +69,7 @@ type GetBookingArgs = {
 export async function getBooking({ bookingId }: GetBookingArgs) {
   try {
     const { data } = await APIClient.from("bookings")
-      .select("*, cabins(*), guests(*)")
+      .select("*, cabins(*), full_name, email")
       .eq("id", bookingId)
       .single()
       .throwOnError();
@@ -144,13 +144,13 @@ export async function getBookingsFromLastNDays({
   try {
     const { data } = await APIClient.from("bookings")
       .select(
-        "id, start_date, end_date, total_due, created_at, is_paid, status, no_nights, guests(*)",
+        "id, start_date, end_date, total_due, created_at, is_paid, status, no_nights, full_name, email, extra_price",
       )
       .gte("created_at", startDate.toISOString())
       .lte("created_at", today.toISOString())
       .throwOnError();
 
-    return StatisticsBookingArraySchema.parse(data);
+    return z.array(StatisticsBookingSchema).parse(data);
   } catch (error) {
     console.error(error);
     throw Error("Error fetching bookings from last N days");
@@ -172,7 +172,7 @@ export async function getStaysFromLastNDays({
     const [stays, noCabins] = await Promise.all([
       APIClient.from("bookings")
         .select(
-          "id, start_date, end_date, total_due, created_at, is_paid, status, no_nights, guests(*)",
+          "id, start_date, end_date, total_due, created_at, is_paid, status, no_nights, full_name, email, extra_price",
         )
         .or("status.eq.checked in, status.eq.checked out")
         .gte("start_date", startDate.toISOString())
@@ -187,7 +187,7 @@ export async function getStaysFromLastNDays({
     ]);
 
     return {
-      stays: StatisticsBookingArraySchema.parse(stays.data),
+      stays: z.array(StatisticsBookingSchema).parse(stays.data),
       noCabins: noCabins.count,
     };
   } catch (error) {
@@ -201,13 +201,13 @@ export async function getTodayBookingActivities() {
 
   try {
     const { data } = await APIClient.from("bookings")
-      .select("id, status, no_guests, guests(*)")
+      .select("id, status, no_guests, full_name, email")
       .or(
         `and(status.eq.checked in, start_date.eq.${today}), and(status.eq.checked out, end_date.eq.${today})`,
       )
       .throwOnError();
 
-    return BookingActivityArraySchema.parse(data);
+    return z.array(BookingActivitySchema).parse(data);
   } catch (error) {
     console.error(error);
     throw Error("Error fetching today's booking activities");

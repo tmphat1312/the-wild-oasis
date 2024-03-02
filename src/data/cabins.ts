@@ -1,7 +1,6 @@
 import { buildCabinStorageUrl } from "@/services/APIStorage";
-import { CabinType } from "@/schemas/CabinSchema";
 
-export const cabins: Array<Omit<CabinType, "id">> = [
+export const cabins = [
   {
     name: "001",
     max_capacity: 2,
@@ -74,4 +73,4 @@ export const cabins: Array<Omit<CabinType, "id">> = [
     description:
       "Experience the epitome of luxury and grandeur with your large group or multiple families in our grand cabin 008. This cabin offers a lavish retreat that caters to all your needs and desires. The cabin features an opulent design and boasts of high-end finishes, intricate details and the finest quality wood throughout. Inside, the cabin features multiple grand living areas with fireplaces, a formal dining area, and a gourmet kitchen that is a chef's dream. The bedrooms are designed for ultimate comfort and luxury, with plush beds and en-suite spa-inspired bathrooms. Step outside and immerse yourself in the beauty of nature from your private deck, featuring a luxurious hot tub and ample seating areas for ultimate relaxation and enjoyment.",
   },
-];
+] as const;

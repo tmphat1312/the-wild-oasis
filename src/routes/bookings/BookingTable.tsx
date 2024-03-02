@@ -35,7 +35,9 @@ export function BookingTable() {
         <TableBody
           items={bookings}
           renderEmpty={() => <Empty>No bookings found</Empty>}
-          renderRow={(booking) => <BookingTableRow row={booking} />}
+          renderRow={(booking) => (
+            <BookingTableRow row={booking} key={booking.id} />
+          )}
         />
       </Table>
       <Pagination count={count} />

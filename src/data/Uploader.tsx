@@ -3,23 +3,18 @@ import { useState } from "react";
 import { z } from "zod";
 
 import { Section } from "@/components/layouts/Section";
+import { Button } from "@/components/ui/Button";
 import { Heading } from "@/components/ui/Heading";
 import { toast } from "@/lib/toast";
 import { subtractDates } from "@/lib/utils";
 import { SettingSchema } from "@/schemas/SettingSchema";
 import { APIClient } from "@/services/APIClient";
-import { TableRowNames } from "@/types/table-row";
+import { useQueryClient } from "@tanstack/react-query";
 import { bookings } from "./bookings";
 import { cabins } from "./cabins";
-import { guests } from "./guests";
-import { QueryClient, useQueryClient } from "@tanstack/react-query";
 
-async function deleteResources(resourceName: TableRowNames) {
+async function deleteResource(resourceName: string) {
   await APIClient.from(resourceName).delete().gt("id", 0).throwOnError();
-}
-
-async function createGuests() {
-  await APIClient.from("guests").insert(guests).throwOnError();
 }
 
 async function createCabins() {
@@ -34,14 +29,11 @@ async function createBookings() {
   );
 
   try {
-    const [{ data: guestsData }, { data: cabinsData }, { data: settingsData }] =
-      await Promise.all([
-        APIClient.from("guests").select("id").order("id").throwOnError(),
-        APIClient.from("cabins").select("id").order("id").throwOnError(),
-        APIClient.from("settings").select().throwOnError(),
-      ]);
+    const [{ data: cabinsData }, { data: settingsData }] = await Promise.all([
+      APIClient.from("cabins").select("id").order("id").throwOnError(),
+      APIClient.from("settings").select().throwOnError(),
+    ]);
 
-    const guestsIds = idSchema.parse(guestsData).map((g) => g.id);
     const cabinsIds = idSchema.parse(cabinsData).map((c) => c.id);
     const settings = SettingSchema.parse(settingsData![0]);
 
@@ -49,10 +41,10 @@ async function createBookings() {
       const cabin = cabins.at(booking.cabin_id - 1)!;
       const noNights = subtractDates(booking.end_date, booking.start_date);
       const cabinPrice = noNights * (cabin.regular_price - cabin.discount);
-      const extrasPrice = booking.has_breakfast
+      const extraPrice = booking.has_breakfast
         ? noNights * settings.breakfast_price * booking.no_guests
         : 0;
-      const totalPrice = cabinPrice + extrasPrice;
+      const totalPrice = cabinPrice + extraPrice;
 
       let status: string = "unconfirmed";
       const endDate = new Date(booking.end_date);
@@ -74,10 +66,9 @@ async function createBookings() {
         ...booking,
         no_nights: noNights,
         cabin_price: cabinPrice,
-        extra_price: extrasPrice,
+        extra_price: extraPrice,
         total_due: totalPrice,
-        guest_id: guestsIds.at(booking.guest_id - 1),
-        cabin_id: cabinsIds.at(booking.cabin_id - 1),
+        cabin_id: cabinsIds[booking.cabin_id - 1],
         status,
       };
     });
@@ -94,32 +85,11 @@ export function Uploader() {
   async function uploadAll() {
     setIsLoading(true);
 
-    // // Bookings need to be deleted FIRST
-    // await deleteResources("bookings");
-    // await Promise.all([deleteResources("guests"), deleteResources("cabins")]);
-
-    // // Bookings need to be created LAST
-    // await Promise.all([createGuests(), createCabins()]);
-    // await createBookings();
-
     const upload = Promise.resolve()
-      .then(() => deleteResources("bookings"))
-      .then(() => {
-        return Promise.all([
-          deleteResources("guests"),
-          deleteResources("cabins"),
-        ]);
-      })
-      .then(() => {
-        return Promise.all([createGuests(), createCabins()]);
-      })
-      .then(() => {
-        return createBookings();
-      })
-      .catch((error) => {
-        console.log(error);
-        throw error;
-      })
+      .then(() => deleteResource("bookings"))
+      .then(() => deleteResource("cabins"))
+      .then(() => createCabins())
+      .then(() => createBookings())
       .finally(() => setIsLoading(false));
 
     toast.promise(upload, {
@@ -128,19 +98,15 @@ export function Uploader() {
       error: "Error uploading data",
     });
 
-    queryClient.invalidateQueries();
+    queryClient.resetQueries();
   }
 
   function uploadBookings() {
     setIsLoading(true);
 
     const upload = Promise.resolve()
-      .then(() => deleteResources("bookings"))
+      .then(() => deleteResource("bookings"))
       .then(createBookings)
-      .catch((error) => {
-        console.log(error);
-        throw error;
-      })
       .finally(() => setIsLoading(false));
 
     toast.promise(upload, {
@@ -149,28 +115,18 @@ export function Uploader() {
       error: "Error uploading bookings",
     });
 
-    queryClient.invalidateQueries();
+    queryClient.resetQueries();
   }
 
   return (
-    <Section className="flex flex-col gap-4 rounded bg-brand-50 p-8 text-center shadow">
-      <Heading>SAMPLE DATA</Heading>
-
-      <button
-        className="cursor-pointer rounded bg-brand-500 px-3 py-2 text-lg text-brand-50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:grayscale [&:not(:active)]:hover:bg-brand-600"
-        onClick={uploadAll}
-        disabled={isLoading}
-      >
-        Upload ALL
-      </button>
-
-      <button
-        className="cursor-pointer rounded bg-brand-500 px-3 py-2 text-lg text-brand-50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:grayscale [&:not(:active)]:hover:bg-brand-600"
-        onClick={uploadBookings}
-        disabled={isLoading}
-      >
-        Upload bookings ONLY
-      </button>
+    <Section className="flex flex-col gap-4 rounded bg-gray-100 p-5 text-center shadow">
+      <Heading className="mb-0 text-xl">SAMPLE DATA</Heading>
+      <Button onClick={uploadBookings} disabled={isLoading}>
+        Upload bookings
+      </Button>
+      <Button onClick={uploadAll} disabled={isLoading}>
+        Upload All
+      </Button>
     </Section>
   );
 }

@@ -19,14 +19,14 @@ function calculateStatistics(
   howManyDays: number,
 ) {
   const noBookings = bookings.length;
-  let totalSales = 0;
+  let bookingSales = 0;
   let extraSales = 0;
   let totalNights = 0;
 
   for (const booking of bookings) {
-    totalSales += booking.total_due;
+    bookingSales += booking.total_due - booking.extra_price;
     extraSales += booking.extra_price;
-    totalNights += booking.no_nights;
+    totalNights += booking.status == "unconfirmed" ? 0 : booking.no_nights;
   }
 
   const occupancyRate = (
@@ -36,7 +36,7 @@ function calculateStatistics(
 
   return {
     noBookings,
-    totalSales,
+    bookingSales,
     extraSales,
     occupancyRate,
   };
@@ -90,7 +90,7 @@ export function BookingStatistics({
           <div className="font-medium">
             <div className="text-xs uppercase">Booking Sales</div>
             <div className="text-lg">
-              <CurrencyPresenter amount={statistics.totalSales} />
+              <CurrencyPresenter amount={statistics.bookingSales} />
             </div>
           </div>
         </div>
