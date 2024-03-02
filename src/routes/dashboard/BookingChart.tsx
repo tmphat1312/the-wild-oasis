@@ -78,6 +78,7 @@ export function BookingChart({ howManyDays, bookings }: Props) {
             name="Number of bookings"
             stroke="#3b82f6"
             fill="#3b82f6"
+            strokeWidth={2}
           />
           <Legend verticalAlign="top" height={36} />
         </AreaChart>

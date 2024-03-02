@@ -96,6 +96,7 @@ export function SalesChart({ howManyDays, bookings }: SalesChartProps) {
             unit="$"
             stroke="#15803d"
             fill="#15803d"
+            strokeWidth={2}
           />
           <Area
             dataKey="extraSales"
@@ -104,6 +105,7 @@ export function SalesChart({ howManyDays, bookings }: SalesChartProps) {
             unit="$"
             stroke="#f97316"
             fill="#f97316"
+            strokeWidth={2}
           />
           <Legend verticalAlign="top" height={36} />
         </AreaChart>
