@@ -1,11 +1,11 @@
 import { BackButton } from "@/components/ui/BackButton";
 import { Button } from "@/components/ui/Button";
-import { BookingDetailType } from "@/schemas/BookingSchema";
-import { useDeleteBookingById } from "../bookings/useDeleteBookingById";
 import { ConfirmDelete } from "@/components/ui/ConfirmDelete";
+import { BookingDetailType } from "@/schemas/BookingSchema";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Fragment, useState } from "react";
 import { useCheckoutBooking } from "../bookings/useCheckoutBooking";
+import { useDeleteBookingById } from "../bookings/useDeleteBookingById";
 
 type BookingActionsProps = {
   bookingId: BookingDetailType["id"];
@@ -56,24 +56,22 @@ export function BookingActions({
         onAction={handleDelete}
       />
       {bookingStatus === "unconfirmed" && (
-        <Fragment>
-          <Button disabled={isWorking} onClick={handleCheckIn}>
-            Check in
-          </Button>
-          <Button
-            variant="destructive"
-            onClick={handleOpenModal}
-            disabled={isWorking}
-          >
-            Delete booking
-          </Button>
-        </Fragment>
+        <Button disabled={isWorking} onClick={handleCheckIn}>
+          Check in
+        </Button>
       )}
       {bookingStatus === "checked in" && (
         <Button disabled={isWorking} onClick={handleCheckOut}>
           Check out
         </Button>
       )}
+      <Button
+        variant="destructive"
+        onClick={handleOpenModal}
+        disabled={isWorking}
+      >
+        Delete booking
+      </Button>
       <BackButton disabled={isWorking} />
     </div>
   );
