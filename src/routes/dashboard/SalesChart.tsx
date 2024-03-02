@@ -94,16 +94,16 @@ export function SalesChart({ howManyDays, bookings }: SalesChartProps) {
             type="monotone"
             name="Total sales"
             unit="$"
-            stroke="#8884d8"
-            fill="#8884d8"
+            stroke="#15803d"
+            fill="#15803d"
           />
           <Area
             dataKey="extraSales"
             type="natural"
             name="Extra sales"
             unit="$"
-            stroke="#82ca9d"
-            fill="#82ca9d"
+            stroke="#f97316"
+            fill="#f97316"
           />
           <Legend verticalAlign="top" height={36} />
         </AreaChart>
