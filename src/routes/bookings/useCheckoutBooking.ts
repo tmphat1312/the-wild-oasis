@@ -25,6 +25,9 @@ export function useCheckoutBooking({ bookingId }: UseCheckoutBookingArgs) {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.bookings],
       });
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.todayActivities],
+      });
     },
     onError: (error) => {
       toast.dismiss();
