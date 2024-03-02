@@ -28,8 +28,8 @@ export function BookingTableRow({ row }: BookingTableRowProps) {
       </Cell>
       <Cell className="py-3">
         <div className="flex flex-col gap-1.5">
-          <span className="font-medium">{row.guests.full_name}</span>
-          <span className="text-xs">{row.guests.email}</span>
+          <span className="font-medium">{row.full_name}</span>
+          <span className="text-xs">{row.email}</span>
         </div>
       </Cell>
       <Cell className="py-3">

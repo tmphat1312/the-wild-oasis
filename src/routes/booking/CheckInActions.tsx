@@ -88,8 +88,8 @@ export function CheckInActions({ booking }: CheckInActionsProps) {
           />
           <label htmlFor="confirm">
             I confirm that&nbsp;
-            <span className="font-medium">{booking.guests.full_name}</span> has
-            paid the total amount of&nbsp;
+            <span className="font-medium">{booking.full_name}</span> has paid
+            the total amount of&nbsp;
             <span className="font-medium">
               <CurrencyPresenter amount={totalDue} />
             </span>

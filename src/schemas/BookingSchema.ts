@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { GuestSchema } from "./GuestSchema";
 import { CabinSchema } from "./CabinSchema";
 
 export const bookingStatusEnum = z.enum([
@@ -19,12 +18,10 @@ export const BookingSchema = z.object({
   no_guests: z.number(),
   status: bookingStatusEnum,
   total_due: z.number(),
+  full_name: z.string(),
+  email: z.string(),
   cabins: z.object({
     name: z.string(),
-  }),
-  guests: z.object({
-    full_name: z.string(),
-    email: z.string(),
   }),
 });
 
@@ -35,7 +32,6 @@ export const BookingDetailSchema = BookingSchema.extend({
   is_paid: z.boolean(),
   observations: z.string().optional().default(""),
   cabins: CabinSchema,
-  guests: GuestSchema,
 });
 
 export type BookingDetailType = z.infer<typeof BookingDetailSchema>;
@@ -55,19 +51,12 @@ export const StatisticsBookingSchema = BookingSchema.pick({
 
 export type StatisticsBookingType = z.infer<typeof StatisticsBookingSchema>;
 
-export const StatisticsBookingArraySchema = z.array(StatisticsBookingSchema);
-
 export const BookingActivitySchema = z.object({
   status: bookingStatusEnum,
   id: z.number(),
   no_guests: z.number(),
-  guests: GuestSchema,
+  full_name: z.string(),
+  email: z.string(),
 });
 
 export type BookingActivityType = z.infer<typeof BookingActivitySchema>;
-
-export const BookingActivityArraySchema = z.array(BookingActivitySchema);
-
-export type BookingActivityArrayType = z.infer<
-  typeof BookingActivityArraySchema
->;
