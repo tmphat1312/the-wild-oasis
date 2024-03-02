@@ -59,6 +59,9 @@ export function useCheckInBooking({ bookingId }: UseCheckInBookingArgs) {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.bookings],
       });
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.todayActivities],
+      });
       navigate(`/bookings/${bookingId}`, { replace: true });
     },
     onError: (error) => {

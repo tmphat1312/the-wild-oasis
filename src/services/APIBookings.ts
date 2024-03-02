@@ -9,6 +9,7 @@ import {
 import { FilterFieldOption, SortFieldOption } from "@/types/API";
 import { z } from "zod";
 import { APIClient } from "./APIClient";
+import { getStartToday, getEndToday } from "@/lib/utils";
 
 type GetBookingsArgs = {
   filterOptions?: FilterFieldOption[];
@@ -197,14 +198,16 @@ export async function getStaysFromLastNDays({
 }
 
 export async function getTodayBookingActivities() {
-  const today = new Date().toISOString();
+  const startToday = getStartToday();
+  const endToday = getEndToday();
 
   try {
     const { data } = await APIClient.from("bookings")
-      .select("id, status, no_guests, full_name, email")
+      .select("id, status, no_guests, full_name, email, start_date, end_date")
       .or(
-        `and(status.eq.checked in, start_date.eq.${today}), and(status.eq.checked out, end_date.eq.${today})`,
+        `and(status.eq.unconfirmed, start_date.gte.${startToday}, start_date.lte.${endToday}),and(status.eq.checked in, end_date.gte.${startToday}, end_date.lte.${endToday})`,
       )
+      .order("start_date", { ascending: true })
       .throwOnError();
 
     return z.array(BookingActivitySchema).parse(data);

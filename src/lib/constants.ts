@@ -5,4 +5,5 @@ export enum QUERY_KEYS {
   cabins = "cabins",
   bookings = "bookings",
   user = "user",
+  todayActivities = "todayActivities",
 }

@@ -1,12 +1,64 @@
 import { Skeleton } from "@/components/ui/Skeleton";
+import { BookingActivityType } from "@/schemas/BookingSchema";
+import { Link } from "react-router-dom";
+import { useCheckoutBooking } from "../bookings/useCheckoutBooking";
 import { DashboardBox } from "./DashboardBox";
 import { useTodayActivities } from "./useTodayActivities";
 
+function Activity({ activity }: { activity: BookingActivityType }) {
+  const { isCheckingOut, checkoutBooking } = useCheckoutBooking({
+    bookingId: activity.id,
+  });
+
+  function handleCheckOut() {
+    checkoutBooking();
+  }
+
+  return (
+    <li className="grid grid-cols-[90px_1fr_90px] items-center gap-4 py-1.5">
+      {activity.status === "unconfirmed" ? (
+        <span className="rounded-full bg-green-100 px-2 py-1 text-center text-xs font-semibold uppercase text-green-700 ">
+          arriving
+        </span>
+      ) : (
+        <span className="rounded-full bg-blue-100 px-2 py-1 text-center text-xs font-semibold uppercase text-blue-700 ">
+          departing
+        </span>
+      )}
+      <span className="text-sm font-medium">
+        {activity.full_name} + 3 guests
+      </span>
+      {activity.status === "unconfirmed" ? (
+        <Link
+          to={`/check-in/${activity.id}`}
+          className="rounded-md bg-brand-700 px-2 py-1 text-center text-xs uppercase text-brand-50"
+        >
+          check in
+        </Link>
+      ) : (
+        <button
+          className="rounded-md bg-brand-700 px-2 py-1 text-xs uppercase text-brand-50 disabled:pointer-events-none disabled:grayscale"
+          onClick={handleCheckOut}
+          disabled={isCheckingOut}
+        >
+          check out
+        </button>
+      )}
+    </li>
+  );
+}
+
 export function TodayActivities() {
-  const { isLoading, error, todayActivities } = useTodayActivities();
+  const { isLoading, error, todayActivities = [] } = useTodayActivities();
 
   if (error) {
-    return <DashboardBox>Error: {error.message}</DashboardBox>;
+    return (
+      <DashboardBox>
+        <div className="mb-4 text-lg font-semibold">
+          Error loading today activities 😢
+        </div>
+      </DashboardBox>
+    );
   }
 
   if (isLoading) {
@@ -15,10 +67,6 @@ export function TodayActivities() {
         <Skeleton className="h-full" />
       </DashboardBox>
     );
-  }
-
-  if (!todayActivities) {
-    return <div>No activities today</div>;
   }
 
   if (todayActivities.length === 0) {
@@ -32,78 +80,11 @@ export function TodayActivities() {
   return (
     <DashboardBox>
       <div className="mb-4 text-lg font-semibold">Today</div>
-      <ul className="divide-y border-y">
-        {OLDdata.map((activity) => (
-          <li
-            key={activity.id}
-            className="grid grid-cols-[90px_1fr_90px] items-center gap-4 py-1.5"
-          >
-            {activity.status == "checked-in" ? (
-              <>
-                <span className="rounded-full bg-blue-100 px-2 py-1 text-center text-xs font-semibold uppercase text-blue-700 ">
-                  departing
-                </span>
-                <span className="text-sm font-medium">
-                  {activity.guests.fullName} + 3 guests
-                </span>
-                <button className="rounded-md bg-brand-700 px-2 py-1 text-sm text-brand-50">
-                  check out
-                </button>
-              </>
-            ) : (
-              <>
-                <span className="rounded-full bg-green-100 px-2 py-1 text-center text-xs font-medium uppercase text-green-700">
-                  arriving
-                </span>
-                <span className="text-sm font-medium">
-                  {activity.guests.fullName} + 3 guests
-                </span>
-                <button className="rounded-md bg-brand-700 px-2 py-1 text-sm text-brand-50">
-                  check in
-                </button>
-              </>
-            )}
-          </li>
+      <ul className="-mr-2 max-h-[240px] divide-y overflow-y-auto border-y pr-2">
+        {todayActivities.map((activity) => (
+          <Activity activity={activity} key={activity.id} />
         ))}
       </ul>
     </DashboardBox>
   );
 }
-const OLDdata = [
-  {
-    id: 1,
-    status: "unconfirmed",
-    guests: { fullName: "Jonas Schmedtmann" },
-    numNights: 6,
-  },
-  {
-    id: 2,
-    status: "unconfirmed",
-    guests: { fullName: "Steven Miller" },
-    numNights: 1,
-  },
-  {
-    id: 3,
-    status: "checked-in",
-    guests: { fullName: "John Smith" },
-    numNights: 3,
-  },
-  {
-    id: 4,
-    status: "unconfirmed",
-    guests: { fullName: "Marta Schmedtmann" },
-    numNights: 14,
-  },
-  {
-    id: 5,
-    status: "checked-in",
-    guests: { fullName: "Miguel Silva" },
-    numNights: 5,
-  },
-  {
-    id: 6,
-    status: "checked-in",
-    guests: { fullName: "Mary Williams" },
-    numNights: 4,
-  },
-];
