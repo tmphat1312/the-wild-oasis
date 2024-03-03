@@ -10,16 +10,16 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
 
     return (
       <input
-        {...props}
         id={id}
+        type="checkbox"
+        disabled={disabled}
+        aria-describedby={`${id}-error`}
+        {...props}
         ref={ref}
         className={classnames(
           "size-6 rounded-md border-4 border-border accent-brand-500",
           props.className,
         )}
-        type="checkbox"
-        disabled={disabled || props.disabled}
-        aria-describedby={`${id}-error`}
       />
     );
   },
