@@ -16,6 +16,7 @@ import { addDays } from "date-fns";
 import { useForm } from "react-hook-form";
 import { useCreateBooking } from "./useCreateBooking";
 import { useCreateBookingData } from "./useCreateBookingData";
+import { useNavigate } from "react-router-dom";
 
 type FormSchema = {
   full_name: string;
@@ -30,6 +31,7 @@ type FormSchema = {
 };
 
 export function CreateBookingForm() {
+  const navigate = useNavigate();
   const { isLoading, cabins, settings } = useCreateBookingData();
   const { isCreating, createBooking } = useCreateBooking();
   const form = useForm<FormSchema>({
@@ -211,7 +213,9 @@ export function CreateBookingForm() {
           </span>
         </div>
         <div className="space-x-3">
-          <Button variant="secondary">Cancel</Button>
+          <Button variant="secondary" onClick={() => navigate("/bookings")}>
+            Cancel
+          </Button>
           <Button type="submit">Create booking</Button>
         </div>
       </ButtonField>
