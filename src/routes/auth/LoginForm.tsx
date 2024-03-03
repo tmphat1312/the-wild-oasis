@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/form/Label";
 import { useForm } from "react-hook-form";
 import { useLogin } from "./useLogin";
 import { FieldError } from "@/components/ui/form/FieldError";
+import { FORM_RULES } from "@/lib/constants";
 
 type LoginSchema = {
   email: string;
@@ -30,29 +31,14 @@ export function LoginForm() {
     >
       <FormField variant="vertical" className="pb-0">
         <Label>Email address</Label>
-        <Input
-          type="email"
-          {...form.register("email", {
-            required: "Email is required",
-            pattern: {
-              value: /\S+@\S+\.\S+/,
-              message: "Invalid email address",
-            },
-          })}
-        />
+        <Input type="email" {...form.register("email", FORM_RULES.email)} />
         <FieldError>{errors.email?.message}</FieldError>
       </FormField>
       <FormField variant="vertical" className="border-0 pt-0">
         <Label>Password</Label>
         <Input
           type="password"
-          {...form.register("password", {
-            required: "Password is required",
-            minLength: {
-              value: 8,
-              message: "Password must be at least 8 characters long",
-            },
-          })}
+          {...form.register("password", FORM_RULES.password)}
         />
         <FieldError>{errors.password?.message}</FieldError>
       </FormField>
