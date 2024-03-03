@@ -1,6 +1,6 @@
 import { Skeleton } from "./Skeleton";
 
-export default function FormSkeleton() {
+export function FormSkeleton() {
   return (
     <div role="presentation" aria-label="Content is loading" aria-live="polite">
       <div className="animate-pulse space-y-6 rounded-md bg-background p-8 shadow-sm">

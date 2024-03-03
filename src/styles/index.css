@@ -94,6 +94,10 @@
   .box {
     @apply rounded-md border bg-background p-4;
   }
+
+  .form-box {
+    @apply rounded-md border bg-background p-12;
+  }
 }
 
 @layer utilities {

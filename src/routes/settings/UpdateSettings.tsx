@@ -1,5 +1,5 @@
 import { ErrorMessage } from "@/components/ui/ErrorMessage";
-import FormSkeleton from "@/components/ui/FormSkeleton";
+import { FormSkeleton } from "@/components/ui/FormSkeleton";
 import { UpdateSettingsForm } from "./UpdateSettingsForm";
 import { useSettings } from "./useSettings";
 
