@@ -17,7 +17,7 @@ export default function CabinTable() {
     items: cabins ?? [],
     filterField: "discount",
     filter: {
-      with_discount: (i) => i.discount > 0,
+      with_discount: (i) => !!i.discount && i.discount > 0,
       without_discount: (i) => !i.discount,
     },
   });
