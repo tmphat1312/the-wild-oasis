@@ -11,13 +11,13 @@ import { CabinTableRow } from "./CabinTableRow";
 import { useCabins } from "./useCabins";
 import { Empty } from "@/components/ui/Empty";
 
-export default function CabinTable() {
+export function CabinTable() {
   const { isLoading, error, cabins } = useCabins();
   const filteredItems = useClientSideFilterItems<CabinType>({
     items: cabins ?? [],
     filterField: "discount",
     filter: {
-      with_discount: (i) => i.discount > 0,
+      with_discount: (i) => !!i.discount && i.discount > 0,
       without_discount: (i) => !i.discount,
     },
   });

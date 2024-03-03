@@ -18,7 +18,7 @@ import Cabins from "./cabins/Cabins";
 import Dashboard from "./dashboard/Dashboard";
 import Settings from "./settings/Settings";
 import Users from "./users/Users";
-import { CreateBooking } from "./create-booking/CreateBooking";
+import CreateBooking from "./create-booking/CreateBooking";
 
 const router = createBrowserRouter([
   {
