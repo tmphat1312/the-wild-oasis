@@ -15,7 +15,12 @@ type LoginSchema = {
 
 export function LoginForm() {
   const { isLoading, login } = useLogin();
-  const form = useForm<LoginSchema>();
+  const form = useForm<LoginSchema>({
+    defaultValues: {
+      email: "demo@example.com",
+      password: "demo1234@1234",
+    },
+  });
 
   function onSubmit(data: LoginSchema) {
     login(data);

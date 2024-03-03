@@ -15,3 +15,7 @@ export function getEndToday() {
   today.setUTCHours(23, 59, 59, 999);
   return today.toISOString();
 }
+
+export function throwDemoAppError() {
+  throw Error("This feature is not available in the demo app.");
+}

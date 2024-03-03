@@ -7,6 +7,7 @@ import {
 } from "@/services/APIStorage";
 import { z } from "zod";
 import { APIClient } from "./APIClient";
+import { throwDemoAppError } from "@/lib/utils";
 
 export async function getCabins() {
   try {
@@ -25,6 +26,8 @@ export async function deleteCabinById({
   cabinId,
   cabinImage,
 }: DeleteCabinArgs) {
+  throwDemoAppError();
+
   try {
     await Promise.all([
       APIClient.from("cabins").delete().eq("id", cabinId).throwOnError(),
@@ -42,6 +45,8 @@ export async function createCabin({
     newImage: FileList;
   };
 }) {
+  throwDemoAppError();
+
   let imageStorageUrl: string | null = null;
 
   try {
@@ -72,6 +77,8 @@ export async function updateCabin({
     newImage: FileList | null;
   };
 }) {
+  throwDemoAppError();
+
   let newImageStorageUrl: string | null = null;
 
   try {
@@ -109,6 +116,8 @@ type DuplicateCabinArgs = {
 };
 
 export async function duplicateCabin({ cabin }: DuplicateCabinArgs) {
+  throwDemoAppError();
+
   let toImageStorageUrl: string | null = null;
 
   try {
