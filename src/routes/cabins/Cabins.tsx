@@ -1,7 +1,7 @@
 import { Section } from "@/components/layouts/Section";
 import { Heading } from "@/components/ui/Heading";
-import CabinTable from "./CabinTable";
-import CabinTableOperations from "./CabinTableOperations";
+import { CabinTable } from "./CabinTable";
+import { CabinTableOperations } from "./CabinTableOperations";
 
 export default function Cabins() {
   return (
