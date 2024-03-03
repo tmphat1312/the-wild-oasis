@@ -52,6 +52,9 @@ export async function getBookings({
   // limit bookings
   query = query.limit(ITEMS_PER_PAGE);
 
+  // sort booking by created_at
+  query = query.order("created_at", { ascending: false });
+
   try {
     const { data, count } = await query.throwOnError();
     const bookings = z.array(BookingSchema).parse(data);
