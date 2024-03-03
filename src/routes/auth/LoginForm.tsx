@@ -31,7 +31,11 @@ export function LoginForm() {
     >
       <FormField variant="vertical" className="pb-0">
         <Label>Email address</Label>
-        <Input type="email" {...form.register("email", FORM_RULES.email)} />
+        <Input
+          type="email"
+          {...form.register("email", FORM_RULES.email)}
+          autoComplete="email"
+        />
         <FieldError>{errors.email?.message}</FieldError>
       </FormField>
       <FormField variant="vertical" className="border-0 pt-0">
