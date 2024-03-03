@@ -1,13 +1,14 @@
 import { useForm } from "react-hook-form";
 
+import { Button } from "@/components/ui/Button";
+import { ButtonField } from "@/components/ui/form/ButtonField";
+import { FieldError } from "@/components/ui/form/FieldError";
 import { Form } from "@/components/ui/form/Form";
 import { FormField } from "@/components/ui/form/FormField";
 import { Input } from "@/components/ui/form/Input";
 import { Label } from "@/components/ui/form/Label";
-import { FieldError } from "@/components/ui/form/FieldError";
+import { FORM_RULES } from "@/lib/constants";
 import { useSignUpUser } from "./useSignUpUser";
-import { ButtonField } from "@/components/ui/form/ButtonField";
-import { Button } from "@/components/ui/Button";
 
 type CreateUserFormFields = {
   full_name: string;
@@ -36,33 +37,12 @@ export function CreateUserForm() {
     >
       <FormField>
         <Label>Full name</Label>
-        <Input
-          {...form.register("full_name", {
-            required: "Full name is required",
-            minLength: {
-              value: 3,
-              message: "Full name must be at least 3 characters",
-            },
-            maxLength: {
-              value: 100,
-              message: "Full name must be at most 100 characters",
-            },
-          })}
-        />
+        <Input {...form.register("full_name", FORM_RULES.full_name)} />
         <FieldError>{errors.full_name?.message}</FieldError>
       </FormField>
       <FormField>
         <Label>Email address</Label>
-        <Input
-          {...form.register("email", {
-            required: "Email is required",
-            pattern: {
-              value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-              message: "Invalid email format",
-            },
-          })}
-          type="email"
-        />
+        <Input {...form.register("email", FORM_RULES.email)} type="email" />
         <FieldError>{errors.email?.message}</FieldError>
       </FormField>
       <FormField>
@@ -70,13 +50,7 @@ export function CreateUserForm() {
           Password <br /> (min 8 characters)
         </Label>
         <Input
-          {...form.register("password", {
-            required: "Password is required",
-            minLength: {
-              value: 8,
-              message: "Password must be at least 8 characters",
-            },
-          })}
+          {...form.register("password", FORM_RULES.password)}
           type="password"
         />
         <FieldError>{errors.password?.message}</FieldError>

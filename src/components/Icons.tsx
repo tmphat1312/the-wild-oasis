@@ -27,4 +27,5 @@ export {
   Copy as DuplicateIcon,
   MoreVertical as MenuIcon,
   PercentSquare as OccupationRateIcon,
+  Plus as AddIcon,
 } from "lucide-react";

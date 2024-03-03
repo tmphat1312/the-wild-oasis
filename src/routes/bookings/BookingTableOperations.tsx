@@ -1,9 +1,11 @@
+import { AddIcon } from "@/components/Icons";
 import { Filter } from "@/components/ui/Filter";
 import { SortBy } from "@/components/ui/SortBy";
+import { Link } from "react-router-dom";
 
 export function BookingTableOperations() {
   return (
-    <div className="flex justify-end gap-4">
+    <div className="flex items-center justify-end gap-4">
       <Filter
         filterField="status"
         options={[
@@ -26,6 +28,14 @@ export function BookingTableOperations() {
           { value: "total_due-asc", label: "Sort by amount (low first)" },
         ]}
       />
+
+      <Link
+        to="/bookings/create"
+        className="rounded-md border bg-background p-1 shadow"
+      >
+        <AddIcon size={28} className="stroke-gray-600" role="presentation" />
+        <span className="sr-only">Add new booking</span>
+      </Link>
     </div>
   );
 }

@@ -10,6 +10,8 @@ import { FilterFieldOption, SortFieldOption } from "@/types/API";
 import { z } from "zod";
 import { APIClient } from "./APIClient";
 import { getStartToday, getEndToday } from "@/lib/utils";
+import { SettingSchema } from "@/schemas/SettingSchema";
+import { CabinSchema } from "@/schemas/CabinSchema";
 
 type GetBookingsArgs = {
   filterOptions?: FilterFieldOption[];
@@ -51,6 +53,9 @@ export async function getBookings({
 
   // limit bookings
   query = query.limit(ITEMS_PER_PAGE);
+
+  // sort booking by created_at
+  query = query.order("created_at", { ascending: false });
 
   try {
     const { data, count } = await query.throwOnError();
@@ -214,5 +219,53 @@ export async function getTodayBookingActivities() {
   } catch (error) {
     console.error(error);
     throw Error("Error fetching today's booking activities");
+  }
+}
+export async function getCreateBookingData() {
+  const cabinsQuery = APIClient.from("cabins").select("*").throwOnError();
+  const settingsQuery = APIClient.from("settings")
+    .select("*")
+    .single()
+    .throwOnError();
+
+  try {
+    const [cabinData, settingsData] = await Promise.all([
+      cabinsQuery,
+      settingsQuery,
+    ]);
+    const cabins = z.array(CabinSchema).parse(cabinData.data);
+    const settings = SettingSchema.parse(settingsData.data);
+
+    return { cabins, settings };
+  } catch (error) {
+    console.error(error);
+    throw Error("Error fetching create booking data");
+  }
+}
+
+export async function createBooking({
+  newBooking,
+}: {
+  newBooking: {
+    start_date: string;
+    end_date: string;
+    no_nights: number;
+    no_guests: number;
+    cabin_price: number;
+    total_due: number;
+    cabin_id: number;
+    full_name: string;
+    email: string;
+    extra_price?: number;
+    observations?: string;
+    has_breakfast?: boolean;
+    is_paid?: boolean;
+  };
+}) {
+  try {
+    await APIClient.from("bookings").insert(newBooking).throwOnError();
+  } catch (error) {
+    console.error(error);
+    throw Error("Error creating booking");
   }
 }
