@@ -49,8 +49,12 @@ export function BookingDetailCard({ booking }: BookingDetailCardProps) {
         <div className="flex items-center gap-3">
           <div className="font-medium">
             {booking.full_name}
-            <span aria-label="and">&nbsp;+&nbsp;</span>
-            {pluralize("guest", booking.no_guests, true)}
+            {booking.no_guests > 0 && (
+              <span aria-label="and">
+                &nbsp;+&nbsp;
+                {pluralize("guest", booking.no_guests, true)}
+              </span>
+            )}
           </div>
           <span className="text-2xl font-bold" role="presentation">
             &middot;

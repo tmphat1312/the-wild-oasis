@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useCheckoutBooking } from "../bookings/useCheckoutBooking";
 import { DashboardBox } from "./DashboardBox";
 import { useTodayActivities } from "./useTodayActivities";
+import pluralize from "pluralize";
 
 function Activity({ activity }: { activity: BookingActivityType }) {
   const { isCheckingOut, checkoutBooking } = useCheckoutBooking({
@@ -26,7 +27,8 @@ function Activity({ activity }: { activity: BookingActivityType }) {
         </span>
       )}
       <span className="text-sm font-medium">
-        {activity.full_name} + 3 guests
+        {activity.full_name} +&nbsp;
+        {activity.no_guests > 0 && pluralize("guest", activity.no_guests, true)}
       </span>
       {activity.status === "unconfirmed" ? (
         <Link
