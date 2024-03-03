@@ -1,4 +1,4 @@
-import logoSrc from "@/assets/images/logo-light.png";
+import logoSrc from "@/assets/images/logo.png";
 import { classnames } from "@/lib/classnames";
 
 type LogoProps = React.ComponentPropsWithoutRef<"div">;
