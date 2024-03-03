@@ -1,30 +1,63 @@
-# React + TypeScript + Vite
+# THE WILD OASIS
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Hotel asset and booking management web app.
 
-Currently, two official plugins are available:
+![Logo](/docs/logo.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Live Preview
 
-## Expanding the ESLint configuration
+[Visit demo version](https://fb.com/tmphat1312)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+![Demo](/docs/demo.gif)
 
-- Configure the top-level `parserOptions` property like this:
+## Environment Variables
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: "latest",
-    sourceType: "module",
-    project: ["./tsconfig.json", "./tsconfig.node.json"],
-    tsconfigRootDir: __dirname,
-  },
-};
+To run this project, you will need to add the following environment variables to your .env file.
+
+Head to [Supabase](https://supabase.com/docs) to take your own Supabase keys
+
+```
+VITE_APP_TITLE=
+
+VITE_SUPABASE_URL=
+
+VITE_SUPABASE_STORAGE_URL=
+
+VITE_SUPABASE_KEY=
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Run Locally
+
+[yarn](https://yarnpkg.com/) and [NodeJS](https://nodejs.org/en) > v20.0 are required
+
+Clone the project
+
+```bash
+  git clone https://github.com/tmphat1312/the-wild-oasis the-wild-oasis
+```
+
+Go to the project directory
+
+```bash
+  cd the-wild-oasis
+```
+
+Install dependencies
+
+```bash
+  yarn
+```
+
+Start the server
+
+```bash
+  yarn dev
+```
+
+## Author
+
+- [@tmphat1312tmphat1312](https://www.github.com/tmphat1312)
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)

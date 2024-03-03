@@ -20,6 +20,17 @@ import Settings from "./settings/Settings";
 import Users from "./users/Users";
 import CreateBooking from "./create-booking/CreateBooking";
 
+// CODE SPLITTING
+// const Account = lazy(() => import("./account/Account"));
+// const Login = lazy(() => import("./auth/Login"));
+// const Booking = lazy(() => import("./booking/Booking"));
+// const CheckIn = lazy(() => import("./booking/CheckIn"));
+// const Bookings = lazy(() => import("./bookings/Bookings"));
+// const Cabins = lazy(() => import("./cabins/Cabins"));
+// const Settings = lazy(() => import("./settings/Settings"));
+// const Users = lazy(() => import("./users/Users"));
+// const CreateBooking = lazy(() => import("./create-booking/CreateBooking"));
+
 const router = createBrowserRouter([
   {
     element: (
