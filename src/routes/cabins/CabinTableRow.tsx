@@ -26,7 +26,7 @@ export function CabinTableRow({ row }: Props) {
         <CurrencyPresenter amount={row.regular_price} />
       </Cell>
       <Cell className="font-display text-green-700">
-        <CurrencyPresenter amount={row.discount} />
+        <CurrencyPresenter amount={row.discount ?? 0} />
       </Cell>
       <Cell>
         <CabinTableRowActions cabin={row} />
