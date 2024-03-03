@@ -1,5 +1,6 @@
 import { Filter } from "@/components/ui/Filter";
 import { SortBy } from "@/components/ui/SortBy";
+import { CreateCabin } from "./CreateCabin";
 
 export default function CabinTableOperations() {
   return (
@@ -27,6 +28,8 @@ export default function CabinTableOperations() {
           },
         ]}
       />
+
+      <CreateCabin />
     </div>
   );
 }
