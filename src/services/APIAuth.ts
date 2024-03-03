@@ -1,6 +1,7 @@
 import { AuthSchema } from "@/schemas/AuthSchema";
 import { buildAuthAPIClient } from "./APIClient";
 import { UserSchema } from "@/schemas/UserSchema";
+import { throwDemoAppError } from "@/lib/utils";
 
 type LoginUserArgs = {
   email: string;
@@ -62,6 +63,8 @@ export async function signUpUser({
   password,
   full_name,
 }: SignUpUserArgs) {
+  throwDemoAppError();
+
   const { error } = await buildAuthAPIClient().signUp({
     email,
     password,
@@ -106,6 +109,8 @@ type UpdateUserPasswordArgs = {
 export async function updateUserPassword({
   newPassword,
 }: UpdateUserPasswordArgs) {
+  throwDemoAppError();
+
   const { error } = await buildAuthAPIClient().updateUser({
     password: newPassword,
   });

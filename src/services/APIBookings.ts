@@ -9,7 +9,7 @@ import {
 import { FilterFieldOption, SortFieldOption } from "@/types/API";
 import { z } from "zod";
 import { APIClient } from "./APIClient";
-import { getStartToday, getEndToday } from "@/lib/utils";
+import { getStartToday, getEndToday, throwDemoAppError } from "@/lib/utils";
 import { SettingSchema } from "@/schemas/SettingSchema";
 import { CabinSchema } from "@/schemas/CabinSchema";
 
@@ -92,6 +92,8 @@ type DeleteBookingArgs = {
 };
 
 export async function deleteBookingById({ bookingId }: DeleteBookingArgs) {
+  throwDemoAppError();
+
   try {
     await APIClient.from("bookings")
       .delete()
@@ -108,6 +110,8 @@ type CheckOutBookingArgs = {
 };
 
 export async function checkOutBooking({ bookingId }: CheckOutBookingArgs) {
+  throwDemoAppError();
+
   try {
     await APIClient.from("bookings")
       .update({ status: "checked out" })
@@ -125,6 +129,8 @@ type UpdateBookingArgs = {
 };
 
 export async function updateBooking({ bookingId, data }: UpdateBookingArgs) {
+  throwDemoAppError();
+
   try {
     await APIClient.from("bookings")
       .update(data)
@@ -262,6 +268,8 @@ export async function createBooking({
     is_paid?: boolean;
   };
 }) {
+  throwDemoAppError();
+
   try {
     await APIClient.from("bookings").insert(newBooking).throwOnError();
   } catch (error) {
