@@ -42,7 +42,7 @@ export function BookingTableRow({ row }: BookingTableRowProps) {
           <span className="text-xs">
             <DatePresenter date={row.start_date} />
             <> &rarr; </>
-            <DatePresenter date={row.start_date} />
+            <DatePresenter date={row.end_date} />
           </span>
         </div>
       </Cell>
