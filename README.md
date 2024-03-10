@@ -6,7 +6,7 @@ Hotel asset and booking management web app.
 
 ## Live Preview
 
-[Visit demo version](https://fb.com/tmphat1312)
+[Visit demo version](https://the-wild-oasis-demo.vercel.app/dashboard)
 
 ![Demo](/docs/demo.gif)
 
